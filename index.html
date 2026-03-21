@@ -15,15 +15,11 @@
       --neon-red: #ff0044;
       --neon-blue: #00d4ff;
       --card-bg: #0a0a0f;
-      --glow-red: 0 0 12px var(--neon-red), 0 0 28px var(--neon-red), 0 0 60px var(--neon-red);
-      --glow-blue: 0 0 12px var(--neon-blue), 0 0 28px var(--neon-blue), 0 0 60px var(--neon-blue);
-      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --glow-red: 0 0 10px var(--neon-red), 0 0 24px var(--neon-red), 0 0 50px var(--neon-red);
+      --glow-blue: 0 0 10px var(--neon-blue), 0 0 24px var(--neon-blue), 0 0 50px var(--neon-blue);
+      --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Orbitron', system-ui, sans-serif;
       background: var(--bg);
@@ -35,241 +31,145 @@
     body::after {
       content: '';
       position: fixed;
-      width: 24px;
-      height: 24px;
+      width: 22px; height: 22px;
       background: transparent;
       border: 2px solid var(--neon-blue);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
       z-index: 9999;
-      transition: width 0.2s, height 0.2s, background 0.3s;
+      transition: width 0.18s, height 0.18s, background 0.25s;
       mix-blend-mode: difference;
       left: var(--x, 50vw);
       top: var(--y, 50vh);
     }
-    body:hover::after {
-      width: 40px;
-      height: 40px;
-      background: rgba(0, 212, 255, 0.15);
-    }
+    body:hover::after { width:36px; height:36px; background: rgba(0,212,255,0.14); }
+
     .bg-scroll {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
-      opacity: 0.12;
-      overflow: hidden;
+      position: fixed; inset:0; pointer-events:none; user-select:none; z-index:0; opacity:0.11; overflow:hidden;
     }
     .bg-scroll span {
-      position: absolute;
-      left: 100%;
-      white-space: nowrap;
-      font-size: clamp(1.8rem, 6vw, 5rem);
-      color: var(--neon-blue);
-      text-shadow: var(--glow-blue);
+      position: absolute; left:100%; white-space:nowrap;
+      font-size: clamp(1.6rem, 5vw, 4.2rem);
+      color: var(--neon-blue); text-shadow: var(--glow-blue);
       animation: scroll linear infinite;
     }
-    @keyframes scroll {
-      to { transform: translateX(-200%); }
-    }
+    @keyframes scroll { to { transform: translateX(-200%); } }
+
     .hero {
-      min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      position: relative;
-      z-index: 2;
-      transition: opacity 1.3s ease, transform 1.3s ease;
+      min-height: 100dvh; display: grid; place-items: center; position: relative; z-index:2;
+      transition: opacity 1.2s ease, transform 1.2s ease;
     }
-    .hero.hidden {
-      opacity: 0;
-      transform: translateY(-40px);
-      pointer-events: none;
-    }
+    .hero.hidden { opacity:0; transform:translateY(-40px); pointer-events:none; }
     .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+      content:""; position:absolute; inset:0;
       background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover no-repeat;
-      opacity: 0.4;
-      z-index: -1;
-      filter: brightness(0.65) contrast(1.2);
+      opacity:0.38; z-index:-1; filter: brightness(0.6) contrast(1.25);
     }
-    h1, h2 {
-      text-shadow: var(--glow-red);
-      color: var(--neon-red);
-      line-height: 0.92;
-    }
-    h1 { font-size: clamp(4rem, 13vw, 10rem); font-weight: 900; }
-    h2 { font-size: clamp(2.4rem, 9vw, 6rem); font-weight: 700; }
+    h1, h2 { text-shadow: var(--glow-red); color: var(--neon-red); line-height:0.9; }
+    h1 { font-size: clamp(3.8rem, 12vw, 9rem); font-weight:900; }
+    h2 { font-size: clamp(2.2rem, 8vw, 5.5rem); font-weight:700; }
+
     .enter-btn {
-      margin-top: 2.5rem;
-      padding: 1.2rem 3.5rem;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: white;
-      background: linear-gradient(45deg, var(--neon-red), var(--neon-blue));
-      border: none;
-      border-radius: 999px;
-      box-shadow: 0 0 50px rgba(0,212,255,0.55);
-      cursor: pointer;
-      transition: var(--transition);
+      margin-top:2rem; padding:1rem 3rem; font-size:1.4rem; font-weight:700;
+      color:white; background:linear-gradient(45deg, var(--neon-red), var(--neon-blue));
+      border:none; border-radius:999px; box-shadow:0 0 40px rgba(0,212,255,0.5);
+      cursor:pointer; transition:var(--transition);
     }
-    .enter-btn:hover {
-      transform: scale(1.1) translateY(-5px);
-      box-shadow: 0 0 80px rgba(0,212,255,0.8);
-    }
+    .enter-btn:hover { transform:scale(1.08) translateY(-4px); box-shadow:0 0 70px rgba(0,212,255,0.75); }
+
     main {
-      padding: 6rem 1.5rem 10rem;
-      max-width: 1440px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1.2s ease 0.5s, transform 1.2s ease 0.5s;
+      padding:5rem 1rem 8rem; max-width:1400px; margin:0 auto;
+      opacity:0; transform:translateY(40px);
+      transition:opacity 1s ease 0.4s, transform 1s ease 0.4s;
     }
-    main.visible {
-      opacity: 1;
-      transform: none;
-    }
+    main.visible { opacity:1; transform:none; }
+
     .section-title {
-      font-size: clamp(3rem, 9vw, 6rem);
-      text-align: center;
-      margin-bottom: 5rem;
-      text-shadow: var(--glow-blue);
-      color: var(--neon-blue);
+      font-size: clamp(2.6rem, 8vw, 5rem); text-align:center; margin-bottom:4rem;
+      text-shadow:var(--glow-blue); color:var(--neon-blue);
     }
+
     .grid {
-      display: grid;
-      gap: 3rem;
-      grid-template-columns: 1fr;
+      display:grid; gap:1.8rem; grid-template-columns:1fr;
     }
-    @media (min-width: 768px) {
-      .grid { grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); }
+    @media (min-width: 860px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
     }
     .card {
-      background: var(--card-bg);
-      border-radius: 1.4rem;
-      overflow: hidden;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(0,212,255,0.15);
-      transition: var(--transition);
-      cursor: pointer;
+      background:var(--card-bg); border-radius:1.1rem; overflow:hidden;
+      box-shadow:0 6px 30px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(0,212,255,0.1);
+      transition:var(--transition); cursor:pointer; height:100%;
     }
     .card:hover {
-      transform: translateY(-16px);
-      box-shadow: 0 25px 70px rgba(0,212,255,0.3), 0 0 0 2px var(--neon-blue);
+      transform:translateY(-12px); box-shadow:0 16px 50px rgba(0,212,255,0.25), 0 0 0 2px var(--neon-blue);
     }
-    .card img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
+    .card img { width:100%; aspect-ratio:16/9; object-fit:cover; }
     .card-content {
-      padding: 2rem;
-      text-align: center;
+      padding:1.2rem; text-align:center;
     }
-    .card h3 {
-      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-      color: var(--neon-blue);
-      text-shadow: var(--glow-blue);
-      margin-bottom: 0.6rem;
+    .card h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); color:var(--neon-blue); text-shadow:var(--glow-blue); margin:0.4rem 0; }
+    .card .price-tag {
+      font-size:1.5rem; font-weight:700; color:white; text-shadow:0 0 15px var(--neon-red);
     }
+
+    /* FAQ */
+    .faq { margin-top:6rem; }
+    .faq-item {
+      margin:1.6rem 0; padding:1.3rem; background:rgba(10,10,15,0.55);
+      border-radius:1rem; border:1px solid rgba(0,212,255,0.12);
+    }
+    .faq-item h4 { color:var(--neon-blue); margin-bottom:0.7rem; font-size:1.3rem; }
+
     /* Payment page */
-    .payment-page {
-      display: none;
-      min-height: 100dvh;
-      padding: 6rem 1.5rem 4rem;
-      background: var(--bg);
-      position: relative;
-      z-index: 3;
-    }
+    .payment-page { display:none; min-height:100dvh; padding:5rem 1rem 4rem; background:var(--bg); position:relative; z-index:3; }
     .payment-container {
-      max-width: 620px;
-      margin: 0 auto;
-      background: #0d0d14;
-      border-radius: 1.6rem;
-      padding: 3rem 2.5rem;
-      border: 1px solid rgba(0,212,255,0.2);
-      box-shadow: 0 0 60px rgba(0,212,255,0.15);
+      max-width:580px; margin:0 auto; background:#0d0d14; border-radius:1.4rem;
+      padding:2.5rem 2rem; border:1px solid rgba(0,212,255,0.18);
+      box-shadow:0 0 50px rgba(0,212,255,0.12);
     }
     .back-btn {
-      display: inline-block;
-      margin-bottom: 2rem;
-      color: var(--neon-blue);
-      font-size: 1.3rem;
-      text-decoration: none;
-      transition: var(--transition);
+      display:inline-block; margin-bottom:1.8rem; color:var(--neon-blue); font-size:1.2rem;
+      text-decoration:none; transition:var(--transition);
     }
-    .back-btn:hover {
-      color: white;
-      text-shadow: var(--glow-blue);
+    .back-btn:hover { color:white; text-shadow:var(--glow-blue); }
+
+    .payment-title { font-size:2.4rem; text-align:center; margin-bottom:2rem; color:var(--neon-red); text-shadow:var(--glow-red); }
+    .price { font-size:3.2rem; text-align:center; color:white; margin:1.2rem 0 2rem; text-shadow:0 0 25px var(--neon-blue); }
+
+    .quantity-selector {
+      text-align:center; margin:1.5rem 0; font-size:1.3rem;
     }
-    .payment-title {
-      font-size: 2.6rem;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      color: var(--neon-red);
-      text-shadow: var(--glow-red);
+    .quantity-selector select {
+      background:#111; color:white; border:1px solid var(--neon-blue);
+      padding:0.6rem 1rem; border-radius:8px; font-family: inherit; font-size:1.1rem;
     }
-    .price {
-      font-size: 3.8rem;
-      text-align: center;
-      color: white;
-      margin: 1.5rem 0 2.5rem;
-      text-shadow: 0 0 30px var(--neon-blue);
+
+    .crypto-box, .paypal-box {
+      background:rgba(20,20,30,0.6); border:1px solid rgba(0,212,255,0.22);
+      border-radius:1rem; padding:1.5rem; margin:1.8rem 0;
     }
-    .crypto-box, .card-box {
-      background: rgba(20,20,30,0.6);
-      border: 1px solid rgba(0,212,255,0.25);
-      border-radius: 1rem;
-      padding: 1.8rem;
-      margin: 2rem 0;
-    }
-    .crypto-box h4, .card-box h4 {
-      color: var(--neon-blue);
-      margin-bottom: 1.2rem;
-      font-size: 1.5rem;
-    }
-    .wallet-address {
-      background: #111;
-      padding: 1rem;
-      border-radius: 0.8rem;
-      font-family: monospace;
-      word-break: break-all;
-      color: #0ff;
-      margin: 1rem 0;
-    }
+    .crypto-box h4, .paypal-box h4 { color:var(--neon-blue); margin-bottom:1rem; font-size:1.4rem; }
+
     .btn-pay {
-      display: block;
-      width: 100%;
-      padding: 1.4rem;
-      margin: 1.5rem 0;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: black;
-      background: linear-gradient(90deg, #00ff9d, #00d4ff);
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      box-shadow: 0 0 40px rgba(0,255,157,0.5);
-      transition: var(--transition);
+      display:block; width:100%; padding:1.3rem; margin:1.5rem 0;
+      font-size:1.35rem; font-weight:700; color:black;
+      background:linear-gradient(90deg, #00ff9d, #00d4ff); border:none; border-radius:999px;
+      cursor:pointer; box-shadow:0 0 35px rgba(0,255,157,0.45);
+      transition:var(--transition);
     }
-    .btn-pay:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 70px rgba(0,255,157,0.8);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation: none !important; }
-    }
+    .btn-pay:hover { transform:scale(1.04); box-shadow:0 0 60px rgba(0,255,157,0.75); }
+
+    @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
   </style>
 </head>
 <body>
 
   <div class="bg-scroll" aria-hidden="true">
-    <span style="animation-duration:75s; top:8%;">JUICY SERVICE • PREMIUM • JUICY SERVICE • PREMIUM •</span>
-    <span style="animation-duration:105s; top:25%; animation-direction:reverse;">SECURE • FAST • DISCREET • SECURE • FAST •</span>
-    <span style="animation-duration:90s; top:42%;">HWID • BOOST • ACCOUNTS • HWID • BOOST •</span>
-    <span style="animation-duration:120s; top:60%; animation-direction:reverse;">PREMIUM TOOLS 2025 • PREMIUM TOOLS 2025 •</span>
+    <span style="animation-duration:70s; top:8%;">JUICY SERVICE • PREMIUM • JUICY SERVICE • PREMIUM •</span>
+    <span style="animation-duration:100s; top:24%; animation-direction:reverse;">FAST • SECURE • DISCREET • FAST •</span>
+    <span style="animation-duration:85s; top:41%;">SPOOFER • BOOST • ACCOUNTS •</span>
+    <span style="animation-duration:115s; top:59%; animation-direction:reverse;">PREMIUM 2025-2026 • PREMIUM •</span>
   </div>
 
   <section class="hero" id="hero">
@@ -287,6 +187,7 @@
         <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=70&w=1200" alt="HWID Spoofer">
         <div class="card-content">
           <h3>HWID Spoofer</h3>
+          <div class="price-tag">30€</div>
         </div>
       </div>
 
@@ -294,6 +195,7 @@
         <img loading="lazy" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=70&w=1200" alt="Boost Rocket League">
         <div class="card-content">
           <h3>Boosting RL</h3>
+          <div class="price-tag">20€</div>
         </div>
       </div>
 
@@ -301,29 +203,52 @@
         <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Compte Steam">
         <div class="card-content">
           <h3>Steam Account</h3>
+          <div class="price-tag">20€</div>
         </div>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-item">
+        <h4>Pourquoi Juicy Service ?</h4>
+        <p>Services rapides, discrets, prix agressifs et équipe sérieuse.</p>
+      </div>
+      <div class="faq-item">
+        <h4>C’est vraiment safe ?</h4>
+        <p>Oui – méthodes up-to-date, protections solides, zéro drama.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Délai de livraison ?</h4>
+        <p>Très rapide : souvent instantané ou < 20 min.</p>
       </div>
     </div>
   </main>
 
-  <!-- Pages de paiement -->
+  <!-- Pages paiement -->
   <section class="payment-page" id="payment-hwid">
     <div class="payment-container">
       <a href="#" class="back-btn" onclick="backToMain()">← Retour</a>
       <h2 class="payment-title">HWID Spoofer Premium</h2>
-      <div class="price">€89.99 <small>lifetime</small></div>
-      
-      <div class="crypto-box">
-        <h4>Paiement Crypto (recommandé)</h4>
-        <p>USDT (TRC20) / BTC / ETH</p>
-        <div class="wallet-address">TxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJ9kP</div>
-        <p>Envoie le montant exact puis contacte-nous sur Discord / Telegram avec le TXID.</p>
+      <div class="price" id="price-hwid">30€</div>
+
+      <div class="quantity-selector">
+        Quantité : 
+        <select id="qty-hwid" onchange="updatePrice('hwid', 30)">
+          <option value="1">1 (30€)</option>
+          <option value="2">2 (54€ → 36€ promo)</option>
+        </select>
       </div>
 
-      <div class="card-box">
-        <h4>Carte Bancaire</h4>
-        <p>via partenaire sécurisé (crypto conversion)</p>
-        <button class="btn-pay">PAYER 89.99€ →</button>
+      <div class="paypal-box">
+        <h4>Paiement PayPal (le + simple)</h4>
+        <p>PayPal.me / carte via PayPal</p>
+        <button class="btn-pay" onclick="payWithPaypal('hwid')">PAYER MAINTENANT →</button>
+      </div>
+
+      <div class="crypto-box">
+        <h4>Ou Crypto (USDT/BTC/ETH)</h4>
+        <p>Contacte-nous après envoi pour validation rapide.</p>
       </div>
     </div>
   </section>
@@ -332,19 +257,24 @@
     <div class="payment-container">
       <a href="#" class="back-btn" onclick="backToMain()">← Retour</a>
       <h2 class="payment-title">Boost Rocket League</h2>
-      <div class="price">€139.99 <small>Champion → GC</small></div>
-      
-      <div class="crypto-box">
-        <h4>Paiement Crypto (recommandé)</h4>
-        <p>USDT (TRC20) / BTC / ETH</p>
-        <div class="wallet-address">TxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJ9kP</div>
-        <p>Envoie le montant puis contacte-nous avec ton pseudo + plateforme.</p>
+      <div class="price" id="price-boost">20€</div>
+
+      <div class="quantity-selector">
+        Quantité : 
+        <select id="qty-boost" onchange="updatePrice('boost', 20)">
+          <option value="1">1 (20€)</option>
+          <option value="2">2 (36€ → 30€ promo)</option>
+        </select>
       </div>
 
-      <div class="card-box">
-        <h4>Carte Bancaire</h4>
-        <p>via partenaire sécurisé</p>
-        <button class="btn-pay">PAYER 139.99€ →</button>
+      <div class="paypal-box">
+        <h4>Paiement PayPal (le + simple)</h4>
+        <button class="btn-pay" onclick="payWithPaypal('boost')">PAYER MAINTENANT →</button>
+      </div>
+
+      <div class="crypto-box">
+        <h4>Ou Crypto</h4>
+        <p>Envoie puis contact Discord/Telegr.</p>
       </div>
     </div>
   </section>
@@ -353,19 +283,24 @@
     <div class="payment-container">
       <a href="#" class="back-btn" onclick="backToMain()">← Retour</a>
       <h2 class="payment-title">Compte Steam Premium</h2>
-      <div class="price">€199.99 <small>Full accès + jeux</small></div>
-      
-      <div class="crypto-box">
-        <h4>Paiement Crypto (recommandé)</h4>
-        <p>USDT (TRC20) / BTC / ETH</p>
-        <div class="wallet-address">TxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJ9kP</div>
-        <p>Envoie le montant puis contacte-nous pour finaliser.</p>
+      <div class="price" id="price-steam">20€</div>
+
+      <div class="quantity-selector">
+        Quantité : 
+        <select id="qty-steam" onchange="updatePrice('steam', 20)">
+          <option value="1">1 (20€)</option>
+          <option value="2">2 (36€ → 30€ promo)</option>
+        </select>
       </div>
 
-      <div class="card-box">
-        <h4>Carte Bancaire</h4>
-        <p>via partenaire sécurisé</p>
-        <button class="btn-pay">PAYER 199.99€ →</button>
+      <div class="paypal-box">
+        <h4>Paiement PayPal (le + simple)</h4>
+        <button class="btn-pay" onclick="payWithPaypal('steam')">PAYER MAINTENANT →</button>
+      </div>
+
+      <div class="crypto-box">
+        <h4>Ou Crypto</h4>
+        <p>Envoie puis contact pour finalisation.</p>
       </div>
     </div>
   </section>
@@ -376,22 +311,41 @@
       setTimeout(() => {
         document.getElementById('hero').style.display = 'none';
         document.getElementById('main').classList.add('visible');
-      }, 900);
+      }, 800);
     }
 
     function showPayment(type) {
       document.getElementById('main').style.display = 'none';
       document.getElementById(`payment-${type}`).style.display = 'block';
-      window.scrollTo(0, 0);
+      updatePrice(type, type==='hwid'?30:20);
+      window.scrollTo(0,0);
     }
 
     function backToMain() {
-      document.querySelectorAll('.payment-page').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.payment-page').forEach(el => el.style.display='none');
       document.getElementById('main').style.display = 'block';
-      window.scrollTo(0, 0);
+      window.scrollTo(0,0);
     }
 
-    // Curseur custom
+    function updatePrice(type, basePrice) {
+      const qty = parseInt(document.getElementById(`qty-${type}`).value);
+      let total = basePrice * qty;
+      if (qty === 2) total = basePrice * 1.8; // promo -10% sur le 2ème
+      document.getElementById(`price-${type}`).textContent = total.toFixed(0) + '€';
+    }
+
+    function payWithPaypal(type) {
+      const base = type==='hwid' ? 30 : 20;
+      const qty = parseInt(document.getElementById(`qty-${type}`).value);
+      let amount = base * qty;
+      if (qty === 2) amount = base * 1.8;
+
+      // Remplace ici par TON VRAI LIEN PayPal
+      const paypalLink = `https://www.paypal.me/TESTJUICY/${amount.toFixed(2)}`;
+      window.location.href = paypalLink;
+    }
+
+    // Curseur
     document.addEventListener('mousemove', e => {
       document.body.style.setProperty('--x', e.clientX + 'px');
       document.body.style.setProperty('--y', e.clientY + 'px');
