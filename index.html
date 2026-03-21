@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Juicy Service • Premium Services</title>
-  
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-
+  
   <style>
     :root {
       --bg: #000;
@@ -19,23 +19,19 @@
       --glow-blue: 0 0 12px var(--neon-blue), 0 0 28px var(--neon-blue), 0 0 60px var(--neon-blue);
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Orbitron', system-ui, sans-serif;
       background: var(--bg);
       color: white;
       min-height: 100dvh;
       overflow-x: hidden;
-      cursor: none; /* on va faire un custom curseur après */
+      cursor: none;
     }
-
-    /* Custom curseur fun cyber */
     body::after {
       content: '';
       position: fixed;
@@ -49,49 +45,46 @@
       z-index: 9999;
       transition: width 0.2s, height 0.2s, background 0.3s;
       mix-blend-mode: difference;
+      left: var(--x, 50vw);
+      top: var(--y, 50vh);
     }
     body:hover::after {
       width: 40px;
       height: 40px;
-      background: rgba(0, 212, 255, 0.12);
+      background: rgba(0, 212, 255, 0.15);
     }
-
-    /* Fond texte défilant – plus performant */
     .bg-scroll {
       position: fixed;
       inset: 0;
       pointer-events: none;
       user-select: none;
       z-index: 0;
+      opacity: 0.12;
       overflow: hidden;
-      opacity: 0.15;
     }
     .bg-scroll span {
       position: absolute;
       left: 100%;
       white-space: nowrap;
-      font-size: clamp(1.4rem, 5vw, 4.5rem);
+      font-size: clamp(1.8rem, 6vw, 5rem);
       color: var(--neon-blue);
       text-shadow: var(--glow-blue);
       animation: scroll linear infinite;
-      will-change: transform;
     }
     @keyframes scroll {
       to { transform: translateX(-200%); }
     }
-
-    /* Hero */
     .hero {
       min-height: 100dvh;
       display: grid;
       place-items: center;
       position: relative;
       z-index: 2;
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transition: opacity 1.3s ease, transform 1.3s ease;
     }
     .hero.hidden {
       opacity: 0;
-      transform: translateY(-30px);
+      transform: translateY(-40px);
       pointer-events: none;
     }
     .hero::before {
@@ -99,118 +92,172 @@
       position: absolute;
       inset: 0;
       background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover no-repeat;
-      opacity: 0.45;
+      opacity: 0.4;
       z-index: -1;
-      filter: brightness(0.7) contrast(1.15);
+      filter: brightness(0.65) contrast(1.2);
     }
-
     h1, h2 {
       text-shadow: var(--glow-red);
       color: var(--neon-red);
-      line-height: 0.95;
+      line-height: 0.92;
     }
-    h1 { font-size: clamp(3.5rem, 12vw, 9rem); font-weight: 900; }
-    h2 { font-size: clamp(2.2rem, 8vw, 5rem); font-weight: 700; }
-
+    h1 { font-size: clamp(4rem, 13vw, 10rem); font-weight: 900; }
+    h2 { font-size: clamp(2.4rem, 9vw, 6rem); font-weight: 700; }
     .enter-btn {
-      margin-top: 2rem;
-      padding: 1rem 3rem;
-      font-size: 1.5rem;
+      margin-top: 2.5rem;
+      padding: 1.2rem 3.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       color: white;
       background: linear-gradient(45deg, var(--neon-red), var(--neon-blue));
       border: none;
       border-radius: 999px;
-      box-shadow: 0 0 40px rgba(0,212,255,0.5);
+      box-shadow: 0 0 50px rgba(0,212,255,0.55);
       cursor: pointer;
       transition: var(--transition);
     }
     .enter-btn:hover {
-      transform: scale(1.08) translateY(-4px);
-      box-shadow: 0 0 70px rgba(0,212,255,0.7);
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 0 80px rgba(0,212,255,0.8);
     }
-
-    /* Main content */
     main {
-      padding: 5rem 1.5rem 8rem;
-      max-width: 1400px;
+      padding: 6rem 1.5rem 10rem;
+      max-width: 1440px;
       margin: 0 auto;
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+      transform: translateY(50px);
+      transition: opacity 1.2s ease 0.5s, transform 1.2s ease 0.5s;
     }
     main.visible {
       opacity: 1;
       transform: none;
     }
-
-    h2.section-title {
-      font-size: clamp(2.8rem, 8vw, 5.5rem);
+    .section-title {
+      font-size: clamp(3rem, 9vw, 6rem);
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
       text-shadow: var(--glow-blue);
       color: var(--neon-blue);
     }
-
     .grid {
       display: grid;
-      gap: 2.5rem;
+      gap: 3rem;
       grid-template-columns: 1fr;
     }
-
     @media (min-width: 768px) {
-      .grid { grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); }
+      .grid { grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); }
     }
-
     .card {
       background: var(--card-bg);
-      border-radius: 1.2rem;
+      border-radius: 1.4rem;
       overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,212,255,0.12);
+      box-shadow: 0 10px 50px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(0,212,255,0.15);
       transition: var(--transition);
-      container-type: inline-size;
+      cursor: pointer;
     }
     .card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 60px rgba(0,212,255,0.25), 0 0 0 2px var(--neon-blue);
+      transform: translateY(-16px);
+      box-shadow: 0 25px 70px rgba(0,212,255,0.3), 0 0 0 2px var(--neon-blue);
     }
-
     .card img {
       width: 100%;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
-      display: block;
     }
-
     .card-content {
-      padding: 1.8rem;
+      padding: 2rem;
       text-align: center;
     }
-
     .card h3 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
       color: var(--neon-blue);
       text-shadow: var(--glow-blue);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
-
-    /* FAQ */
-    .faq {
-      margin-top: 7rem;
+    /* Payment page */
+    .payment-page {
+      display: none;
+      min-height: 100dvh;
+      padding: 6rem 1.5rem 4rem;
+      background: var(--bg);
+      position: relative;
+      z-index: 3;
     }
-    .faq-item {
-      margin: 2rem 0;
-      padding: 1.5rem;
-      background: rgba(10,10,15,0.6);
-      border-radius: 1rem;
-      border: 1px solid rgba(0,212,255,0.15);
+    .payment-container {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #0d0d14;
+      border-radius: 1.6rem;
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(0,212,255,0.2);
+      box-shadow: 0 0 60px rgba(0,212,255,0.15);
     }
-    .faq-item h4 {
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 2rem;
       color: var(--neon-blue);
-      margin-bottom: 0.8rem;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
+      text-decoration: none;
+      transition: var(--transition);
     }
-
+    .back-btn:hover {
+      color: white;
+      text-shadow: var(--glow-blue);
+    }
+    .payment-title {
+      font-size: 2.6rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: var(--neon-red);
+      text-shadow: var(--glow-red);
+    }
+    .price {
+      font-size: 3.8rem;
+      text-align: center;
+      color: white;
+      margin: 1.5rem 0 2.5rem;
+      text-shadow: 0 0 30px var(--neon-blue);
+    }
+    .crypto-box, .card-box {
+      background: rgba(20,20,30,0.6);
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 1rem;
+      padding: 1.8rem;
+      margin: 2rem 0;
+    }
+    .crypto-box h4, .card-box h4 {
+      color: var(--neon-blue);
+      margin-bottom: 1.2rem;
+      font-size: 1.5rem;
+    }
+    .wallet-address {
+      background: #111;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      font-family: monospace;
+      word-break: break-all;
+      color: #0ff;
+      margin: 1rem 0;
+    }
+    .btn-pay {
+      display: block;
+      width: 100%;
+      padding: 1.4rem;
+      margin: 1.5rem 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: black;
+      background: linear-gradient(90deg, #00ff9d, #00d4ff);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 0 40px rgba(0,255,157,0.5);
+      transition: var(--transition);
+    }
+    .btn-pay:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 70px rgba(0,255,157,0.8);
+    }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; animation: none !important; }
     }
@@ -219,91 +266,136 @@
 <body>
 
   <div class="bg-scroll" aria-hidden="true">
-    <span style="animation-duration:80s; top:5%;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-    <span style="animation-duration:110s; top:22%; animation-direction:reverse;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-    <span style="animation-duration:95s; top:38%;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-    <span style="animation-duration:130s; top:55%; animation-direction:reverse;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-    <span style="animation-duration:70s; top:72%;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+    <span style="animation-duration:75s; top:8%;">JUICY SERVICE • PREMIUM • JUICY SERVICE • PREMIUM •</span>
+    <span style="animation-duration:105s; top:25%; animation-direction:reverse;">SECURE • FAST • DISCREET • SECURE • FAST •</span>
+    <span style="animation-duration:90s; top:42%;">HWID • BOOST • ACCOUNTS • HWID • BOOST •</span>
+    <span style="animation-duration:120s; top:60%; animation-direction:reverse;">PREMIUM TOOLS 2025 • PREMIUM TOOLS 2025 •</span>
   </div>
 
   <section class="hero" id="hero">
     <div>
       <h1>VISITER LE SITE</h1>
       <h2>Juicy Service</h2>
-      <button class="enter-btn" onclick="enterSite()" aria-label="Entrer sur le site">CLIQUEZ POUR ENTRER →</button>
+      <button class="enter-btn" onclick="enterSite()">CLIQUEZ POUR ENTRER →</button>
     </div>
   </section>
 
   <main id="main">
     <h2 class="section-title">Nos Produits</h2>
-
     <div class="grid">
-      <div class="card">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=70&w=1200" alt="Interface HWID Spoofer – outil de spoofing hardware ID">
+      <div class="card" onclick="showPayment('hwid')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=70&w=1200" alt="HWID Spoofer">
         <div class="card-content">
           <h3>HWID Spoofer</h3>
         </div>
       </div>
 
-      <div class="card">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=70&w=1200" alt="Rank boosting Rocket League – service d'amélioration de rang">
+      <div class="card" onclick="showPayment('boost')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=70&w=1200" alt="Boost Rocket League">
         <div class="card-content">
           <h3>Boosting RL</h3>
         </div>
       </div>
 
-      <div class="card">
-        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Compte Steam premium – achat / vente de comptes sécurisés">
+      <div class="card" onclick="showPayment('steam')">
+        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Compte Steam">
         <div class="card-content">
           <h3>Steam Account</h3>
         </div>
       </div>
     </div>
+  </main>
 
-    <div class="faq">
-      <h2 class="section-title">FAQ</h2>
-      <div class="faq-item">
-        <h4>Pourquoi choisir Juicy Service ?</h4>
-        <p>Services rapides, discrets et premium avec une équipe expérimentée.</p>
+  <!-- Pages de paiement -->
+  <section class="payment-page" id="payment-hwid">
+    <div class="payment-container">
+      <a href="#" class="back-btn" onclick="backToMain()">← Retour</a>
+      <h2 class="payment-title">HWID Spoofer Premium</h2>
+      <div class="price">€89.99 <small>lifetime</small></div>
+      
+      <div class="crypto-box">
+        <h4>Paiement Crypto (recommandé)</h4>
+        <p>USDT (TRC20) / BTC / ETH</p>
+        <div class="wallet-address">TxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJ9kP</div>
+        <p>Envoie le montant exact puis contacte-nous sur Discord / Telegram avec le TXID.</p>
       </div>
-      <div class="faq-item">
-        <h4>Est-ce vraiment safe ?</h4>
-        <p>Oui – méthodes testées, protections anti-ban renforcées, discrétion maximale.</p>
-      </div>
-      <div class="faq-item">
-        <h4>Combien de temps pour la livraison ?</h4>
-        <p>Très rapide : souvent instantané ou < 30 min selon le produit.</p>
+
+      <div class="card-box">
+        <h4>Carte Bancaire</h4>
+        <p>via partenaire sécurisé (crypto conversion)</p>
+        <button class="btn-pay">PAYER 89.99€ →</button>
       </div>
     </div>
-  </main>
+  </section>
+
+  <section class="payment-page" id="payment-boost">
+    <div class="payment-container">
+      <a href="#" class="back-btn" onclick="backToMain()">← Retour</a>
+      <h2 class="payment-title">Boost Rocket League</h2>
+      <div class="price">€139.99 <small>Champion → GC</small></div>
+      
+      <div class="crypto-box">
+        <h4>Paiement Crypto (recommandé)</h4>
+        <p>USDT (TRC20) / BTC / ETH</p>
+        <div class="wallet-address">TxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJ9kP</div>
+        <p>Envoie le montant puis contacte-nous avec ton pseudo + plateforme.</p>
+      </div>
+
+      <div class="card-box">
+        <h4>Carte Bancaire</h4>
+        <p>via partenaire sécurisé</p>
+        <button class="btn-pay">PAYER 139.99€ →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="payment-page" id="payment-steam">
+    <div class="payment-container">
+      <a href="#" class="back-btn" onclick="backToMain()">← Retour</a>
+      <h2 class="payment-title">Compte Steam Premium</h2>
+      <div class="price">€199.99 <small>Full accès + jeux</small></div>
+      
+      <div class="crypto-box">
+        <h4>Paiement Crypto (recommandé)</h4>
+        <p>USDT (TRC20) / BTC / ETH</p>
+        <div class="wallet-address">TxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxJ9kP</div>
+        <p>Envoie le montant puis contacte-nous pour finaliser.</p>
+      </div>
+
+      <div class="card-box">
+        <h4>Carte Bancaire</h4>
+        <p>via partenaire sécurisé</p>
+        <button class="btn-pay">PAYER 199.99€ →</button>
+      </div>
+    </div>
+  </section>
 
   <script>
     function enterSite() {
-      const hero = document.getElementById('hero');
-      const main = document.getElementById('main');
-
-      hero.classList.add('hidden');
+      document.getElementById('hero').classList.add('hidden');
       setTimeout(() => {
-        hero.style.display = 'none';
-        main.classList.add('visible');
-      }, 800);
+        document.getElementById('hero').style.display = 'none';
+        document.getElementById('main').classList.add('visible');
+      }, 900);
     }
 
-    // Curseur custom follow
+    function showPayment(type) {
+      document.getElementById('main').style.display = 'none';
+      document.getElementById(`payment-${type}`).style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function backToMain() {
+      document.querySelectorAll('.payment-page').forEach(el => el.style.display = 'none');
+      document.getElementById('main').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // Curseur custom
     document.addEventListener('mousemove', e => {
       document.body.style.setProperty('--x', e.clientX + 'px');
       document.body.style.setProperty('--y', e.clientY + 'px');
     });
-    document.body.style.setProperty('--x', '50vw');
-    document.body.style.setProperty('--y', '50vh');
   </script>
-
-  <style>
-    body::after {
-      left: var(--x, 50vw);
-      top: var(--y, 50vh);
-    }
-  </style>
-
 </body>
 </html>
