@@ -13,6 +13,37 @@ body {
   font-family: 'Orbitron', sans-serif;
   background: black;
   color: white;
+  overflow:hidden;
+}
+
+/* 🔴 TEXTE QUI DÉFILE */
+.bg-text{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+.line{
+  position:absolute;
+  width:300%;
+  white-space:nowrap;
+  font-size:45px;
+  color:red;
+  opacity:0.08;
+  text-shadow:0 0 10px red,0 0 30px red;
+  animation:scroll 35s linear infinite;
+}
+
+.line:nth-child(1){top:10%;}
+.line:nth-child(2){top:30%;}
+.line:nth-child(3){top:50%;}
+.line:nth-child(4){top:70%;}
+.line:nth-child(5){top:90%;}
+
+@keyframes scroll{
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
 }
 
 /* ACCUEIL IMAGE */
@@ -22,7 +53,7 @@ body {
   width:100%;
   height:100%;
   background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000') center/cover no-repeat;
-  z-index:-1;
+  z-index:-2;
 }
 
 .hero{
@@ -32,6 +63,7 @@ body {
   align-items:center;
   flex-direction:column;
   cursor:pointer;
+  position:relative;
 }
 
 .neon{
@@ -78,7 +110,6 @@ body {
   justify-content:center;
 }
 
-/* BLOCS */
 .box{
   background:#111;
   padding:25px;
@@ -130,6 +161,8 @@ input{
 
 <body>
 
+<div class="bg-text" id="bgText"></div>
+
 <div class="backBtn" onclick="goBack()">RETOUR</div>
 
 <!-- ACCUEIL -->
@@ -160,17 +193,14 @@ input{
 
 <div class="productLayout">
 
-<!-- GAUCHE -->
 <div class="box">
 <h2>🔥 Service Premium</h2>
-
 <p id="desc"></p>
 
 <p>Quantité :</p>
 <input type="number" value="1" id="qty">
 
 <br><br>
-
 <button onclick="accept()">Continuer</button>
 
 <p style="color:#aaa;">
@@ -180,15 +210,12 @@ input{
 </p>
 </div>
 
-<!-- DROITE -->
 <div class="box">
 <h2>🧾 Résumé</h2>
-
 <p id="resume"></p>
 <p>Prix : 20€</p>
 
 <div id="payment" style="display:none;">
-
 <h3>💳 Paiement sécurisé</h3>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
@@ -217,10 +244,27 @@ input{
 
 <script>
 
+/* 🔴 TEXTE DYNAMIQUE */
+function setBackground(text){
+let bg=document.getElementById("bgText");
+bg.innerHTML="";
+
+let full=(text+" 👑 ").repeat(25);
+
+for(let i=0;i<5;i++){
+let line=document.createElement("div");
+line.className="line";
+line.innerText=full;
+bg.appendChild(line);
+}
+}
+
+/* NAVIGATION */
 function enterSite(){
 home.style.display="none";
 products.style.display="block";
 document.querySelector(".backBtn").style.display="block";
+setBackground("NOS PRODUITS");
 }
 
 function openProduct(type){
@@ -229,34 +273,42 @@ productPage.style.display="block";
 
 let name="";
 let desc="";
+let bg="";
 
 if(type==="RL"){
 name="Rocket League Boost";
-desc="Boost ton rank rapidement avec nos experts. Service rapide, sécurisé et discret.";
+desc="Boost ton rank rapidement avec nos experts.";
+bg="RL BOOSTING";
 }
 
 if(type==="STEAM"){
-name="Steam Account Premium";
-desc="Compte Steam avec jeux premium inclus. Accès instantané et sécurisé.";
+name="Steam Account";
+desc="Compte Steam premium sécurisé.";
+bg="STEAM ACCOUNT";
 }
 
 productTitle.innerText=name;
 document.getElementById("desc").innerText=desc;
 document.getElementById("resume").innerText=name;
 document.getElementById("paypalItem").value=name;
+
+setBackground(bg);
 }
 
 function goBack(){
 productPage.style.display="none";
 products.style.display="block";
+setBackground("NOS PRODUITS");
 }
 
 function accept(){
 document.getElementById("payment").style.display="block";
 }
 
+/* ACCUEIL TEXT */
+setBackground("JUICY SERVICE");
+
 </script>
 
 </body>
 </html>
-
