@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-body {
+body{
 margin:0;
 font-family:'Orbitron',sans-serif;
 background:black;
@@ -17,11 +17,9 @@ overflow-x:hidden;
 cursor:pointer;
 }
 
-/* 🔵 TEXTE FOND QUI DÉFILE */
+/* 🔵 TEXTE FOND */
 .bg-scroll{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
 z-index:0;
@@ -34,10 +32,7 @@ white-space:nowrap;
 color:#00bfff;
 font-size:24px;
 opacity:0.2;
-text-shadow:
-0 0 10px #00bfff,
-0 0 30px #00bfff,
-0 0 60px #00bfff;
+text-shadow:0 0 10px #00bfff,0 0 40px #00bfff;
 animation:scroll 12s linear infinite;
 }
 
@@ -54,7 +49,6 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 position:relative;
-z-index:1;
 }
 
 .hero::before{
@@ -62,35 +56,27 @@ content:"";
 position:absolute;
 width:100%;
 height:100%;
-background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000') center/cover no-repeat;
+background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000') center/cover;
 opacity:0.5;
 z-index:-1;
 }
 
 .neon{
 color:red;
-text-shadow:0 0 10px red,0 0 30px red,0 0 60px red;
+text-shadow:0 0 10px red,0 0 40px red;
 }
 
 .blue{
 color:#00bfff;
-text-shadow:0 0 10px #00bfff,0 0 30px #00bfff,0 0 60px #00bfff;
+text-shadow:0 0 10px #00bfff,0 0 40px #00bfff;
 }
 
 /* PRODUITS */
-.products{
+.products, .payment{
 display:none;
-padding:40px 20px;
-position:relative;
-z-index:1;
+padding:40px;
 }
 
-.products h2{
-font-size:40px;
-margin-bottom:40px;
-}
-
-/* 🖼️ CARDS HORIZONTALES */
 .grid{
 display:flex;
 flex-direction:column;
@@ -98,22 +84,17 @@ gap:40px;
 align-items:center;
 }
 
+/* CARD */
 .card{
-width:85%;
-max-width:900px;
+width:80%;
+max-width:800px;
 display:flex;
 align-items:center;
 gap:20px;
 background:#111;
 padding:15px;
 border-radius:15px;
-transition:0.3s;
 box-shadow:0 0 15px rgba(0,191,255,0.3);
-}
-
-.card:hover{
-transform:scale(1.02);
-box-shadow:0 0 25px #00bfff;
 }
 
 .card img{
@@ -124,101 +105,109 @@ border-radius:10px;
 }
 
 .card h3{
-font-size:24px;
-color:#00bfff;
-text-shadow:0 0 10px #00bfff;
-}
-
-/* FAQ */
-.faq{
-margin-top:80px;
-padding:40px;
-}
-
-.faq h2{
 color:#00bfff;
 }
 
-.faq-item{
-margin:20px 0;
+/* PAYMENT BOX */
+.box{
+background:#111;
+padding:30px;
+margin:20px auto;
+max-width:600px;
+border-radius:15px;
+box-shadow:0 0 20px #00bfff;
 }
 
-.faq-item h4{
-color:#00bfff;
+button{
+background:#00bfff;
+border:none;
+padding:15px 25px;
+color:black;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
 }
+
 </style>
 </head>
 
-<body onclick="enterSite()">
+<body>
 
-<!-- 🔵 TEXTE FOND -->
+<!-- TEXTE FOND -->
 <div class="bg-scroll" id="scrollBg">
-<span style="top:0%">👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑</span>
-<span style="top:20%">👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑</span>
-<span style="top:40%">👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑</span>
-<span style="top:60%">👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑</span>
-<span style="top:80%">👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑 OUR PRODUCT 👑</span>
+<span style="top:0%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+<span style="top:20%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+<span style="top:40%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+<span style="top:60%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+<span style="top:80%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
 </div>
 
-<!-- ACCUEIL -->
-<div class="hero" id="home">
-<h1 class="neon">VISITER LE SITE</h1>
+<!-- HOME -->
+<div class="hero" id="home" onclick="enterSite()">
+<h1 class="neon">CLICK TO ENTER</h1>
 <h2 class="neon">Juicy Service</h2>
-<div class="neon">Cliquez pour entrer</div>
 </div>
 
 <!-- PRODUITS -->
 <div class="products" id="products">
-<h2 class="blue">Nos produits</h2>
+
+<h2 class="blue">Our Products</h2>
 
 <div class="grid">
 
-<div class="card">
+<div class="card" onclick="openPay('HWID Spoofer')">
 <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1000">
 <h3>HWID Spoofer</h3>
 </div>
 
-<div class="card">
+<div class="card" onclick="openPay('RL Boosting')">
 <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=1000">
-<h3>Boosting RL</h3>
+<h3>RL Boosting</h3>
 </div>
 
-<div class="card">
+<div class="card" onclick="openPay('Steam Account')">
 <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
 <h3>Steam Account</h3>
 </div>
 
 </div>
 
-<!-- FAQ -->
-<div class="faq">
-<h2>FAQ</h2>
-
-<div class="faq-item">
-<h4>Why use GC Service?</h4>
-<p>Fast, secure and premium services.</p>
 </div>
 
-<div class="faq-item">
-<h4>Is it safe?</h4>
-<p>Yes, 100% secure.</p>
-</div>
+<!-- 💸 PAYMENT PAGE -->
+<div class="payment" id="payment">
 
-<div class="faq-item">
-<h4>Delivery time?</h4>
-<p>Very fast.</p>
-</div>
+<h1 id="productName" class="blue"></h1>
 
+<div class="box">
+<h2>Price: 15€</h2>
+<p>Secure payment via PayPal</p>
+
+<button onclick="pay()">PAY NOW</button>
 </div>
 
 </div>
 
 <script>
+
 function enterSite(){
 document.getElementById('home').style.display='none';
 document.getElementById('products').style.display='block';
 document.getElementById('scrollBg').style.display='block';
 }
+
+/* 👉 même effet que entrée */
+function openPay(name){
+document.getElementById('products').style.display='none';
+document.getElementById('payment').style.display='block';
+document.getElementById('productName').innerText=name;
+}
+
+/* 🔗 PAYPAL (à remplacer plus tard) */
+function pay(){
+window.open("https://www.paypal.com/paypalme/TONLIEN", "_blank");
+}
+
 </script>
 
 </body>
