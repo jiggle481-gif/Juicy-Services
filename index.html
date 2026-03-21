@@ -3,282 +3,472 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Juicy Service • Premium Services</title>
+  <title>Juicy Service • PREMIUM 2025-2026</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&amp;family=Roboto+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
   
   <style>
     :root {
       --bg: #000;
-      --neon-blue: #00eaff;
-      --neon-red: #ff1a5c;
-      --card-bg: #08080f;
-      --glow-blue: 0 0 6px var(--neon-blue), 0 0 12px var(--neon-blue), 0 0 24px var(--neon-blue);
-      --glow-red: 0 0 6px var(--neon-red), 0 0 12px var(--neon-red), 0 0 24px var(--neon-red);
-      --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      --neon-red: #ff0044;
+      --neon-blue: #00f0ff;
+      --neon-purple: #9d00ff;
+      --card-bg: #0a0a0f;
+      --glow-red: 0 0 8px var(--neon-red), 0 0 16px var(--neon-red), 0 0 32px var(--neon-red), 0 0 60px var(--neon-red);
+      --glow-blue: 0 0 8px var(--neon-blue), 0 0 16px var(--neon-blue), 0 0 32px var(--neon-blue), 0 0 70px var(--neon-blue);
+      --glow-purple: 0 0 8px var(--neon-purple), 0 0 16px var(--neon-purple), 0 0 32px var(--neon-purple);
+      --transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Orbitron', system-ui, sans-serif;
       background: var(--bg);
-      color: #e0e0ff;
+      color: white;
       min-height: 100dvh;
       overflow-x: hidden;
       cursor: none;
+      position: relative;
     }
+
+    /* CURSEUR CYBER UPGRADE */
     body::after {
       content: '';
       position: fixed;
-      width: 20px; height: 20px;
+      width: 26px; height: 26px;
+      background: transparent;
       border: 2px solid var(--neon-blue);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      z-index: 9999;
-      transition: all 0.2s;
+      z-index: 99999;
+      transition: width 0.15s, height 0.15s, background 0.2s;
       mix-blend-mode: difference;
-      box-shadow: 0 0 12px var(--neon-blue);
+      box-shadow: 0 0 15px var(--neon-blue);
       left: var(--x, 50vw);
       top: var(--y, 50vh);
     }
-    body:hover::after { width: 32px; height: 32px; background: rgba(0,234,255,0.12); }
+    body:hover::after {
+      width: 42px; height: 42px;
+      background: rgba(0, 240, 255, 0.18);
+      box-shadow: 0 0 30px var(--neon-blue), 0 0 50px var(--neon-purple);
+    }
 
-    .bg-text {
+    /* BACKGROUND NÉON UPGRADE – ULTRA VISIBLE */
+    .bg-neon {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.08;
       overflow: hidden;
+      opacity: 0.28;
     }
-    .bg-text span {
+    .bg-neon span {
       position: absolute;
       left: 100%;
       white-space: nowrap;
-      font-size: clamp(2.2rem, 6vw, 5rem);
+      font-size: clamp(2rem, 7vw, 5.8rem);
       font-weight: 900;
       color: var(--neon-blue);
-      text-shadow: var(--glow-blue);
-      animation: scroll 90s linear infinite;
+      text-shadow: 
+        0 0 10px var(--neon-blue),
+        0 0 25px var(--neon-blue),
+        0 0 45px var(--neon-blue),
+        0 0 70px var(--neon-red),
+        0 0 100px var(--neon-purple);
+      animation: scroll linear infinite;
+      will-change: transform;
+      filter: blur(0.5px);
     }
+    .bg-neon span.purple { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple), 0 0 25px var(--neon-purple), 0 0 45px var(--neon-purple), 0 0 80px var(--neon-red); }
     @keyframes scroll { to { transform: translateX(-200%); } }
 
-    .hero, .payment-page {
+    /* HERO */
+    .hero {
       min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       position: relative;
       z-index: 2;
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transition: opacity 1.4s cubic-bezier(0.23,1,0.32,1), transform 1.4s cubic-bezier(0.23,1,0.32,1);
     }
-    .hidden { opacity: 0; transform: translateY(-40px); pointer-events: none; }
-    .hero::before, .payment-page::before {
+    .hero.hidden { opacity:0; transform:translateY(-60px); pointer-events:none; }
+    .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,10,20,0.85)),
-                  url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=60&w=2400') center/cover;
+      background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,15,30,0.85)), 
+                  url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover no-repeat;
       z-index: -1;
-      filter: brightness(0.5) contrast(1.2);
+      filter: brightness(0.55) contrast(1.3) saturate(1.4);
+    }
+    .hero-content h1 {
+      font-size: clamp(4.2rem, 14vw, 11rem);
+      font-weight: 900;
+      text-shadow: var(--glow-red);
+      letter-spacing: -4px;
+      animation: neon-flicker 3s infinite alternate;
+    }
+    .hero-content h2 {
+      font-size: clamp(2.8rem, 9vw, 6.5rem);
+      font-weight: 700;
+      color: var(--neon-blue);
+      text-shadow: var(--glow-blue);
+      margin-top: -15px;
+    }
+    @keyframes neon-flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.92; }
     }
 
-    h1 { font-size: clamp(5rem, 14vw, 12rem); font-weight: 900; text-shadow: var(--glow-red); letter-spacing: -6px; }
-    h2 { font-size: clamp(3rem, 8vw, 7rem); color: var(--neon-blue); text-shadow: var(--glow-blue); }
-
-    .btn {
-      margin: 2rem auto;
-      padding: 1.2rem 4rem;
-      font-size: 1.5rem;
-      font-weight: 700;
+    .enter-btn {
+      margin-top: 3rem;
+      padding: 1.3rem 4rem;
+      font-size: 1.65rem;
+      font-weight: 900;
+      letter-spacing: 2px;
       color: #000;
       background: linear-gradient(90deg, var(--neon-red), var(--neon-blue));
       border: none;
-      border-radius: 50px;
-      box-shadow: 0 0 40px rgba(0,234,255,0.6);
+      border-radius: 999px;
+      box-shadow: 0 0 50px rgba(0,240,255,0.7), 0 0 90px rgba(255,0,68,0.5);
       cursor: pointer;
       transition: var(--transition);
-      display: block;
     }
-    .btn:hover { transform: scale(1.08); box-shadow: 0 0 70px rgba(0,234,255,0.9); }
+    .enter-btn:hover {
+      transform: scale(1.12) translateY(-8px);
+      box-shadow: 0 0 90px rgba(0,240,255,0.95), 0 0 140px rgba(255,0,68,0.8);
+    }
 
+    /* MAIN */
     main {
-      padding: 6rem 2rem;
-      max-width: 1400px;
+      padding: 6rem 1.5rem 10rem;
+      max-width: 1480px;
       margin: 0 auto;
       opacity: 0;
-      transform: translateY(50px);
-      transition: all 1.2s ease;
+      transform: translateY(60px);
+      transition: all 1.3s cubic-bezier(0.23,1,0.32,1);
+      position: relative;
+      z-index: 2;
     }
     main.visible { opacity:1; transform:none; }
 
-    .section-title { font-size: clamp(3.5rem, 9vw, 6rem); text-align: center; color: var(--neon-blue); text-shadow: var(--glow-blue); margin-bottom: 5rem; }
+    .section-title {
+      font-size: clamp(3rem, 9vw, 6.2rem);
+      text-align: center;
+      margin-bottom: 5rem;
+      text-shadow: var(--glow-blue);
+      color: var(--neon-blue);
+      letter-spacing: -2px;
+    }
 
     .grid {
       display: grid;
-      gap: 2.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 920px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
     }
     .card {
       background: var(--card-bg);
-      border-radius: 1.2rem;
+      border-radius: 1.4rem;
       overflow: hidden;
-      border: 1px solid rgba(0,234,255,0.15);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(0,240,255,0.15);
       transition: var(--transition);
       cursor: pointer;
+      height: 100%;
+      position: relative;
     }
-    .card:hover { transform: translateY(-15px); box-shadow: 0 20px 60px rgba(0,234,255,0.25); }
-    .card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .card-content { padding: 1.8rem; text-align: center; }
-    .card h3 { font-size: 2.2rem; color: var(--neon-blue); margin-bottom: 0.8rem; }
-    .price { font-size: 2.5rem; font-weight: 900; color: white; text-shadow: var(--glow-red); }
+    .card:hover {
+      transform: translateY(-18px) scale(1.03);
+      box-shadow: 0 25px 70px rgba(0,240,255,0.35), 0 0 0 3px var(--neon-blue);
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent, rgba(0,240,255,0.08));
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .card:hover::before { opacity: 1; }
+    .card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .card:hover img { transform: scale(1.08); }
+    .card-content {
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+    }
+    .card h3 {
+      font-size: clamp(1.55rem, 4vw, 2.1rem);
+      color: var(--neon-blue);
+      text-shadow: var(--glow-blue);
+      margin-bottom: 0.5rem;
+    }
+    .price-tag {
+      font-size: 2rem;
+      font-weight: 900;
+      color: white;
+      text-shadow: 0 0 20px var(--neon-red);
+    }
 
-    .payment-page { display: none; }
-    .payment-container {
-      background: rgba(8,8,15,0.9);
-      border-radius: 1.6rem;
-      padding: 3.5rem 3rem;
-      max-width: 680px;
-      width: 90%;
-      border: 1px solid rgba(0,234,255,0.2);
-      box-shadow: 0 0 80px rgba(0,234,255,0.15);
+    /* FAQ ACCORDION */
+    .faq {
+      margin-top: 8rem;
     }
-    .back { color: var(--neon-blue); font-size: 1.3rem; cursor: pointer; margin-bottom: 2rem; display: inline-block; }
-    .qty-controls {
+    .faq-item {
+      margin: 1.5rem 0;
+      background: rgba(10,10,15,0.65);
+      border-radius: 1.2rem;
+      border: 1px solid rgba(0,240,255,0.2);
+      overflow: hidden;
+    }
+    .faq-header {
+      padding: 1.4rem 1.8rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      cursor: pointer;
+      font-size: 1.35rem;
+      color: var(--neon-blue);
+    }
+    .faq-content {
+      padding: 0 1.8rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    /* PAYMENT PAGES */
+    .payment-page {
+      display: none;
+      min-height: 100dvh;
+      padding: 6rem 1.5rem 5rem;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .payment-container {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #0d0d14;
+      border-radius: 1.8rem;
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(0,240,255,0.25);
+      box-shadow: 0 0 80px rgba(0,240,255,0.2);
+    }
+    .back-btn {
+      color: var(--neon-blue);
+      font-size: 1.25rem;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .payment-title {
+      font-size: 2.8rem;
+      text-align: center;
+      color: var(--neon-red);
+      text-shadow: var(--glow-red);
+    }
+    .total-price {
+      font-size: 4rem;
+      text-align: center;
+      color: white;
+      margin: 1.5rem 0;
+      text-shadow: 0 0 30px var(--neon-blue);
+    }
+    .qty-buttons {
+      display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1rem;
       margin: 2rem 0;
     }
     .qty-btn {
-      width: 60px;
-      height: 60px;
-      background: rgba(0,234,255,0.1);
-      border: 1px solid var(--neon-blue);
-      border-radius: 50%;
-      font-size: 2rem;
+      background: #111;
       color: white;
+      border: 2px solid var(--neon-blue);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      font-size: 1.6rem;
+      display: grid;
+      place-items: center;
       cursor: pointer;
       transition: var(--transition);
     }
-    .qty-btn:hover { background: var(--neon-blue); color: #000; }
-    .qty-display { font-size: 3rem; min-width: 80px; text-align: center; }
+    .qty-btn:hover { background: var(--neon-blue); color: black; }
+    .qty-value {
+      font-size: 2rem;
+      font-weight: 700;
+      min-width: 60px;
+      text-align: center;
+    }
 
-    .faq { margin-top: 8rem; }
-    .faq-item { margin: 2rem 0; padding: 1.5rem; background: rgba(10,10,20,0.6); border-radius: 1rem; border: 1px solid rgba(0,234,255,0.15); }
+    .pay-box {
+      background: rgba(15,15,25,0.7);
+      border: 1px solid rgba(0,240,255,0.3);
+      border-radius: 1.2rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .btn-pay {
+      width: 100%;
+      padding: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: black;
+      background: linear-gradient(90deg, #00ff9d, #00f0ff);
+      border: none;
+      border-radius: 999px;
+      box-shadow: 0 0 45px rgba(0,255,157,0.6);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-pay:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 80px rgba(0,255,157,0.9);
+    }
 
-    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
   </style>
 </head>
 <body>
 
-  <div class="bg-text" aria-hidden="true">
-    <span style="animation-duration:80s; top:10%;">PREMIUM SERVICES • 2025-2026 • PREMIUM SERVICES •</span>
-    <span style="animation-duration:110s; top:28%; animation-direction:reverse;">SECURE • FAST • DISCREET •</span>
-    <span style="animation-duration:95s; top:46%;">HWID SPOOFER • RL BOOST • STEAM ACCOUNTS •</span>
-    <span style="animation-duration:70s; top:64%; animation-direction:reverse;">PREMIUM 2025-2026 • PREMIUM 2025-2026 •</span>
+  <!-- BACKGROUND NÉON BOOSTÉ -->
+  <div class="bg-neon" aria-hidden="true">
+    <span style="animation-duration:65s; top:6%;">PREMIUM 2025 2026 • PREMIUM 2025 2026 •</span>
+    <span style="animation-duration:92s; top:18%; animation-direction:reverse; color:#9d00ff;" class="purple">BOOST • ACCOUNT • SPOOFER • BOOST •</span>
+    <span style="animation-duration:78s; top:31%;">JUICY SERVICE • HWID • RL BOOST • ACCOUNTS •</span>
+    <span style="animation-duration:110s; top:45%; animation-direction:reverse;">PREMIUM 2025 2026 • DISCREET • FAST • SECURE •</span>
+    <span style="animation-duration:55s; top:59%;">SPOOFER • BOOSTING • STEAM ACCOUNTS •</span>
+    <span style="animation-duration:85s; top:72%; animation-direction:reverse; color:#9d00ff;" class="purple">PREMIUM 2025 2026 • PREMIUM 2025 2026 •</span>
   </div>
 
   <section class="hero" id="hero">
-    <div style="text-align:center;">
-      <h1>JUICY SERVICE</h1>
-      <h2>Premium Access</h2>
-      <button class="btn" onclick="enterSite()">ENTRER</button>
+    <div class="hero-content" style="text-align:center;">
+      <h1>VISITER LE SITE</h1>
+      <h2>Juicy Service</h2>
+      <button class="enter-btn" onclick="enterSite()">ENTRER DANS LA MATRIX →</button>
     </div>
   </section>
 
   <main id="main">
-    <h2 class="section-title">Nos Services</h2>
+    <h2 class="section-title">NOS PRODUITS PREMIUM</h2>
     <div class="grid">
       <div class="card" onclick="showPayment('hwid')">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1200" alt="HWID">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1200" alt="HWID Spoofer">
         <div class="card-content">
           <h3>HWID Spoofer</h3>
-          <div class="price">30€</div>
+          <div class="price-tag">30€</div>
         </div>
       </div>
 
       <div class="card" onclick="showPayment('boost')">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=80&w=1200" alt="RL Boost">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=80&w=1200" alt="Boost Rocket League">
         <div class="card-content">
-          <h3>Rocket League Boost</h3>
-          <div class="price">20€</div>
+          <h3>Boosting RL</h3>
+          <div class="price-tag">20€</div>
         </div>
       </div>
 
       <div class="card" onclick="showPayment('steam')">
-        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Steam">
+        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Compte Steam Premium">
         <div class="card-content">
-          <h3>Compte Steam Premium</h3>
-          <div class="price">20€</div>
+          <h3>Steam Account</h3>
+          <div class="price-tag">20€</div>
         </div>
       </div>
     </div>
 
+    <!-- FAQ ACCORDION -->
     <div class="faq">
-      <h2 class="section-title">Questions fréquentes</h2>
-      <div class="faq-item"><strong>Pourquoi nous choisir ?</strong><p>Services premium, livraison rapide, discrétion totale.</p></div>
-      <div class="faq-item"><strong>Sécurité garantie ?</strong><p>Méthodes actualisées, protections anti-détection renforcées.</p></div>
-      <div class="faq-item"><strong>Délais ?</strong><p>Instantané ou < 20 min selon le service.</p></div>
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFAQ(this)">Pourquoi choisir Juicy Service ? <span>↓</span></div>
+        <div class="faq-content"><p>Services ultra-rapides, 100% discrets, prix imbattables et équipe pro depuis 2024.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFAQ(this)">C’est vraiment safe ? <span>↓</span></div>
+        <div class="faq-content"><p>Oui – méthodes 2025-2026, anti-ban renforcé, zéro logs, discrétion maximale.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFAQ(this)">Délai de livraison ? <span>↓</span></div>
+        <div class="faq-content"><p>Instantané ou moins de 15 minutes pour tous les produits.</p></div>
+      </div>
     </div>
   </main>
 
-  <!-- Pages de paiement full-screen -->
+  <!-- PAYMENT PAGES -->
   <section class="payment-page" id="payment-hwid">
     <div class="payment-container">
-      <div class="back" onclick="backToMain()">← Retour</div>
-      <h2 style="text-align:center; font-size:3.5rem; color:var(--neon-red);">HWID Spoofer</h2>
-      <div style="text-align:center; font-size:5rem; margin:2rem 0;" id="total-hwid">30€</div>
-      
-      <div class="qty-controls">
-        <button class="qty-btn" onclick="changeQty('hwid', -1)">–</button>
-        <span id="qty-hwid" class="qty-display">1</span>
-        <button class="qty-btn" onclick="changeQty('hwid', 1)">+</button>
+      <a href="#" class="back-btn" onclick="backToMain()">← Retour aux produits</a>
+      <h2 class="payment-title">HWID Spoofer Premium</h2>
+      <div class="total-price" id="total-hwid">30€</div>
+
+      <div class="qty-buttons">
+        <div class="qty-btn" onclick="changeQty('hwid', -1)">–</div>
+        <div class="qty-value" id="qty-val-hwid">1</div>
+        <div class="qty-btn" onclick="changeQty('hwid', 1)">+</div>
       </div>
 
-      <button class="btn" onclick="pay('hwid')">PAYER MAINTENANT</button>
-      <p style="text-align:center; margin-top:1rem; color:#888;">Paiement sécurisé via PayPal</p>
+      <div class="pay-box">
+        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Paiement PayPal Instantané</h4>
+        <button class="btn-pay" onclick="payWithPaypal('hwid')">PAYER MAINTENANT →</button>
+      </div>
+      <small style="display:block;text-align:center;color:#555;">Ou Crypto (contact après paiement)</small>
     </div>
   </section>
 
   <section class="payment-page" id="payment-boost">
     <div class="payment-container">
-      <div class="back" onclick="backToMain()">← Retour</div>
-      <h2 style="text-align:center; font-size:3.5rem; color:var(--neon-red);">Rocket League Boost</h2>
-      <div style="text-align:center; font-size:5rem; margin:2rem 0;" id="total-boost">20€</div>
-      
-      <div class="qty-controls">
-        <button class="qty-btn" onclick="changeQty('boost', -1)">–</button>
-        <span id="qty-boost" class="qty-display">1</span>
-        <button class="qty-btn" onclick="changeQty('boost', 1)">+</button>
+      <a href="#" class="back-btn" onclick="backToMain()">← Retour aux produits</a>
+      <h2 class="payment-title">Boost Rocket League</h2>
+      <div class="total-price" id="total-boost">20€</div>
+
+      <div class="qty-buttons">
+        <div class="qty-btn" onclick="changeQty('boost', -1)">–</div>
+        <div class="qty-value" id="qty-val-boost">1</div>
+        <div class="qty-btn" onclick="changeQty('boost', 1)">+</div>
       </div>
 
-      <button class="btn" onclick="pay('boost')">PAYER MAINTENANT</button>
-      <p style="text-align:center; margin-top:1rem; color:#888;">Paiement sécurisé via PayPal</p>
+      <div class="pay-box">
+        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Paiement PayPal Instantané</h4>
+        <button class="btn-pay" onclick="payWithPaypal('boost')">PAYER MAINTENANT →</button>
+      </div>
+      <small style="display:block;text-align:center;color:#555;">Ou Crypto (contact après paiement)</small>
     </div>
   </section>
 
   <section class="payment-page" id="payment-steam">
     <div class="payment-container">
-      <div class="back" onclick="backToMain()">← Retour</div>
-      <h2 style="text-align:center; font-size:3.5rem; color:var(--neon-red);">Compte Steam Premium</h2>
-      <div style="text-align:center; font-size:5rem; margin:2rem 0;" id="total-steam">20€</div>
-      
-      <div class="qty-controls">
-        <button class="qty-btn" onclick="changeQty('steam', -1)">–</button>
-        <span id="qty-steam" class="qty-display">1</span>
-        <button class="qty-btn" onclick="changeQty('steam', 1)">+</button>
+      <a href="#" class="back-btn" onclick="backToMain()">← Retour aux produits</a>
+      <h2 class="payment-title">Compte Steam Premium</h2>
+      <div class="total-price" id="total-steam">20€</div>
+
+      <div class="qty-buttons">
+        <div class="qty-btn" onclick="changeQty('steam', -1)">–</div>
+        <div class="qty-value" id="qty-val-steam">1</div>
+        <div class="qty-btn" onclick="changeQty('steam', 1)">+</div>
       </div>
 
-      <button class="btn" onclick="pay('steam')">PAYER MAINTENANT</button>
-      <p style="text-align:center; margin-top:1rem; color:#888;">Paiement sécurisé via PayPal</p>
+      <div class="pay-box">
+        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Paiement PayPal Instantané</h4>
+        <button class="btn-pay" onclick="payWithPaypal('steam')">PAYER MAINTENANT →</button>
+      </div>
+      <small style="display:block;text-align:center;color:#555;">Ou Crypto (contact après paiement)</small>
     </div>
   </section>
 
   <script>
+    // CURSEUR
     document.addEventListener('mousemove', e => {
       document.body.style.setProperty('--x', e.clientX + 'px');
       document.body.style.setProperty('--y', e.clientY + 'px');
@@ -289,13 +479,15 @@
       setTimeout(() => {
         document.getElementById('hero').style.display = 'none';
         document.getElementById('main').classList.add('visible');
-      }, 1000);
+      }, 900);
     }
 
-    function showPayment(id) {
+    function showPayment(type) {
       document.getElementById('main').style.display = 'none';
-      document.getElementById(`payment-${id}`).style.display = 'flex';
-      resetQty(id);
+      const page = document.getElementById(`payment-${type}`);
+      page.style.display = 'block';
+      window.scrollTo(0,0);
+      resetQty(type);
     }
 
     function backToMain() {
@@ -303,34 +495,57 @@
       document.getElementById('main').style.display = 'block';
     }
 
-    let quantities = { hwid: 1, boost: 1, steam: 1 };
-    const prices = { hwid: 30, boost: 20, steam: 20 };
+    // QTY + PRIX
+    let qty = { hwid:1, boost:1, steam:1 };
+    const basePrice = { hwid:30, boost:20, steam:20 };
 
-    function resetQty(id) {
-      quantities[id] = 1;
-      updateTotal(id);
+    function resetQty(type) {
+      qty[type] = 1;
+      updateTotal(type);
     }
 
-    function changeQty(id, delta) {
-      quantities[id] = Math.max(1, Math.min(5, quantities[id] + delta));
-      updateTotal(id);
+    function changeQty(type, delta) {
+      qty[type] = Math.max(1, Math.min(5, qty[type] + delta));
+      updateTotal(type);
     }
 
-    function updateTotal(id) {
-      let total = prices[id] * quantities[id];
-      if (quantities[id] >= 2) total = Math.round(total * 0.9); // -10%
-      document.getElementById(`total-${id}`).textContent = total + '€';
-      document.getElementById(`qty-${id}`).textContent = quantities[id];
+    function updateTotal(type) {
+      const totalEl = document.getElementById(`total-${type}`);
+      const qtyEl = document.getElementById(`qty-val-${type}`);
+      let total = basePrice[type] * qty[type];
+      if (qty[type] >= 2) total = Math.floor(total * 0.9); // 10% off à partir de 2
+      totalEl.textContent = total + '€';
+      qtyEl.textContent = qty[type];
     }
 
-    function pay(id) {
-      let amount = prices[id] * quantities[id];
-      if (quantities[id] >= 2) amount = Math.round(amount * 0.9);
+    function payWithPaypal(type) {
+      let amount = basePrice[type] * qty[type];
+      if (qty[type] >= 2) amount = Math.floor(amount * 0.9);
       
-      // Remplace 'JuicyService' par TON pseudo PayPal.me réel
-      const link = `https://www.paypal.me/JuicyService/${amount}`;
-      window.location.href = link;
+      // Remplace ici par TON VRAI LIEN PayPal.me
+      // Exemple : https://www.paypal.me/tonpseudo/35.00
+      const paypalLink = `https://www.paypal.me/VOTREPSEUDO/${amount}.00`;
+      
+      window.location.href = paypalLink;
     }
+
+    // FAQ ACCORDION
+    function toggleFAQ(header) {
+      const content = header.nextElementSibling;
+      const isOpen = content.style.maxHeight;
+      document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = null);
+      if (!isOpen) content.style.maxHeight = content.scrollHeight + "px";
+    }
+
+    // Init
+    window.onload = () => {
+      // Petit effet de glow aléatoire sur les titres
+      setInterval(() => {
+        document.querySelectorAll('.section-title').forEach(t => {
+          t.style.textShadow = Math.random() > 0.5 ? 'var(--glow-blue)' : 'var(--glow-purple)';
+        });
+      }, 1800);
+    };
   </script>
 </body>
 </html>
