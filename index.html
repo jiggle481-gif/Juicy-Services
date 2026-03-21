@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* FOND TEXTE */
+/* FOND TEXTE ANIMÉ */
 .bg-text {
   position: fixed;
   width: 100%;
@@ -30,7 +30,7 @@ body {
   position:absolute;
   width:300%;
   white-space:nowrap;
-  font-size:40px;
+  font-size:42px;
   color:red;
   opacity:0.12;
   text-shadow:0 0 10px red,0 0 20px red,0 0 40px red;
@@ -94,7 +94,16 @@ body {
   border-radius:10px;
 }
 
-/* BOUTON RETOUR */
+/* BUTTON */
+button{
+  background:red;
+  border:none;
+  padding:12px 25px;
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+}
+
 .backBtn{
   position:fixed;
   top:20px;
@@ -114,7 +123,7 @@ body {
 
 <div class="backBtn" onclick="goBack()">RETOUR</div>
 
-<!-- FOND -->
+<!-- FOND TEXTE -->
 <div class="bg-text" id="bgText"></div>
 
 <!-- ACCUEIL -->
@@ -147,12 +156,12 @@ body {
 
 <script>
 
-/* FOND TEXTE DYNAMIQUE */
 function setBackground(text){
 let bg = document.getElementById("bgText");
 bg.innerHTML = "";
 bg.style.display = "block";
 
+/* 🔥 TEXTE FULL */
 let fullText = (text + " 👑 ").repeat(30);
 
 for(let i=0;i<5;i++){
