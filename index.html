@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* 🔥 FOND IMAGE ACCUEIL */
+/* IMAGE ACCUEIL */
 .hero::before {
   content:"";
   position:absolute;
@@ -26,7 +26,7 @@ body {
   z-index:-1;
 }
 
-/* 🔥 TEXTE FOND */
+/* FOND TEXTE */
 .bg-text{
   position:fixed;
   width:100%;
@@ -70,7 +70,7 @@ body {
 
 .neon{
   color:red;
-  text-shadow:0 0 15px red,0 0 30px red,0 0 60px red;
+  text-shadow:0 0 20px red,0 0 40px red,0 0 80px red;
 }
 
 /* PAGES */
@@ -104,29 +104,29 @@ body {
   border-radius:10px;
 }
 
-/* BOX PRODUIT */
+/* BOX */
 .box{
   background:#111;
-  padding:20px;
+  padding:25px;
   margin:20px;
   border-radius:15px;
-  box-shadow:0 0 15px red;
+  box-shadow:0 0 20px red;
 }
 
-/* BOUTONS */
+/* BUTTON */
 button{
   background:red;
   border:none;
   padding:12px 25px;
   color:white;
-  border-radius:10px;
+  border-radius:12px;
   cursor:pointer;
   transition:0.3s;
 }
 
 button:hover{
   transform:scale(1.1);
-  box-shadow:0 0 20px red;
+  box-shadow:0 0 25px red;
 }
 
 /* INPUT */
@@ -180,7 +180,6 @@ input{
 <h3>🎮 Steam Account</h3>
 </div>
 
-<!-- FAQ -->
 <h2 class="neon">FAQ</h2>
 <p>⚡ Livraison rapide</p>
 <p>💸 Pas de remboursement</p>
@@ -194,38 +193,71 @@ input{
 <h1 id="productTitle" class="neon"></h1>
 
 <div class="box">
-<h2>Prix : 20€</h2>
+<h2>💰 Prix : 20€</h2>
 
 <p>Quantité :</p>
-<input type="number" value="1" id="qty">
+<input type="number" value="1" id="qty" min="1">
 
-<br>
-<button onclick="addToCart()">Ajouter au panier</button>
+<br><br>
+
+<button onclick="addToCart()">🛒 Ajouter au panier</button>
+
+<p style="margin-top:15px;color:#aaa;">
+✔ Livraison instantanée<br>
+✔ Support 24/7<br>
+✔ Paiement sécurisé
+</p>
 </div>
 
 <div class="box">
-<h2>Conditions</h2>
-<p>Pas de remboursement<br>Service rapide<br>Respect obligatoire</p>
-<button onclick="accept()">Accepter</button>
+<h2>📜 Conditions</h2>
+<p>
+✔ Service rapide<br>
+✔ Aucun remboursement<br>
+✔ Produit digital
+</p>
+<button onclick="accept()">✅ Accepter</button>
 </div>
 
 <div id="payment" style="display:none;">
-<h2>Paiement</h2>
+<div class="box">
+
+<h2>💳 Paiement sécurisé</h2>
+
+<div style="display:flex;justify-content:center;gap:15px;margin:20px;">
+<span style="border:1px solid red;padding:10px;border-radius:10px;">💳 Visa</span>
+<span style="border:1px solid red;padding:10px;border-radius:10px;">💳 Mastercard</span>
+<span style="border:1px solid red;padding:10px;border-radius:10px;">🅿️ PayPal</span>
+</div>
+
+<div style="background:#0a0a0a;padding:15px;border-radius:10px;margin-bottom:20px;">
+<h3>🧾 Résumé :</h3>
+<p id="resumeProduct"></p>
+<p>Prix : 20€</p>
+</div>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="TON_EMAIL_PAYPAL">
+<input type="hidden" name="item_name" id="paypalItem">
 <input type="hidden" name="amount" value="20">
-<button type="submit">Payer avec PayPal</button>
+
+<button type="submit" style="width:100%;font-size:18px;">
+💸 Payer avec PayPal
+</button>
 </form>
 
+<p style="color:#888;">
+🔒 Paiement sécurisé SSL
+</p>
+
+</div>
 </div>
 
 </div>
 
 <script>
 
-/* FOND TEXTE */
 function setBackground(text){
 let bg=document.getElementById("bgText");
 bg.innerHTML="";
@@ -252,15 +284,21 @@ function openProduct(type){
 products.style.display="none";
 productPage.style.display="block";
 
+let name="";
+
 if(type==="RL"){
-productTitle.innerText="Rocket League Boost";
+name="Rocket League Boost";
 setBackground("ROCKET LEAGUE BOOST");
 }
 
 if(type==="STEAM"){
-productTitle.innerText="Steam Account";
+name="Steam Account";
 setBackground("STEAM ACCOUNT");
 }
+
+productTitle.innerText=name;
+document.getElementById("resumeProduct").innerText=name;
+document.getElementById("paypalItem").value=name;
 }
 
 function goBack(){
