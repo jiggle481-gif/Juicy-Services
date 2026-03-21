@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
       --bg: #000;
@@ -107,7 +107,6 @@
       margin-top: -15px;
     }
     @keyframes neon-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.92; } }
-
     .enter-btn {
       margin-top: 3rem;
       padding: 1.3rem 4rem;
@@ -126,7 +125,6 @@
       transform: scale(1.12) translateY(-8px);
       box-shadow: 0 0 90px rgba(0,240,255,0.95), 0 0 140px rgba(255,0,68,0.8);
     }
-
     main {
       padding: 6rem 1.5rem 10rem;
       max-width: 1480px;
@@ -138,7 +136,6 @@
       z-index: 2;
     }
     main.visible { opacity:1; transform:none; }
-
     .section-title {
       font-size: clamp(3rem, 9vw, 6.2rem);
       text-align: center;
@@ -147,7 +144,6 @@
       color: var(--neon-blue);
       letter-spacing: -2px;
     }
-
     .grid {
       display: grid;
       gap: 2rem;
@@ -167,263 +163,310 @@
     }
     .card img {
       width: 100%;
-      aspect-ratio: 16/9;
+      height: 220px;
       object-fit: cover;
     }
-    .card-content {
-      padding: 1.4rem 1.2rem;
+    .card-info {
+      padding: 1.5rem;
       text-align: center;
     }
     .card h3 {
-      font-size: clamp(1.55rem, 4vw, 2.1rem);
-      color: var(--neon-blue);
-      text-shadow: var(--glow-blue);
-      margin-bottom: 0.5rem;
+      font-size: 1.9rem;
+      color: var(--neon-purple);
+      margin-bottom: 0.6rem;
     }
-    .price-tag {
-      font-size: 2rem;
+    .price {
+      font-size: 2.2rem;
       font-weight: 900;
-      color: white;
-      text-shadow: 0 0 20px var(--neon-red);
+      color: var(--neon-red);
+      text-shadow: 0 0 12px var(--neon-red);
     }
 
-    .faq {
-      margin-top: 8rem;
-    }
-    .faq-item {
-      margin: 1.5rem 0;
-      background: rgba(10,10,15,0.65);
-      border-radius: 1.2rem;
-      border: 1px solid rgba(0,240,255,0.2);
-      overflow: hidden;
-    }
-    .faq-header {
-      padding: 1.4rem 1.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-size: 1.35rem;
-      color: var(--neon-blue);
-    }
-    .faq-content {
-      padding: 0 1.8rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
+    /* Payment page */
     .payment-page {
       display: none;
       min-height: 100dvh;
-      padding: 6rem 1.5rem 5rem;
-      background: var(--bg);
-      z-index: 10;
-    }
-    .payment-container {
-      max-width: 620px;
+      padding: 5rem 1.5rem 4rem;
+      max-width: 1200px;
       margin: 0 auto;
-      background: #0d0d14;
-      border-radius: 1.8rem;
-      padding: 3rem 2.5rem;
-      border: 1px solid rgba(0,240,255,0.25);
-      box-shadow: 0 0 80px rgba(0,240,255,0.2);
     }
-    .back-btn {
+    .product-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .product-left {
+      position: relative;
+    }
+    .product-image img {
+      width: 100%;
+      border-radius: 1.4rem;
+      box-shadow: 0 0 40px rgba(0,240,255,0.3);
+    }
+    .extra-info {
+      margin-top: 2.5rem;
+      background: rgba(10,10,20,0.75);
+      border: 1px solid rgba(157,0,255,0.35);
+      border-radius: 1.2rem;
+      padding: 1.8rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    .extra-info h4 {
+      color: var(--neon-purple);
+      text-shadow: 0 0 10px var(--neon-purple);
+      margin-bottom: 1.2rem;
+      font-size: 1.5rem;
+    }
+    .extra-info ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .extra-info li {
+      margin-bottom: 0.8rem;
+    }
+    .extra-info .faq-question {
       color: var(--neon-blue);
-      font-size: 1.25rem;
-      text-decoration: none;
-      margin-bottom: 2rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      font-weight: 700;
+      margin: 1.5rem 0 0.6rem;
+      text-shadow: 0 0 8px var(--neon-blue);
     }
-    .payment-title {
-      font-size: 2.8rem;
-      text-align: center;
+    .product-right {
+      padding-top: 2rem;
+    }
+    .product-info h2 {
+      font-size: 4rem;
+      color: var(--neon-blue);
+      text-shadow: var(--glow-blue);
+      margin-bottom: 1.5rem;
+    }
+    .product-price {
+      font-size: 5rem;
+      font-weight: 900;
       color: var(--neon-red);
       text-shadow: var(--glow-red);
-    }
-    .total-price {
-      font-size: 4rem;
-      text-align: center;
-      color: white;
-      margin: 1.5rem 0;
-      text-shadow: 0 0 30px var(--neon-blue);
-    }
-    .qty-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
       margin: 2rem 0;
+    }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin: 2.5rem 0;
+      font-size: 1.6rem;
     }
     .qty-btn {
-      background: #111;
-      color: white;
-      border: 2px solid var(--neon-blue);
-      width: 54px;
-      height: 54px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      font-size: 1.6rem;
-      display: grid;
-      place-items: center;
+      background: rgba(0,240,255,0.12);
+      border: 2px solid var(--neon-blue);
+      color: var(--neon-blue);
+      font-size: 2.2rem;
       cursor: pointer;
       transition: var(--transition);
     }
-    .qty-btn:hover { background: var(--neon-blue); color: black; }
-    .qty-value {
+    .qty-btn:hover {
+      background: rgba(0,240,255,0.3);
+      transform: scale(1.12);
+    }
+    .buy-btn {
+      padding: 1.5rem 5rem;
       font-size: 2rem;
-      font-weight: 700;
-      min-width: 60px;
-      text-align: center;
-    }
-    .pay-box {
-      background: rgba(15,15,25,0.7);
-      border: 1px solid rgba(0,240,255,0.3);
-      border-radius: 1.2rem;
-      padding: 2rem;
-      margin: 2rem 0;
-      text-align: center;
-    }
-    .btn-pay {
-      width: 100%;
-      padding: 1.5rem;
-      font-size: 1.5rem;
       font-weight: 900;
-      color: black;
-      background: linear-gradient(90deg, #00ff9d, #00f0ff);
+      color: #000;
+      background: linear-gradient(90deg, var(--neon-red), var(--neon-blue));
       border: none;
       border-radius: 999px;
-      box-shadow: 0 0 45px rgba(0,255,157,0.6);
+      box-shadow: 0 0 60px rgba(255,0,68,0.7);
       cursor: pointer;
       transition: var(--transition);
     }
-    .btn-pay:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 80px rgba(0,255,157,0.9);
+    .buy-btn:hover {
+      transform: scale(1.1) translateY(-6px);
+      box-shadow: 0 0 110px rgba(0,240,255,0.95);
+    }
+    .back-btn {
+      margin-top: 4rem;
+      color: var(--neon-blue);
+      font-size: 1.4rem;
+      cursor: pointer;
+      text-decoration: underline;
     }
 
-    @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+    @media (max-width: 950px) {
+      .product-detail { grid-template-columns: 1fr; }
+      .product-image { max-width: 600px; margin: 0 auto 3rem; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="bg-neon" aria-hidden="true">
-    <span style="animation-duration:65s; top:6%;">PREMIUM 2025 2026 • PREMIUM 2025 2026 •</span>
-    <span style="animation-duration:92s; top:18%; animation-direction:reverse;" class="purple">BOOST • ACCOUNT • SPOOFER • BOOST •</span>
-    <span style="animation-duration:78s; top:31%;">JUICY SERVICE • HWID • RL BOOST • ACCOUNTS •</span>
-    <span style="animation-duration:110s; top:45%; animation-direction:reverse;">PREMIUM 2025 2026 • DISCREET • FAST • SECURE •</span>
+  <div class="bg-neon">
+    <span>JUICY SERVICE</span>
+    <span class="purple">PREMIUM 2025 • 2026</span>
+    <span>JUICY SERVICE</span>
   </div>
 
-  <section class="hero" id="hero">
-    <div class="hero-content" style="text-align:center;">
-      <h1>JUICY SERVICE</h1>
-      <h2>Premium Access</h2>
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>JUICY</h1>
+      <h2>SERVICE</h2>
       <button class="enter-btn" onclick="enterSite()">ENTER</button>
     </div>
   </section>
 
   <main id="main">
-    <h2 class="section-title">Our Premium Services</h2>
+    <h2 class="section-title">PREMIUM OFFERS 2025-2026</h2>
+
     <div class="grid">
       <div class="card" onclick="showPayment('hwid')">
-        <img loading="lazy" src="https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt="Carte mère néon">
-
-        <div class="card-content">
-          <h3>HWID Spoofer</h3>
-          <div class="price-tag">30€</div>
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=60&w=800" alt="HWID Spoofer">
+        <div class="card-info">
+          <h3>HWID SPOOFER</h3>
+          <p>Full bypass all games</p>
+          <div class="price">30€</div>
         </div>
       </div>
 
       <div class="card" onclick="showPayment('boost')">
-        <img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Voiture Rocket League">
-
-
-        <div class="card-content">
-          <h3>Rocket League Boost</h3>
-          <div class="price-tag">20€</div>
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=60&w=800" alt="Rank Boost">
+        <div class="card-info">
+          <h3>RANK BOOST</h3>
+          <p>Fast & secure</p>
+          <div class="price">20€</div>
         </div>
       </div>
 
       <div class="card" onclick="showPayment('steam')">
-        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Steam Account">
-        <div class="card-content">
-          <h3>Steam Account</h3>
-          <div class="price-tag">20€</div>
+        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=60&w=800" alt="Steam Service">
+        <div class="card-info">
+          <h3>STEAM PREMIUM</h3>
+          <p>Clean accounts instant</p>
+          <div class="price">20€</div>
         </div>
       </div>
     </div>
 
-    <div class="faq">
-      <h2 class="section-title">FAQ</h2>
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFAQ(this)">Why choose Juicy Service? <span>↓</span></div>
-        <div class="faq-content"><p>Fast, discreet premium services with competitive prices and a professional team.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFAQ(this)">Is it really safe? <span>↓</span></div>
-        <div class="faq-content"><p>Yes – up-to-date methods, strong anti-ban protections, maximum discretion.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFAQ(this)">Delivery time? <span>↓</span></div>
-        <div class="faq-content"><p>Instant or under 15 minutes for all products.</p></div>
-      </div>
-    </div>
+    <!-- FAQ globale reste ici si tu veux la garder -->
   </main>
 
-  <section class="payment-page" id="payment-hwid">
-    <div class="payment-container">
-      <a href="#" class="back-btn" onclick="backToMain()">← Back to products</a>
-      <h2 class="payment-title">HWID Spoofer Premium</h2>
-      <div class="total-price" id="total-hwid">30€</div>
-      <div class="qty-buttons">
-        <div class="qty-btn" onclick="changeQty('hwid', -1)">–</div>
-        <div class="qty-value" id="qty-val-hwid">1</div>
-        <div class="qty-btn" onclick="changeQty('hwid', 1)">+</div>
-      </div>
-      <div class="pay-box">
-        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Instant PayPal Payment</h4>
-        <button class="btn-pay" onclick="payWithPaypal('hwid')">PAY NOW →</button>
-      </div>
-      <small style="display:block;text-align:center;color:#555;">Or Crypto (contact us after payment)</small>
-    </div>
-  </section>
+  <!-- HWID Payment Page avec tous les ajouts -->
+  <div id="payment-hwid" class="payment-page">
+    <div class="product-detail">
+      <div class="product-left">
+        <div class="product-image">
+          <img loading="lazy" src="https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt="Carte mère néon">
+        </div>
 
-  <section class="payment-page" id="payment-boost">
-    <div class="payment-container">
-      <a href="#" class="back-btn" onclick="backToMain()">← Back to products</a>
-      <h2 class="payment-title">Rocket League Boost</h2>
-      <div class="total-price" id="total-boost">20€</div>
-      <div class="qty-buttons">
-        <div class="qty-btn" onclick="changeQty('boost', -1)">–</div>
-        <div class="qty-value" id="qty-val-boost">1</div>
-        <div class="qty-btn" onclick="changeQty('boost', 1)">+</div>
-      </div>
-      <div class="pay-box">
-        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Instant PayPal Payment</h4>
-        <button class="btn-pay" onclick="payWithPaypal('boost')">PAY NOW →</button>
-      </div>
-      <small style="display:block;text-align:center;color:#555;">Or Crypto (contact us after payment)</small>
-    </div>
-  </section>
+        <div class="extra-info">
+          <h4>⭐ Juicy Hardware Spoofer Showcase:</h4>
+          <p>Working On</p>
+          <ul>
+            <li>✅ Fortnite | 🔨 Battle Bus Kick & Official Tournaments</li>
+            <li>✅ Apex Legends | 🔨 Client Game: Banned</li>
+            <li>✅ Rainbow Six Siege | 🔨 You have been permanently banned from the Rainbow Six Siege servers...</li>
+            <li>✅ FiveM | 🔨 Connection Error: CFX/Globally Banned</li>
+            <li>✅ Overwatch | 🔨 Unauthorized Program</li>
+            <li>✅ Rust | 🔨 Permanently Banned Behalf Game Developer</li>
+            <li>✅ Dead By Daylight | 🔨 Error Code 10: You have been kicked out from the server...</li>
+            <li>✅ DayZ | 🔨 You Were Kicked Off The Game</li>
+            <li>✅ Forza Horizon | 🔨 You Have Been Permanently Banned</li>
+            <li>✅ Sea of Thieves | 🔨 You Are Permanently Banned</li>
+            <li>✅ War Frame | 🔨 You Have Been Suspended</li>
+            <li>✅ Pub G | 🔨 You can not play on this device anymore</li>
+            <li>✅ GTA V | 🔨 Banned From GTA Online</li>
+            <li>✅ ROBLOX | 🔨 You Were Banned From This Experience</li>
+          </ul>
+        </div>
 
-  <section class="payment-page" id="payment-steam">
-    <div class="payment-container">
-      <a href="#" class="back-btn" onclick="backToMain()">← Back to products</a>
-      <h2 class="payment-title">Steam Account Premium</h2>
-      <div class="total-price" id="total-steam">20€</div>
-      <div class="qty-buttons">
-        <div class="qty-btn" onclick="changeQty('steam', -1)">–</div>
-        <div class="qty-value" id="qty-val-steam">1</div>
-        <div class="qty-btn" onclick="changeQty('steam', 1)">+</div>
+        <div class="extra-info" style="margin-top: 2.5rem;">
+          <h4>👑 Services</h4>
+          <ul>
+            <li>Instant Delivery</li>
+            <li>24/7 Customer Support</li>
+            <li>HWID Unban Guide</li>
+            <li>Reinstallation Needed for The spoofer</li>
+            <li>IP Ban Fix</li>
+            <li>Customer Community Chat</li>
+            <li>Customer HWID Reset Tool</li>
+          </ul>
+
+          <h4 style="margin-top: 2.5rem;">❓ Frequently Asked Questions</h4>
+          <div class="faq-question">What type of Spoofer is this?</div>
+          <p>This is a hardware identity spoofer (HWID Spoofer). Originally designed to protect your HWID from data hackers/stealers. However, the HWID Spoofer can be used to change your computer's HWID. Therefore, hardware unbanning yourself on any game</p>
+
+          <div class="faq-question">Does it work for my motherboard?</div>
+          <p>Yes the Juicy Hardware Spoofer will work for any computer.</p>
+
+          <div class="faq-question">Is this going to unban my account?</div>
+          <p>No, when you receive a hardware banned, the game will permanently ban your account as well. Your account cannot be recovered unless you contact the issuing video game launcher support service. However, it is very unlikely they will remove your ban if you were banned for cheating or received a false ban.</p>
+
+          <div class="faq-question">Am I hardware banned or IP banned?</div>
+          <p>You will only get IP banned if you were hardware banned multiple times as you kept bypassing the HWID ban.<br><strong>Note: IP bans only last for 10 days</strong></p>
+
+          <div class="faq-question">Is the hardware spoofer going to work if I was false banned?</div>
+          <p>Yes, false bans are due to the anti-cheat failure. You most likely had software running or installed on your computer, in which the anti-cheat detected interruption (reading & writing code) from the game.</p>
+        </div>
       </div>
-      <div class="pay-box">
-        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Instant PayPal Payment</h4>
-        <button class="btn-pay" onclick="payWithPaypal('steam')">PAY NOW →</button>
+
+      <div class="product-right">
+        <h2>HWID SPOOFER</h2>
+        <div class="product-price" id="total-hwid">30€</div>
+
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('hwid', -1)">−</button>
+          <span id="qty-val-hwid">1</span>
+          <button class="qty-btn" onclick="changeQty('hwid', 1)">+</button>
+          <span>(×2+ = -10% auto)</span>
+        </div>
+
+        <button class="buy-btn" onclick="payWithPaypal('hwid')">BUY NOW → PAYPAL</button>
+        <div class="back-btn" onclick="backToMain()">← Back to Offers</div>
       </div>
-      <small style="display:block;text-align:center;color:#555;">Or Crypto (contact us after payment)</small>
     </div>
-  </section>
+  </div>
+
+  <!-- Les autres pages payment (boost et steam) restent identiques, sans les ajouts -->
+  <div id="payment-boost" class="payment-page">
+    <div class="product-detail">
+      <div class="product-image">
+        <img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Voiture Rocket League">
+      </div>
+      <div class="product-info">
+        <h2>RANK BOOST</h2>
+        <div class="product-price" id="total-boost">20€</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('boost', -1)">−</button>
+          <span id="qty-val-boost">1</span>
+          <button class="qty-btn" onclick="changeQty('boost', 1)">+</button>
+          <span>(×2+ = -10% auto)</span>
+        </div>
+        <button class="buy-btn" onclick="payWithPaypal('boost')">BUY NOW → PAYPAL</button>
+        <div class="back-btn" onclick="backToMain()">← Back to Offers</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="payment-steam" class="payment-page">
+    <div class="product-detail">
+      <div class="product-image">
+        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Steam Account">
+      </div>
+      <div class="product-info">
+        <h2>STEAM PREMIUM</h2>
+        <div class="product-price" id="total-steam">20€</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('steam', -1)">−</button>
+          <span id="qty-val-steam">1</span>
+          <button class="qty-btn" onclick="changeQty('steam', 1)">+</button>
+          <span>(×2+ = -10% auto)</span>
+        </div>
+        <button class="buy-btn" onclick="payWithPaypal('steam')">BUY NOW → PAYPAL</button>
+        <div class="back-btn" onclick="backToMain()">← Back to Offers</div>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('mousemove', e => {
@@ -476,16 +519,8 @@
     function payWithPaypal(type) {
       let amount = basePrice[type] * qty[type];
       if (qty[type] >= 2) amount = Math.floor(amount * 0.9);
-      // Remplace VOTREPSEUDO par ton vrai pseudo PayPal.me
-      const paypalLink = `https://www.paypal.me/VOTREPSEUDO/${amount}.00`;
+      const paypalLink = `https://www.paypal.me/YOURUSERNAME/${amount}.00`;
       window.location.href = paypalLink;
-    }
-
-    function toggleFAQ(header) {
-      const content = header.nextElementSibling;
-      const isOpen = content.style.maxHeight;
-      document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = null);
-      if (!isOpen) content.style.maxHeight = content.scrollHeight + "px";
     }
 
     window.onload = () => {
