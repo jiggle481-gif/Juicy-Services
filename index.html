@@ -1,214 +1,309 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Juicy Service</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Juicy Service • Premium Services</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --neon-red: #ff0044;
+      --neon-blue: #00d4ff;
+      --card-bg: #0a0a0f;
+      --glow-red: 0 0 12px var(--neon-red), 0 0 28px var(--neon-red), 0 0 60px var(--neon-red);
+      --glow-blue: 0 0 12px var(--neon-blue), 0 0 28px var(--neon-blue), 0 0 60px var(--neon-blue);
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-<style>
-body{
-margin:0;
-font-family:'Orbitron',sans-serif;
-background:black;
-color:white;
-text-align:center;
-overflow-x:hidden;
-cursor:pointer;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* 🔵 TEXTE FOND */
-.bg-scroll{
-position:fixed;
-width:100%;
-height:100%;
-z-index:0;
-display:none;
-}
+    body {
+      font-family: 'Orbitron', system-ui, sans-serif;
+      background: var(--bg);
+      color: white;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      cursor: none; /* on va faire un custom curseur après */
+    }
 
-.bg-scroll span{
-position:absolute;
-white-space:nowrap;
-color:#00bfff;
-font-size:24px;
-opacity:0.2;
-text-shadow:0 0 10px #00bfff,0 0 40px #00bfff;
-animation:scroll 12s linear infinite;
-}
+    /* Custom curseur fun cyber */
+    body::after {
+      content: '';
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: 2px solid var(--neon-blue);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: width 0.2s, height 0.2s, background 0.3s;
+      mix-blend-mode: difference;
+    }
+    body:hover::after {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 212, 255, 0.12);
+    }
 
-@keyframes scroll{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
-}
+    /* Fond texte défilant – plus performant */
+    .bg-scroll {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      overflow: hidden;
+      opacity: 0.15;
+    }
+    .bg-scroll span {
+      position: absolute;
+      left: 100%;
+      white-space: nowrap;
+      font-size: clamp(1.4rem, 5vw, 4.5rem);
+      color: var(--neon-blue);
+      text-shadow: var(--glow-blue);
+      animation: scroll linear infinite;
+      will-change: transform;
+    }
+    @keyframes scroll {
+      to { transform: translateX(-200%); }
+    }
 
-/* HERO */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-position:relative;
-}
+    /* Hero */
+    .hero {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      z-index: 2;
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    .hero.hidden {
+      opacity: 0;
+      transform: translateY(-30px);
+      pointer-events: none;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover no-repeat;
+      opacity: 0.45;
+      z-index: -1;
+      filter: brightness(0.7) contrast(1.15);
+    }
 
-.hero::before{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000') center/cover;
-opacity:0.5;
-z-index:-1;
-}
+    h1, h2 {
+      text-shadow: var(--glow-red);
+      color: var(--neon-red);
+      line-height: 0.95;
+    }
+    h1 { font-size: clamp(3.5rem, 12vw, 9rem); font-weight: 900; }
+    h2 { font-size: clamp(2.2rem, 8vw, 5rem); font-weight: 700; }
 
-.neon{
-color:red;
-text-shadow:0 0 10px red,0 0 40px red;
-}
+    .enter-btn {
+      margin-top: 2rem;
+      padding: 1rem 3rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(45deg, var(--neon-red), var(--neon-blue));
+      border: none;
+      border-radius: 999px;
+      box-shadow: 0 0 40px rgba(0,212,255,0.5);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .enter-btn:hover {
+      transform: scale(1.08) translateY(-4px);
+      box-shadow: 0 0 70px rgba(0,212,255,0.7);
+    }
 
-.blue{
-color:#00bfff;
-text-shadow:0 0 10px #00bfff,0 0 40px #00bfff;
-}
+    /* Main content */
+    main {
+      padding: 5rem 1.5rem 8rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+    }
+    main.visible {
+      opacity: 1;
+      transform: none;
+    }
 
-/* PRODUITS */
-.products, .payment{
-display:none;
-padding:40px;
-}
+    h2.section-title {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      text-align: center;
+      margin-bottom: 4rem;
+      text-shadow: var(--glow-blue);
+      color: var(--neon-blue);
+    }
 
-.grid{
-display:flex;
-flex-direction:column;
-gap:40px;
-align-items:center;
-}
+    .grid {
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: 1fr;
+    }
 
-/* CARD */
-.card{
-width:80%;
-max-width:800px;
-display:flex;
-align-items:center;
-gap:20px;
-background:#111;
-padding:15px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,191,255,0.3);
-}
+    @media (min-width: 768px) {
+      .grid { grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); }
+    }
 
-.card img{
-width:220px;
-height:140px;
-object-fit:cover;
-border-radius:10px;
-}
+    .card {
+      background: var(--card-bg);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,212,255,0.12);
+      transition: var(--transition);
+      container-type: inline-size;
+    }
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 60px rgba(0,212,255,0.25), 0 0 0 2px var(--neon-blue);
+    }
 
-.card h3{
-color:#00bfff;
-}
+    .card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
 
-/* PAYMENT BOX */
-.box{
-background:#111;
-padding:30px;
-margin:20px auto;
-max-width:600px;
-border-radius:15px;
-box-shadow:0 0 20px #00bfff;
-}
+    .card-content {
+      padding: 1.8rem;
+      text-align: center;
+    }
 
-button{
-background:#00bfff;
-border:none;
-padding:15px 25px;
-color:black;
-font-weight:bold;
-border-radius:10px;
-cursor:pointer;
-}
+    .card h3 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--neon-blue);
+      text-shadow: var(--glow-blue);
+      margin-bottom: 0.8rem;
+    }
 
-</style>
+    /* FAQ */
+    .faq {
+      margin-top: 7rem;
+    }
+    .faq-item {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: rgba(10,10,15,0.6);
+      border-radius: 1rem;
+      border: 1px solid rgba(0,212,255,0.15);
+    }
+    .faq-item h4 {
+      color: var(--neon-blue);
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- TEXTE FOND -->
-<div class="bg-scroll" id="scrollBg">
-<span style="top:0%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-<span style="top:20%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-<span style="top:40%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-<span style="top:60%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-<span style="top:80%">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
-</div>
+  <div class="bg-scroll" aria-hidden="true">
+    <span style="animation-duration:80s; top:5%;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+    <span style="animation-duration:110s; top:22%; animation-direction:reverse;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+    <span style="animation-duration:95s; top:38%;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+    <span style="animation-duration:130s; top:55%; animation-direction:reverse;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+    <span style="animation-duration:70s; top:72%;">👑 NO PRODUCT 👑 NO PRODUCT 👑 NO PRODUCT 👑</span>
+  </div>
 
-<!-- HOME -->
-<div class="hero" id="home" onclick="enterSite()">
-<h1 class="neon">CLICK TO ENTER</h1>
-<h2 class="neon">Juicy Service</h2>
-</div>
+  <section class="hero" id="hero">
+    <div>
+      <h1>VISITER LE SITE</h1>
+      <h2>Juicy Service</h2>
+      <button class="enter-btn" onclick="enterSite()" aria-label="Entrer sur le site">CLIQUEZ POUR ENTRER →</button>
+    </div>
+  </section>
 
-<!-- PRODUITS -->
-<div class="products" id="products">
+  <main id="main">
+    <h2 class="section-title">Nos Produits</h2>
 
-<h2 class="blue">Our Products</h2>
+    <div class="grid">
+      <div class="card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=70&w=1200" alt="Interface HWID Spoofer – outil de spoofing hardware ID">
+        <div class="card-content">
+          <h3>HWID Spoofer</h3>
+        </div>
+      </div>
 
-<div class="grid">
+      <div class="card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=70&w=1200" alt="Rank boosting Rocket League – service d'amélioration de rang">
+        <div class="card-content">
+          <h3>Boosting RL</h3>
+        </div>
+      </div>
 
-<div class="card" onclick="openPay('HWID Spoofer')">
-<img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1000">
-<h3>HWID Spoofer</h3>
-</div>
+      <div class="card">
+        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Compte Steam premium – achat / vente de comptes sécurisés">
+        <div class="card-content">
+          <h3>Steam Account</h3>
+        </div>
+      </div>
+    </div>
 
-<div class="card" onclick="openPay('RL Boosting')">
-<img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=1000">
-<h3>RL Boosting</h3>
-</div>
+    <div class="faq">
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-item">
+        <h4>Pourquoi choisir Juicy Service ?</h4>
+        <p>Services rapides, discrets et premium avec une équipe expérimentée.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Est-ce vraiment safe ?</h4>
+        <p>Oui – méthodes testées, protections anti-ban renforcées, discrétion maximale.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Combien de temps pour la livraison ?</h4>
+        <p>Très rapide : souvent instantané ou < 30 min selon le produit.</p>
+      </div>
+    </div>
+  </main>
 
-<div class="card" onclick="openPay('Steam Account')">
-<img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
-<h3>Steam Account</h3>
-</div>
+  <script>
+    function enterSite() {
+      const hero = document.getElementById('hero');
+      const main = document.getElementById('main');
 
-</div>
+      hero.classList.add('hidden');
+      setTimeout(() => {
+        hero.style.display = 'none';
+        main.classList.add('visible');
+      }, 800);
+    }
 
-</div>
+    // Curseur custom follow
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', e.clientX + 'px');
+      document.body.style.setProperty('--y', e.clientY + 'px');
+    });
+    document.body.style.setProperty('--x', '50vw');
+    document.body.style.setProperty('--y', '50vh');
+  </script>
 
-<!-- 💸 PAYMENT PAGE -->
-<div class="payment" id="payment">
-
-<h1 id="productName" class="blue"></h1>
-
-<div class="box">
-<h2>Price: 15€</h2>
-<p>Secure payment via PayPal</p>
-
-<button onclick="pay()">PAY NOW</button>
-</div>
-
-</div>
-
-<script>
-
-function enterSite(){
-document.getElementById('home').style.display='none';
-document.getElementById('products').style.display='block';
-document.getElementById('scrollBg').style.display='block';
-}
-
-/* 👉 même effet que entrée */
-function openPay(name){
-document.getElementById('products').style.display='none';
-document.getElementById('payment').style.display='block';
-document.getElementById('productName').innerText=name;
-}
-
-/* 🔗 PAYPAL (à remplacer plus tard) */
-function pay(){
-window.open("https://www.paypal.com/paypalme/TONLIEN", "_blank");
-}
-
-</script>
+  <style>
+    body::after {
+      left: var(--x, 50vw);
+      top: var(--y, 50vh);
+    }
+  </style>
 
 </body>
 </html>
