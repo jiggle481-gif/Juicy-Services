@@ -151,6 +151,17 @@ input{
   cursor:pointer;
   display:none;
 }
+
+/* 💳 CARTE UI */
+.card-input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid red;
+  background:black;
+  color:white;
+}
 </style>
 </head>
 
@@ -201,40 +212,29 @@ input{
 <br><br>
 
 <button onclick="addToCart()">🛒 Ajouter au panier</button>
-
-<p style="margin-top:15px;color:#aaa;">
-✔ Livraison instantanée<br>
-✔ Support 24/7<br>
-✔ Paiement sécurisé
-</p>
 </div>
 
 <div class="box">
 <h2>📜 Conditions</h2>
-<p>
-✔ Service rapide<br>
-✔ Aucun remboursement<br>
-✔ Produit digital
-</p>
+<p>✔ Aucun remboursement<br>✔ Produit digital</p>
 <button onclick="accept()">✅ Accepter</button>
 </div>
 
 <div id="payment" style="display:none;">
+
 <div class="box">
+<h2>💳 Paiement Carte (simulation)</h2>
 
-<h2>💳 Paiement sécurisé</h2>
+<input class="card-input" placeholder="Numéro de carte">
+<input class="card-input" placeholder="Nom sur la carte">
+<input class="card-input" placeholder="MM/AA">
+<input class="card-input" placeholder="CVC">
 
-<div style="display:flex;justify-content:center;gap:15px;margin:20px;">
-<span style="border:1px solid red;padding:10px;border-radius:10px;">💳 Visa</span>
-<span style="border:1px solid red;padding:10px;border-radius:10px;">💳 Mastercard</span>
-<span style="border:1px solid red;padding:10px;border-radius:10px;">🅿️ PayPal</span>
+<button onclick="alert('Paiement simulé ✔')">💳 Payer</button>
 </div>
 
-<div style="background:#0a0a0a;padding:15px;border-radius:10px;margin-bottom:20px;">
-<h3>🧾 Résumé :</h3>
-<p id="resumeProduct"></p>
-<p>Prix : 20€</p>
-</div>
+<div class="box">
+<h2>💸 Ou PayPal</h2>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 <input type="hidden" name="cmd" value="_xclick">
@@ -242,16 +242,10 @@ input{
 <input type="hidden" name="item_name" id="paypalItem">
 <input type="hidden" name="amount" value="20">
 
-<button type="submit" style="width:100%;font-size:18px;">
-💸 Payer avec PayPal
-</button>
+<button type="submit">Payer avec PayPal</button>
 </form>
-
-<p style="color:#888;">
-🔒 Paiement sécurisé SSL
-</p>
-
 </div>
+
 </div>
 
 </div>
@@ -284,21 +278,12 @@ function openProduct(type){
 products.style.display="none";
 productPage.style.display="block";
 
-let name="";
-
-if(type==="RL"){
-name="Rocket League Boost";
-setBackground("ROCKET LEAGUE BOOST");
-}
-
-if(type==="STEAM"){
-name="Steam Account";
-setBackground("STEAM ACCOUNT");
-}
+let name= type==="RL" ? "Rocket League Boost" : "Steam Account";
 
 productTitle.innerText=name;
-document.getElementById("resumeProduct").innerText=name;
 document.getElementById("paypalItem").value=name;
+
+setBackground(name.toUpperCase());
 }
 
 function goBack(){
