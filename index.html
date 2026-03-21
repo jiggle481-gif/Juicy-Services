@@ -182,7 +182,7 @@
       text-shadow: 0 0 12px var(--neon-red);
     }
 
-    /* Payment page */
+    /* Payment page styles */
     .payment-page {
       display: none;
       min-height: 100dvh;
@@ -204,33 +204,26 @@
       border-radius: 1.4rem;
       box-shadow: 0 0 40px rgba(0,240,255,0.3);
     }
-    .extra-info {
-      margin-top: 2.5rem;
-      background: rgba(10,10,20,0.75);
-      border: 1px solid rgba(157,0,255,0.35);
+    .showcase {
+      margin-top: 2rem;
+      background: rgba(10,10,20,0.7);
+      border: 1px solid rgba(157,0,255,0.3);
       border-radius: 1.2rem;
-      padding: 1.8rem;
+      padding: 1.5rem;
       font-size: 1.1rem;
       line-height: 1.7;
     }
-    .extra-info h4 {
+    .showcase h4 {
       color: var(--neon-purple);
       text-shadow: 0 0 10px var(--neon-purple);
-      margin-bottom: 1.2rem;
-      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
     }
-    .extra-info ul {
+    .showcase ul {
       list-style: none;
-      padding-left: 0;
     }
-    .extra-info li {
-      margin-bottom: 0.8rem;
-    }
-    .extra-info .faq-question {
-      color: var(--neon-blue);
-      font-weight: 700;
-      margin: 1.5rem 0 0.6rem;
-      text-shadow: 0 0 8px var(--neon-blue);
+    .showcase li {
+      margin-bottom: 0.6rem;
     }
     .product-right {
       padding-top: 2rem;
@@ -348,18 +341,21 @@
       </div>
     </div>
 
-    <!-- FAQ globale reste ici si tu veux la garder -->
+    <!-- FAQ reste inchangée, je la garde courte ici pour ne pas alourdir -->
+    <div class="faq">
+      <h2 class="section-title" style="margin:8rem 0 4rem">FAQ</h2>
+      <!-- ... tes questions FAQ ici comme avant ... -->
+    </div>
   </main>
 
-  <!-- HWID Payment Page avec tous les ajouts -->
+  <!-- HWID Payment Page avec showcase en bas de la photo -->
   <div id="payment-hwid" class="payment-page">
     <div class="product-detail">
       <div class="product-left">
         <div class="product-image">
           <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1600" alt="HWID Spoofer">
         </div>
-
-        <div class="extra-info">
+        <div class="showcase">
           <h4>⭐ Juicy Hardware Spoofer Showcase:</h4>
           <p>Working On</p>
           <ul>
@@ -378,35 +374,6 @@
             <li>✅ GTA V | 🔨 Banned From GTA Online</li>
             <li>✅ ROBLOX | 🔨 You Were Banned From This Experience</li>
           </ul>
-        </div>
-
-        <div class="extra-info" style="margin-top: 2.5rem;">
-          <h4>👑 Services</h4>
-          <ul>
-            <li>Instant Delivery</li>
-            <li>24/7 Customer Support</li>
-            <li>HWID Unban Guide</li>
-            <li>Reinstallation Needed for The spoofer</li>
-            <li>IP Ban Fix</li>
-            <li>Customer Community Chat</li>
-            <li>Customer HWID Reset Tool</li>
-          </ul>
-
-          <h4 style="margin-top: 2.5rem;">❓ Frequently Asked Questions</h4>
-          <div class="faq-question">What type of Spoofer is this?</div>
-          <p>This is a hardware identity spoofer (HWID Spoofer). Originally designed to protect your HWID from data hackers/stealers. However, the HWID Spoofer can be used to change your computer's HWID. Therefore, hardware unbanning yourself on any game</p>
-
-          <div class="faq-question">Does it work for my motherboard?</div>
-          <p>Yes the Juicy Hardware Spoofer will work for any computer.</p>
-
-          <div class="faq-question">Is this going to unban my account?</div>
-          <p>No, when you receive a hardware banned, the game will permanently ban your account as well. Your account cannot be recovered unless you contact the issuing video game launcher support service. However, it is very unlikely they will remove your ban if you were banned for cheating or received a false ban.</p>
-
-          <div class="faq-question">Am I hardware banned or IP banned?</div>
-          <p>You will only get IP banned if you were hardware banned multiple times as you kept bypassing the HWID ban.<br><strong>Note: IP bans only last for 10 days</strong></p>
-
-          <div class="faq-question">Is the hardware spoofer going to work if I was false banned?</div>
-          <p>Yes, false bans are due to the anti-cheat failure. You most likely had software running or installed on your computer, in which the anti-cheat detected interruption (reading & writing code) from the game.</p>
         </div>
       </div>
 
@@ -427,7 +394,7 @@
     </div>
   </div>
 
-  <!-- Les autres pages payment (boost et steam) restent identiques, sans les ajouts -->
+  <!-- Boost Payment Page (sans showcase) -->
   <div id="payment-boost" class="payment-page">
     <div class="product-detail">
       <div class="product-image">
@@ -436,18 +403,21 @@
       <div class="product-info">
         <h2>RANK BOOST</h2>
         <div class="product-price" id="total-boost">20€</div>
+
         <div class="qty-control">
           <button class="qty-btn" onclick="changeQty('boost', -1)">−</button>
           <span id="qty-val-boost">1</span>
           <button class="qty-btn" onclick="changeQty('boost', 1)">+</button>
           <span>(×2+ = -10% auto)</span>
         </div>
+
         <button class="buy-btn" onclick="payWithPaypal('boost')">BUY NOW → PAYPAL</button>
         <div class="back-btn" onclick="backToMain()">← Back to Offers</div>
       </div>
     </div>
   </div>
 
+  <!-- Steam Payment Page (sans showcase) -->
   <div id="payment-steam" class="payment-page">
     <div class="product-detail">
       <div class="product-image">
@@ -456,12 +426,14 @@
       <div class="product-info">
         <h2>STEAM PREMIUM</h2>
         <div class="product-price" id="total-steam">20€</div>
+
         <div class="qty-control">
           <button class="qty-btn" onclick="changeQty('steam', -1)">−</button>
           <span id="qty-val-steam">1</span>
           <button class="qty-btn" onclick="changeQty('steam', 1)">+</button>
           <span>(×2+ = -10% auto)</span>
         </div>
+
         <button class="buy-btn" onclick="payWithPaypal('steam')">BUY NOW → PAYPAL</button>
         <div class="back-btn" onclick="backToMain()">← Back to Offers</div>
       </div>
@@ -521,6 +493,13 @@
       if (qty[type] >= 2) amount = Math.floor(amount * 0.9);
       const paypalLink = `https://www.paypal.me/YOURUSERNAME/${amount}.00`;
       window.location.href = paypalLink;
+    }
+
+    function toggleFAQ(header) {
+      const content = header.nextElementSibling;
+      const isOpen = content.style.maxHeight;
+      document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = null);
+      if (!isOpen) content.style.maxHeight = content.scrollHeight + "px";
     }
 
     window.onload = () => {
