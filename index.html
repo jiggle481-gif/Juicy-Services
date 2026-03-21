@@ -16,7 +16,7 @@ body {
   overflow:hidden;
 }
 
-/* 🔴 TEXTE QUI DÉFILE */
+/* 🔴 TEXTE NÉON ULTRA BRILLANT */
 .bg-text{
   position:fixed;
   width:100%;
@@ -28,11 +28,20 @@ body {
   position:absolute;
   width:300%;
   white-space:nowrap;
-  font-size:45px;
-  color:red;
-  opacity:0.08;
-  text-shadow:0 0 10px red,0 0 30px red;
-  animation:scroll 35s linear infinite;
+  font-size:48px;
+  color:#ff0000;
+  opacity:0.25;
+
+  /* 💥 NÉON ULTRA FORT */
+  text-shadow:
+    0 0 5px #ff0000,
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 40px #ff0000,
+    0 0 80px #ff0000,
+    0 0 120px #ff0000;
+
+  animation:scroll 30s linear infinite;
 }
 
 .line:nth-child(1){top:10%;}
@@ -46,7 +55,7 @@ body {
 100%{transform:translateX(-50%)}
 }
 
-/* ACCUEIL IMAGE */
+/* IMAGE ACCUEIL */
 .hero::before {
   content:"";
   position:absolute;
@@ -68,7 +77,7 @@ body {
 
 .neon{
   color:red;
-  text-shadow:0 0 20px red,0 0 40px red;
+  text-shadow:0 0 20px red,0 0 40px red,0 0 80px red;
 }
 
 /* PAGES */
@@ -92,7 +101,7 @@ body {
 
 .card:hover{
   transform:scale(0.97);
-  box-shadow:0 0 30px red;
+  box-shadow:0 0 40px red;
 }
 
 .card img{
@@ -114,7 +123,7 @@ body {
   background:#111;
   padding:25px;
   border-radius:15px;
-  box-shadow:0 0 20px red;
+  box-shadow:0 0 25px red;
   flex:1;
   min-width:300px;
 }
@@ -132,7 +141,7 @@ button{
 
 button:hover{
   transform:scale(1.1);
-  box-shadow:0 0 20px red;
+  box-shadow:0 0 25px red;
 }
 
 input{
@@ -244,7 +253,6 @@ input{
 
 <script>
 
-/* 🔴 TEXTE DYNAMIQUE */
 function setBackground(text){
 let bg=document.getElementById("bgText");
 bg.innerHTML="";
@@ -259,7 +267,6 @@ bg.appendChild(line);
 }
 }
 
-/* NAVIGATION */
 function enterSite(){
 home.style.display="none";
 products.style.display="block";
@@ -305,10 +312,10 @@ function accept(){
 document.getElementById("payment").style.display="block";
 }
 
-/* ACCUEIL TEXT */
 setBackground("JUICY SERVICE");
 
 </script>
 
 </body>
 </html>
+
