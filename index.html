@@ -16,7 +16,7 @@ body {
   overflow:hidden;
 }
 
-/* 🔴 TEXTE NÉON ULTRA PUISSANT */
+/* 🔴 TEXTE NÉON */
 .bg-text{
   position:fixed;
   width:100%;
@@ -54,19 +54,7 @@ body {
 100%{transform:translateX(-50%)}
 }
 
-/* 🎮 FOND DYNAMIQUE PRODUIT */
-.productPage::before{
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  background-size:cover;
-  background-position:center;
-  opacity:0.25;
-  z-index:-2;
-  transition:0.5s;
-}
-
+/* ACCUEIL */
 .hero::before {
   content:"";
   position:absolute;
@@ -196,7 +184,7 @@ input{
 <h2 class="neon">Nos Produits</h2>
 
 <div class="card" onclick="openProduct('RL')">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252950/library_hero.jpg">
+<img src="https://wallpapers.com/images/hd/rocket-league-octane-car-ball-4k-5k9k.jpg">
 <h3>🚀 Rocket League Boost</h3>
 </div>
 
@@ -250,8 +238,8 @@ input{
 </form>
 
 <p style="color:#888;">
-🔒 Paiement sécurisé SSL<br>
-🛡 Protection acheteur
+ Paiement sécurisé SSL<br>
+ Protection acheteur
 </p>
 
 </div>
@@ -291,28 +279,23 @@ productPage.style.display="block";
 let name="";
 let desc="";
 let bg="";
-let img="";
 
 if(type==="RL"){
 name="Rocket League Boost";
 desc="Boost ton rank rapidement avec nos experts.";
 bg="RL BOOSTING";
-img="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=2000";
 }
 
 if(type==="STEAM"){
 name="Steam Account";
 desc="Compte Steam premium sécurisé.";
 bg="STEAM ACCOUNT";
-img="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2000";
 }
 
 productTitle.innerText=name;
 document.getElementById("desc").innerText=desc;
 document.getElementById("resume").innerText=name;
 document.getElementById("paypalItem").value=name;
-
-document.querySelector(".productPage").style.background=`url(${img}) center/cover no-repeat`;
 
 setBackground(bg);
 }
