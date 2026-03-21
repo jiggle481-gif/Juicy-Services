@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Juicy Service</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -16,6 +17,16 @@ body {
 }
 
 /* ACCUEIL */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor:pointer;
+}
+
 .hero::before {
   content: "";
   position: absolute;
@@ -25,21 +36,12 @@ body {
   z-index: -1;
 }
 
-.hero {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  cursor:pointer;
-}
-
 .neon {
   color: red;
   text-shadow: 0 0 10px red, 0 0 20px red;
 }
 
-/* 🔴 SCROLL INFini */
+/* SCROLL */
 .bg-scroll {
   position: fixed;
   width: 100%;
@@ -55,23 +57,15 @@ body {
   color:red;
   opacity:0.3;
   font-size:24px;
-  text-shadow:0 0 5px red,0 0 10px red,0 0 20px red;
   animation:scroll 35s linear infinite;
 }
-
-.scroll-line:nth-child(1){top:10%;}
-.scroll-line:nth-child(2){top:25%;}
-.scroll-line:nth-child(3){top:40%;}
-.scroll-line:nth-child(4){top:55%;}
-.scroll-line:nth-child(5){top:70%;}
-.scroll-line:nth-child(6){top:85%;}
 
 @keyframes scroll{
 0%{transform:translateX(0)}
 100%{transform:translateX(-50%)}
 }
 
-/* PRODUITS */
+/* PAGES */
 .products, .productPage {
   display:none;
   padding:50px;
@@ -90,33 +84,14 @@ body {
   transition:0.3s;
 }
 
-.card:hover{
-  transform:scale(0.95);
-  box-shadow:0 0 30px red;
-}
-
 .card img{
   width:100%;
-  height:350px;
+  height:300px;
   object-fit:cover;
   border-radius:10px;
-  transition:0.3s;
 }
 
-.card:hover img{
-  transform:scale(1.05);
-}
-
-/* PAGE PRODUIT */
-.box{
-  background:#111;
-  padding:20px;
-  margin:20px;
-  border-radius:15px;
-  box-shadow:0 0 10px red;
-}
-
-/* BOUTONS */
+/* BUTTON */
 button{
   background:red;
   border:none;
@@ -124,22 +99,13 @@ button{
   color:white;
   cursor:pointer;
   margin-top:10px;
-  transition:0.3s;
   border-radius:10px;
-}
-
-button:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px red;
 }
 
 /* INPUT */
 input{
   width:60px;
   text-align:center;
-  background:black;
-  color:red;
-  border:1px solid red;
 }
 
 /* POPUP */
@@ -151,10 +117,9 @@ input{
   color:red;
   padding:10px;
   display:none;
-  box-shadow:0 0 10px red;
 }
 
-/* 🔥 BOUTON RETOUR */
+/* RETOUR */
 .backBtn{
   position:fixed;
   top:20px;
@@ -163,34 +128,18 @@ input{
   color:red;
   padding:10px 20px;
   border-radius:10px;
-  border:1px solid red;
   cursor:pointer;
-  z-index:20;
   display:none;
-  transition:0.3s;
 }
-
-.backBtn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px red;
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- 🔙 RETOUR -->
 <div class="backBtn" onclick="goBack()">RETOUR</div>
 
-<!-- 🔴 SCROLL -->
 <div class="bg-scroll" id="scrollBg">
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
+<div class="scroll-line">Juicy Services Juicy Services Juicy Services</div>
 </div>
 
 <!-- ACCUEIL -->
@@ -203,7 +152,7 @@ input{
 <div class="products" id="products">
 <h2 class="neon">Nos Produits</h2>
 
-<div class="card" onclick="openProduct('RL Boost')">
+<div class="card" onclick="openProduct('Boost RL')">
 <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252950/library_hero.jpg">
 <h3>Boosting RL</h3>
 </div>
@@ -212,6 +161,7 @@ input{
 <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
 <h3>Steam Account</h3>
 </div>
+
 </div>
 
 <!-- PAGE PRODUIT -->
@@ -219,38 +169,23 @@ input{
 
 <h1 id="productTitle" class="neon"></h1>
 
-<div class="box">
 <h2>Prix : 20€</h2>
 
-<p>Quantité :</p>
 <input type="number" value="1" id="qty">
 
 <br>
 <button onclick="addToCart()">Ajouter au panier</button>
-</div>
 
-<div class="box">
-<h2>Conditions</h2>
-<p>
-Pas de remboursement<br>
-Service rapide<br>
-Respect obligatoire
-</p>
-<button onclick="accept()">Accepter</button>
-</div>
+<br><br>
+<button onclick="accept()">Continuer paiement</button>
 
 <div id="payment" style="display:none;">
-<h2>Moyen de paiement</h2>
-
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="TON_EMAIL_PAYPAL">
-<input type="hidden" name="item_name" value="Produit Juicy">
 <input type="hidden" name="amount" value="20">
-<input type="hidden" name="currency_code" value="EUR">
 <button type="submit">Payer avec PayPal</button>
 </form>
-
 </div>
 
 </div>
@@ -263,7 +198,6 @@ document.getElementById("home").style.display="none";
 document.getElementById("products").style.display="block";
 document.getElementById("scrollBg").style.display="block";
 document.querySelector(".backBtn").style.display="block";
-startPopup();
 }
 
 function openProduct(name){
@@ -273,15 +207,8 @@ document.getElementById("productTitle").innerText=name;
 }
 
 function goBack(){
-if(document.getElementById("productPage").style.display==="block"){
 document.getElementById("productPage").style.display="none";
 document.getElementById("products").style.display="block";
-}else{
-document.getElementById("products").style.display="none";
-document.getElementById("home").style.display="flex";
-document.getElementById("scrollBg").style.display="none";
-document.querySelector(".backBtn").style.display="none";
-}
 }
 
 function accept(){
@@ -290,29 +217,7 @@ document.getElementById("payment").style.display="block";
 
 function addToCart(){
 let qty=document.getElementById("qty").value;
-alert("Ajouté au panier x"+qty);
-}
-
-/* POPUP */
-const names=["Lucas","Enzo","Nathan","Theo","Hugo"];
-
-function randomHour(){
-let h=Math.floor(Math.random()*24);
-let m=Math.floor(Math.random()*60);
-return h+"h"+(m<10?"0"+m:m);
-}
-
-function startPopup(){
-setInterval(()=>{
-let name=names[Math.floor(Math.random()*names.length)];
-let popup=document.getElementById("popup");
-
-popup.innerText=name+" a acheté à "+randomHour();
-popup.style.display="block";
-
-setTimeout(()=>popup.style.display="none",3000);
-
-},5000);
+alert("Ajouté x"+qty);
 }
 </script>
 
