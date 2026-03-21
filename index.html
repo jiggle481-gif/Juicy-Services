@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* FOND TEXTE ANIMÉ */
+/* FOND TEXTE */
 .bg-text {
   position: fixed;
   width: 100%;
@@ -28,20 +28,20 @@ body {
 
 .line {
   position:absolute;
-  width:200%;
+  width:300%;
   white-space:nowrap;
   font-size:40px;
   color:red;
-  opacity:0.08;
-  text-shadow:0 0 10px red,0 0 20px red;
-  animation:scroll 25s linear infinite;
+  opacity:0.12;
+  text-shadow:0 0 10px red,0 0 20px red,0 0 40px red;
+  animation:scroll 40s linear infinite;
 }
 
-.line:nth-child(1){top:10%;}
-.line:nth-child(2){top:30%;}
-.line:nth-child(3){top:50%;}
-.line:nth-child(4){top:70%;}
-.line:nth-child(5){top:90%;}
+.line:nth-child(1){top:5%;}
+.line:nth-child(2){top:25%;}
+.line:nth-child(3){top:45%;}
+.line:nth-child(4){top:65%;}
+.line:nth-child(5){top:85%;}
 
 @keyframes scroll{
 0%{transform:translateX(0)}
@@ -94,16 +94,7 @@ body {
   border-radius:10px;
 }
 
-/* BUTTON */
-button{
-  background:red;
-  border:none;
-  padding:12px 25px;
-  color:white;
-  border-radius:10px;
-  cursor:pointer;
-}
-
+/* BOUTON RETOUR */
 .backBtn{
   position:fixed;
   top:20px;
@@ -123,7 +114,7 @@ button{
 
 <div class="backBtn" onclick="goBack()">RETOUR</div>
 
-<!-- FOND TEXTE -->
+<!-- FOND -->
 <div class="bg-text" id="bgText"></div>
 
 <!-- ACCUEIL -->
@@ -156,15 +147,18 @@ button{
 
 <script>
 
+/* FOND TEXTE DYNAMIQUE */
 function setBackground(text){
 let bg = document.getElementById("bgText");
 bg.innerHTML = "";
 bg.style.display = "block";
 
+let fullText = (text + " 👑 ").repeat(30);
+
 for(let i=0;i<5;i++){
 let line = document.createElement("div");
 line.className="line";
-line.innerText = (text+" ").repeat(20);
+line.innerText = fullText;
 bg.appendChild(line);
 }
 }
