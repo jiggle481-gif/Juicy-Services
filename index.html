@@ -16,24 +16,33 @@ body {
   overflow-x: hidden;
 }
 
-/* FOND TEXTE ANIMÉ */
-.bg-text {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
+/* 🔥 FOND IMAGE ACCUEIL */
+.hero::before {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000') center/cover no-repeat;
+  z-index:-1;
+}
+
+/* 🔥 TEXTE FOND */
+.bg-text{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
   display:none;
 }
 
-.line {
+.line{
   position:absolute;
   width:300%;
   white-space:nowrap;
   font-size:42px;
   color:red;
-  opacity:0.12;
-  text-shadow:0 0 10px red,0 0 20px red,0 0 40px red;
+  opacity:0.15;
+  text-shadow:0 0 15px red,0 0 30px red,0 0 60px red;
   animation:scroll 40s linear infinite;
 }
 
@@ -49,18 +58,19 @@ body {
 }
 
 /* ACCUEIL */
-.hero {
-  height: 100vh;
+.hero{
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   cursor:pointer;
+  position:relative;
 }
 
 .neon{
   color:red;
-  text-shadow:0 0 10px red,0 0 20px red;
+  text-shadow:0 0 15px red,0 0 30px red,0 0 60px red;
 }
 
 /* PAGES */
@@ -84,7 +94,7 @@ body {
 
 .card:hover{
   transform:scale(0.97);
-  box-shadow:0 0 30px red;
+  box-shadow:0 0 40px red;
 }
 
 .card img{
@@ -94,7 +104,16 @@ body {
   border-radius:10px;
 }
 
-/* BUTTON */
+/* BOX PRODUIT */
+.box{
+  background:#111;
+  padding:20px;
+  margin:20px;
+  border-radius:15px;
+  box-shadow:0 0 15px red;
+}
+
+/* BOUTONS */
 button{
   background:red;
   border:none;
@@ -102,8 +121,24 @@ button{
   color:white;
   border-radius:10px;
   cursor:pointer;
+  transition:0.3s;
 }
 
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px red;
+}
+
+/* INPUT */
+input{
+  width:60px;
+  text-align:center;
+  background:black;
+  color:red;
+  border:1px solid red;
+}
+
+/* RETOUR */
 .backBtn{
   position:fixed;
   top:20px;
@@ -123,7 +158,6 @@ button{
 
 <div class="backBtn" onclick="goBack()">RETOUR</div>
 
-<!-- FOND TEXTE -->
 <div class="bg-text" id="bgText"></div>
 
 <!-- ACCUEIL -->
@@ -138,67 +172,116 @@ button{
 
 <div class="card" onclick="openProduct('RL')">
 <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252950/library_hero.jpg">
-<h3>🚀 Boost Rocket League</h3>
+<h3>🚀 Rocket League Boost</h3>
 </div>
 
 <div class="card" onclick="openProduct('STEAM')">
 <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
-<h3>🎮 Compte Steam</h3>
+<h3>🎮 Steam Account</h3>
 </div>
+
+<!-- FAQ -->
+<h2 class="neon">FAQ</h2>
+<p>⚡ Livraison rapide</p>
+<p>💸 Pas de remboursement</p>
+<p>🔒 Service sécurisé</p>
 
 </div>
 
-<!-- PRODUIT -->
+<!-- PAGE PRODUIT -->
 <div class="productPage" id="productPage">
+
 <h1 id="productTitle" class="neon"></h1>
+
+<div class="box">
 <h2>Prix : 20€</h2>
+
+<p>Quantité :</p>
+<input type="number" value="1" id="qty">
+
+<br>
+<button onclick="addToCart()">Ajouter au panier</button>
+</div>
+
+<div class="box">
+<h2>Conditions</h2>
+<p>Pas de remboursement<br>Service rapide<br>Respect obligatoire</p>
+<button onclick="accept()">Accepter</button>
+</div>
+
+<div id="payment" style="display:none;">
+<h2>Paiement</h2>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="TON_EMAIL_PAYPAL">
+<input type="hidden" name="amount" value="20">
+<button type="submit">Payer avec PayPal</button>
+</form>
+
+</div>
+
 </div>
 
 <script>
 
+/* FOND TEXTE */
 function setBackground(text){
-let bg = document.getElementById("bgText");
-bg.innerHTML = "";
-bg.style.display = "block";
+let bg=document.getElementById("bgText");
+bg.innerHTML="";
+bg.style.display="block";
 
-/* 🔥 TEXTE FULL */
-let fullText = (text + " 👑 ").repeat(30);
+let full=(text+" 👑 ").repeat(30);
 
 for(let i=0;i<5;i++){
-let line = document.createElement("div");
+let line=document.createElement("div");
 line.className="line";
-line.innerText = fullText;
+line.innerText=full;
 bg.appendChild(line);
 }
 }
 
 function enterSite(){
-document.getElementById("home").style.display="none";
-document.getElementById("products").style.display="block";
+home.style.display="none";
+products.style.display="block";
 document.querySelector(".backBtn").style.display="block";
-
 setBackground("NOS PRODUITS");
 }
 
 function openProduct(type){
-document.getElementById("products").style.display="none";
-document.getElementById("productPage").style.display="block";
+products.style.display="none";
+productPage.style.display="block";
 
 if(type==="RL"){
-document.getElementById("productTitle").innerText="Rocket League Boost";
+productTitle.innerText="Rocket League Boost";
 setBackground("ROCKET LEAGUE BOOST");
 }
 
 if(type==="STEAM"){
-document.getElementById("productTitle").innerText="Steam Account";
+productTitle.innerText="Steam Account";
 setBackground("STEAM ACCOUNT");
 }
 }
 
 function goBack(){
-document.getElementById("productPage").style.display="none";
-document.getElementById("products").style.display="block";
+if(productPage.style.display==="block"){
+productPage.style.display="none";
+products.style.display="block";
 setBackground("NOS PRODUITS");
+}else{
+products.style.display="none";
+home.style.display="flex";
+document.querySelector(".backBtn").style.display="none";
+}
+}
+
+function accept(){
+document.getElementById("payment").style.display="block";
+}
+
+function addToCart(){
+let qty=document.getElementById("qty").value;
+alert("Ajouté x"+qty);
 }
 
 </script>
