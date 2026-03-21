@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ANIMATION FADE */
+/* ANIMATION */
 .fade {
   animation: fadeIn 1s ease;
 }
@@ -56,7 +56,6 @@ body {
   text-shadow: 0 0 10px red, 0 0 20px red;
 }
 
-/* TEXTE CLIQUABLE */
 .click-text {
   opacity: 0.7;
   transition: 0.3s;
@@ -67,30 +66,21 @@ body {
   text-shadow: 0 0 20px red;
 }
 
-/* SCROLL BG */
-.bg-scroll {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  display:none;
-}
-
-/* PRODUITS */
+/* PAGES */
 .products, .productPage {
   display:none;
   padding:50px;
   text-align:center;
 }
 
-/* CARD PRODUIT */
+/* CARTES PRODUITS */
 .card{
-  width:80%;
-  max-width:900px;
-  margin:30px auto;
+  width:90%;
+  max-width:1100px;
+  margin:40px auto;
   background:#111;
-  padding:20px;
-  border-radius:15px; /* coins arrondis */
+  padding:25px;
+  border-radius:15px;
   cursor:pointer;
   transition:0.3s;
   border:1px solid transparent;
@@ -104,7 +94,7 @@ body {
 
 .card img{
   width:100%;
-  height:300px;
+  height:350px;
   object-fit:cover;
   border-radius:10px;
 }
@@ -195,6 +185,23 @@ input{
 <h3>🎮 Compte Steam</h3>
 </div>
 
+<!-- FAQ -->
+<div style="margin-top:50px;">
+<h2 class="neon">FAQ</h2>
+
+<p><strong>💬 Comment ça marche ?</strong><br>
+Tu choisis ton service et tu payes.</p>
+
+<p><strong>⚡ Livraison ?</strong><br>
+Très rapide après paiement.</p>
+
+<p><strong>💸 Remboursement ?</strong><br>
+Pas de remboursement.</p>
+
+<p><strong>🔒 Sécurité ?</strong><br>
+Service fiable et sécurisé.</p>
+</div>
+
 </div>
 
 <!-- PAGE PRODUIT -->
@@ -263,8 +270,8 @@ let qty=document.getElementById("qty").value;
 alert("Ajouté au panier x"+qty);
 }
 
-/* POPUP FAKE */
-const names=["Lucas","Enzo","Nathan","Theo","Hugo"];
+/* POPUP */
+const names=["somoine paid"];
 
 function randomHour(){
 let h=Math.floor(Math.random()*24);
@@ -288,4 +295,6 @@ setTimeout(()=>popup.style.display="none",3000);
 
 </body>
 </html>
+
+  
 
