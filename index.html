@@ -326,12 +326,172 @@
   <main id="main">
     <h2 class="section-title">Our Premium Services</h2>
     <div class="grid">
-
-      <!-- ✅ IMAGE REMPLACÉE -->
       <div class="card" onclick="showPayment('hwid')">
-        <img loading="lazy" src="hwid-juicy.png" alt="HWID Spoofer Juicy Service">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=1200" alt="HWID Spoofer">
         <div class="card-content">
           <h3>HWID Spoofer</h3>
           <div class="price-tag">30€</div>
         </div>
       </div>
+
+      <div class="card" onclick="showPayment('boost')">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=1200" alt="Rocket League Boost">
+        <div class="card-content">
+          <h3>Rocket League Boost</h3>
+          <div class="price-tag">20€</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showPayment('steam')">
+        <img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Steam Account">
+        <div class="card-content">
+          <h3>Steam Account</h3>
+          <div class="price-tag">20€</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFAQ(this)">Why choose Juicy Service? <span>↓</span></div>
+        <div class="faq-content"><p>Fast, discreet premium services with competitive prices and a professional team.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFAQ(this)">Is it really safe? <span>↓</span></div>
+        <div class="faq-content"><p>Yes – up-to-date methods, strong anti-ban protections, maximum discretion.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFAQ(this)">Delivery time? <span>↓</span></div>
+        <div class="faq-content"><p>Instant or under 15 minutes for all products.</p></div>
+      </div>
+    </div>
+  </main>
+
+  <section class="payment-page" id="payment-hwid">
+    <div class="payment-container">
+      <a href="#" class="back-btn" onclick="backToMain()">← Back to products</a>
+      <h2 class="payment-title">HWID Spoofer Premium</h2>
+      <div class="total-price" id="total-hwid">30€</div>
+      <div class="qty-buttons">
+        <div class="qty-btn" onclick="changeQty('hwid', -1)">–</div>
+        <div class="qty-value" id="qty-val-hwid">1</div>
+        <div class="qty-btn" onclick="changeQty('hwid', 1)">+</div>
+      </div>
+      <div class="pay-box">
+        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Instant PayPal Payment</h4>
+        <button class="btn-pay" onclick="payWithPaypal('hwid')">PAY NOW →</button>
+      </div>
+      <small style="display:block;text-align:center;color:#555;">Or Crypto (contact us after payment)</small>
+    </div>
+  </section>
+
+  <section class="payment-page" id="payment-boost">
+    <div class="payment-container">
+      <a href="#" class="back-btn" onclick="backToMain()">← Back to products</a>
+      <h2 class="payment-title">Rocket League Boost</h2>
+      <div class="total-price" id="total-boost">20€</div>
+      <div class="qty-buttons">
+        <div class="qty-btn" onclick="changeQty('boost', -1)">–</div>
+        <div class="qty-value" id="qty-val-boost">1</div>
+        <div class="qty-btn" onclick="changeQty('boost', 1)">+</div>
+      </div>
+      <div class="pay-box">
+        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Instant PayPal Payment</h4>
+        <button class="btn-pay" onclick="payWithPaypal('boost')">PAY NOW →</button>
+      </div>
+      <small style="display:block;text-align:center;color:#555;">Or Crypto (contact us after payment)</small>
+    </div>
+  </section>
+
+  <section class="payment-page" id="payment-steam">
+    <div class="payment-container">
+      <a href="#" class="back-btn" onclick="backToMain()">← Back to products</a>
+      <h2 class="payment-title">Steam Account Premium</h2>
+      <div class="total-price" id="total-steam">20€</div>
+      <div class="qty-buttons">
+        <div class="qty-btn" onclick="changeQty('steam', -1)">–</div>
+        <div class="qty-value" id="qty-val-steam">1</div>
+        <div class="qty-btn" onclick="changeQty('steam', 1)">+</div>
+      </div>
+      <div class="pay-box">
+        <h4 style="color:var(--neon-blue); margin-bottom:1rem;">Instant PayPal Payment</h4>
+        <button class="btn-pay" onclick="payWithPaypal('steam')">PAY NOW →</button>
+      </div>
+      <small style="display:block;text-align:center;color:#555;">Or Crypto (contact us after payment)</small>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', e.clientX + 'px');
+      document.body.style.setProperty('--y', e.clientY + 'px');
+    });
+
+    function enterSite() {
+      document.getElementById('hero').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('hero').style.display = 'none';
+        document.getElementById('main').classList.add('visible');
+      }, 900);
+    }
+
+    function showPayment(type) {
+      document.getElementById('main').style.display = 'none';
+      document.getElementById(`payment-${type}`).style.display = 'block';
+      window.scrollTo(0,0);
+      resetQty(type);
+    }
+
+    function backToMain() {
+      document.querySelectorAll('.payment-page').forEach(p => p.style.display = 'none');
+      document.getElementById('main').style.display = 'block';
+    }
+
+    let qty = { hwid:1, boost:1, steam:1 };
+    const basePrice = { hwid:30, boost:20, steam:20 };
+
+    function resetQty(type) {
+      qty[type] = 1;
+      updateTotal(type);
+    }
+
+    function changeQty(type, delta) {
+      qty[type] = Math.max(1, Math.min(5, qty[type] + delta));
+      updateTotal(type);
+    }
+
+    function updateTotal(type) {
+      const totalEl = document.getElementById(`total-${type}`);
+      const qtyEl = document.getElementById(`qty-val-${type}`);
+      let total = basePrice[type] * qty[type];
+      if (qty[type] >= 2) total = Math.floor(total * 0.9);
+      totalEl.textContent = total + '€';
+      qtyEl.textContent = qty[type];
+    }
+
+    function payWithPaypal(type) {
+      let amount = basePrice[type] * qty[type];
+      if (qty[type] >= 2) amount = Math.floor(amount * 0.9);
+      // Remplace VOTREPSEUDO par ton vrai pseudo PayPal.me
+      const paypalLink = `https://www.paypal.me/VOTREPSEUDO/${amount}.00`;
+      window.location.href = paypalLink;
+    }
+
+    function toggleFAQ(header) {
+      const content = header.nextElementSibling;
+      const isOpen = content.style.maxHeight;
+      document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = null);
+      if (!isOpen) content.style.maxHeight = content.scrollHeight + "px";
+    }
+
+    window.onload = () => {
+      setInterval(() => {
+        document.querySelectorAll('.section-title').forEach(t => {
+          t.style.textShadow = Math.random() > 0.5 ? 'var(--glow-blue)' : 'var(--glow-purple)';
+        });
+      }, 1800);
+    };
+  </script>
+</body>
+</html>
