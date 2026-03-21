@@ -84,6 +84,7 @@ body {
   display:none;
   padding:50px;
   text-align:center;
+  min-height:100vh;
 }
 
 /* CARDS */
@@ -184,7 +185,7 @@ input{
 <h2 class="neon">Nos Produits</h2>
 
 <div class="card" onclick="openProduct('RL')">
-<img src="https://wallpapers.com/images/hd/rocket-league-octane-car-ball-4k-5k9k.jpg">
+<img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2000">
 <h3>🚀 Rocket League Boost</h3>
 </div>
 
@@ -238,8 +239,8 @@ input{
 </form>
 
 <p style="color:#888;">
- Paiement sécurisé SSL<br>
- Protection acheteur
+🔒 Paiement sécurisé SSL<br>
+🛡 Protection acheteur
 </p>
 
 </div>
@@ -279,23 +280,30 @@ productPage.style.display="block";
 let name="";
 let desc="";
 let bg="";
+let img="";
 
 if(type==="RL"){
 name="Rocket League Boost";
 desc="Boost ton rank rapidement avec nos experts.";
 bg="RL BOOSTING";
+img="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2000";
 }
 
 if(type==="STEAM"){
 name="Steam Account";
 desc="Compte Steam premium sécurisé.";
 bg="STEAM ACCOUNT";
+img="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg";
 }
 
 productTitle.innerText=name;
 document.getElementById("desc").innerText=desc;
 document.getElementById("resume").innerText=name;
 document.getElementById("paypalItem").value=name;
+
+/* 🎮 FOND DYNAMIQUE PROPRE */
+document.querySelector(".productPage").style.background=
+`linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)), url(${img}) center/cover no-repeat`;
 
 setBackground(bg);
 }
@@ -316,3 +324,4 @@ setBackground("JUICY SERVICE");
 
 </body>
 </html>
+
