@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -66,16 +66,7 @@ body {
 .enter-btn:hover { transform:scale(0.93); box-shadow:0 0 130px var(--neon-blue), 0 0 180px var(--neon-purple); }
 @keyframes neon-flicker { 0%,100% {opacity:1} 50% {opacity:0.84} }
 
-main { 
-  padding: 140px 5% 100px; 
-  max-width: 1600px; 
-  margin: 0 auto; 
-  position: relative; 
-  z-index: 10; 
-  opacity:0; 
-  transform:translateY(40px); 
-  transition:all 1.4s; 
-}
+main { padding: 140px 5% 100px; max-width: 1600px; margin: 0 auto; position: relative; z-index: 10; opacity:0; transform:translateY(40px); transition:all 1.4s; }
 main.visible { opacity:1; transform:translateY(0); }
 
 .section-title { font-size: clamp(3.5rem, 10vw, 7rem); text-align:center; text-shadow: var(--glow-purple), 0 0 25px #fff; color: var(--neon-purple); letter-spacing: -4px; margin-bottom: 3rem; }
@@ -107,8 +98,11 @@ main.visible { opacity:1; transform:translateY(0); }
 .payment-content { display:flex; flex-wrap:wrap; gap:5rem; align-items:center; justify-content:center; }
 .product-image { max-width:680px; min-width:480px; border-radius:28px; box-shadow:0 0 90px rgba(0,234,255,0.7); pointer-events:none; }
 .payment-info { flex:1; min-width:380px; text-align:center; }
-.total-price { font-size:8rem; font-weight:900; color:var(--neon-purple); text-shadow:var(--glow-purple), 0 0 45px #fff; }
-.btn-pay { width:100%; padding:2.2rem; font-size:2.2rem; font-weight:900; color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue)); border:none; border-radius:60px; box-shadow:var(--glow-blue); cursor:pointer; transition:all 0.35s; margin-top:4rem; }
+.total-price { font-size:8rem; font-weight:900; color:var(--neon-purple); text-shadow:var(--glow-purple), 0 0 45px #fff; margin:2rem 0; }
+.package-options { display:flex; flex-direction:column; gap:1.5rem; margin-bottom:2.5rem; }
+.package-option { display:flex; align-items:center; gap:1.2rem; font-size:1.45rem; cursor:pointer; }
+.package-option input[type="radio"] { width:24px; height:24px; accent-color:var(--neon-purple); }
+.btn-pay { width:100%; padding:2.2rem; font-size:2.2rem; font-weight:900; color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue)); border:none; border-radius:60px; box-shadow:var(--glow-blue); cursor:pointer; transition:all 0.35s; }
 .btn-pay:hover { transform:scale(0.96); box-shadow:0 0 160px var(--neon-purple); }
 
 @media (max-width:1100px) {
@@ -143,7 +137,7 @@ main.visible { opacity:1; transform:translateY(0); }
       <img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Rocket League">
       <div class="card-content">
         <h3>RL Boosting</h3>
-        <div class="price-tag">20€</div>
+        <div class="price-tag">5€ - 10€ - 25€ - 45€</div>
       </div>
     </div>
     <div class="card" onclick="showPayment(1)">
@@ -173,38 +167,38 @@ main.visible { opacity:1; transform:translateY(0); }
     <div class="boost-prices">
       <h3>Rocket League Boosting</h3>
       <div class="price-tier">
-        <h4>1st Price – 5€</h4>
-        <p>For 5 euros I can boost you to diamond very fast. Like 1 to 3 hours it depends where you are in the classement</p>
-        <p>Bronze To Diamond ≈ 4-5 hours</p>
-        <p>Silver to Diamond ≈ 4 hours</p>
-        <p>Gold and Plat To Diamond ≈ 1h30 or less</p>
+        <h4>1st Price – 5 euros</h4>
+        <p>For 5 euros I can boost you to diamond very fast Like 1 to 3 hours it depends where you are in the classement</p>
+        <p>Bronze To Diamond =Around 4-5 hours</p>
+        <p>Silver to Diamond =Around 4 hours</p>
+        <p>Gold and Plat To Diamond = 1H30 or less</p>
       </div>
       <div class="price-tier">
-        <h4>2nd Price – 10€</h4>
-        <p>For 10 euros I can boost you to champ very fast again it depends at where you are in the classement</p>
-        <p>Bronze To Champ ≈ 7-8 hours</p>
-        <p>Silver to Champ ≈ 4-5 hours</p>
-        <p>Gold and Plat To Champ ≈ 2h30-3 hours</p>
-        <p>Diam To Champ ≈ 1h30 or less</p>
+        <h4>2nd Price – 10 euros</h4>
+        <p>For 10 dollars/euros I can boost you to champ very fast again it depends at where you are in the classement</p>
+        <p>Bronze To Champ =7-8 hours</p>
+        <p>Silver to Champ =4-5 hours</p>
+        <p>Gold and Plat To Champ = 2h30 3 hours</p>
+        <p>Diam To Champ = 1h30 or less</p>
       </div>
       <div class="price-tier">
-        <h4>3rd Price – 25€</h4>
-        <p>For 25 euros i can boost you to Gc the time depends on your position on the classement</p>
-        <p>Bronze To Grand Champ ≈ A day</p>
-        <p>Silver to Grand Champ ≈ A day</p>
-        <p>Gold and Plat To Grand Champ ≈ a day</p>
-        <p>Diam To Grand Champ ≈ 3 hours</p>
-        <p>Champ to Grand Champ ≈ 2h30 or less like 2 hours</p>
+        <h4>3rd Price – 25 euros</h4>
+        <p>For 25 dollars/euros i can boost you to Gc the time depends on your position on the classement</p>
+        <p>Bronze To Grand Champ =A day</p>
+        <p>Silver to Grand Champ =A day</p>
+        <p>Gold and Plat To Grand Champ = a day</p>
+        <p>Diam To Grand Champ = 3 hours</p>
+        <p>Champ to Grand Champ = 2h30 or less like 2 hours</p>
       </div>
       <div class="price-tier">
-        <h4>4th Price – 45€</h4>
-        <p>For 45 euros i can boost you to SSL but it will ask for more time</p>
-        <p>Bronze To SSL ≈ 2-3 days</p>
-        <p>Silver to SSL ≈ 2-3 days</p>
-        <p>Gold and Plat To SSL ≈ 2-3 days</p>
-        <p>Diam To SSL ≈ 2 days</p>
-        <p>Champ to SSL ≈ 4 hours</p>
-        <p>Grand champ to SSL ≈ 2-3 hours</p>
+        <h4>4th Price – 45 euros</h4>
+        <p>For 45 dollars/euros i can boost you to SSL but it will ask for more time</p>
+        <p>Bronze To SSL = 2-3 days</p>
+        <p>Silver to SSL =2-3 days</p>
+        <p>Gold and Plat To SSL = 2-3 days</p>
+        <p>Diam To SSL = 2 days</p>
+        <p>Champ to SSL = 4 hours</p>
+        <p>Grand champ to SSL = 2-3 hours</p>
       </div>
     </div>
   </div>
@@ -220,6 +214,42 @@ main.visible { opacity:1; transform:translateY(0); }
   </section>
 </main>
 
+<!-- Page RL Boosting avec choix de pack -->
+<section class="payment-page" id="rl-payment" style="display:none;">
+  <div class="payment-container">
+    <div class="back-btn" onclick="backToMain()">← Back to Products</div>
+    <div class="payment-content">
+      <img class="product-image" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Rocket League">
+      <div class="payment-info">
+        <h2 style="font-size:3.8rem; text-shadow:var(--glow-purple), 0 0 35px #fff; margin-bottom:2rem; color:var(--neon-purple);">Rocket League Boosting</h2>
+        
+        <div class="package-options">
+          <label class="package-option">
+            <input type="radio" name="rl-pack" value="5" checked onchange="updateRLPrice()">
+            <span>5 euros - Diamond (1 to 5 hours depending on rank)</span>
+          </label>
+          <label class="package-option">
+            <input type="radio" name="rl-pack" value="10" onchange="updateRLPrice()">
+            <span>10 euros - Champion (2 to 8 hours depending on rank)</span>
+          </label>
+          <label class="package-option">
+            <input type="radio" name="rl-pack" value="25" onchange="updateRLPrice()">
+            <span>25 euros - Grand Champ (3 hours to 1 day depending on rank)</span>
+          </label>
+          <label class="package-option">
+            <input type="radio" name="rl-pack" value="45" onchange="updateRLPrice()">
+            <span>45 euros - SSL (2 hours to 3 days depending on rank)</span>
+          </label>
+        </div>
+
+        <div class="total-price" id="rl-total-price">5€</div>
+        <button class="btn-pay" onclick="payRLNow()">PAY NOW</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Page paiement autres produits -->
 <section class="payment-page" id="payment-page" style="display:none;">
   <div class="payment-container">
     <div class="back-btn" onclick="backToMain()">← Back to Products</div>
@@ -240,13 +270,13 @@ document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 });
-document.querySelectorAll('button, .card, .btn-pay, .back-btn').forEach(el => {
+document.querySelectorAll('button, .card, .btn-pay, .back-btn, label.package-option').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
 const products = [
-  { title: "RL Boosting",   price: 20, image: "https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" },
+  { title: "RL Boosting",   priceRange: "5€ - 10€ - 25€ - 45€", image: "https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b", isRL: true },
   { title: "Steam Account", price: 20, image: "https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" },
   { title: "HWID Spoofer",  price: 30, image: "https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" }
 ];
@@ -264,12 +294,30 @@ function enterSite() {
 
 function showPayment(index) {
   const prod = products[index];
-  document.getElementById('payment-image').src = prod.image;
-  document.getElementById('payment-title').textContent = prod.title;
-  document.getElementById('total-price').textContent = prod.price + '€';
-  document.getElementById('main').style.display = 'none';
-  document.getElementById('payment-page').style.display = 'block';
+  if (prod.isRL) {
+    document.getElementById('rl-payment').style.display = 'block';
+    document.getElementById('main').style.display = 'none';
+    updateRLPrice();
+  } else {
+    document.getElementById('payment-image').src = prod.image;
+    document.getElementById('payment-title').textContent = prod.title;
+    document.getElementById('total-price').textContent = prod.price + '€';
+    document.getElementById('payment-page').style.display = 'block';
+    document.getElementById('main').style.display = 'none';
+  }
   window.scrollTo(0, 0);
+}
+
+function updateRLPrice() {
+  const selected = document.querySelector('input[name="rl-pack"]:checked');
+  if (selected) {
+    document.getElementById('rl-total-price').textContent = selected.value + '€';
+  }
+}
+
+function payRLNow() {
+  const price = document.getElementById('rl-total-price').textContent.replace('€', '').trim();
+  window.location.href = `https://www.paypal.me/VOTREPSEUDO/${price}`;
 }
 
 function payNow() {
@@ -279,6 +327,7 @@ function payNow() {
 
 function backToMain() {
   document.getElementById('payment-page').style.display = 'none';
+  document.getElementById('rl-payment').style.display = 'none';
   document.getElementById('main').style.display = 'block';
 }
 
