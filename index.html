@@ -1,225 +1,413 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Juicy Service</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JWC Service • PREMIUM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #000;
+      --neon-blue: #00f0ff;
+      --neon-purple: #c300ff;
+      --neon-red: #ff0044;
+      --glow-blue: 0 0 10px var(--neon-blue), 0 0 25px var(--neon-blue), 0 0 50px var(--neon-blue), 0 0 80px var(--neon-purple);
+      --glow-purple: 0 0 10px var(--neon-purple), 0 0 25px var(--neon-purple), 0 0 50px var(--neon-purple);
+      --transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg);
+      color: white;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    /* Curseur parfait */
+    .custom-cursor {
+      position: fixed;
+      width: 26px;
+      height: 26px;
+      border: 2px solid var(--neon-blue);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      box-shadow: var(--glow-blue);
+      transform: translate(-50%, -50%);
+      transition: width 0.18s, height 0.18s, background 0.2s, transform 0.05s ease-out;
+      will-change: transform;
+    }
+    .custom-cursor.hover {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 240, 255, 0.18);
+      box-shadow: 0 0 40px var(--neon-blue), 0 0 70px var(--neon-purple);
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: black;
-  color: white;
-  overflow-x: hidden;
-}
+    .bg-scroll {
+      position: fixed; inset:0; pointer-events:none; z-index:0; opacity:0.18; overflow:hidden;
+    }
+    .bg-scroll span {
+      position: absolute; left:100%; white-space:nowrap;
+      font-size: clamp(2.2rem, 7vw, 6.5rem); font-weight:900;
+      color: var(--neon-blue); text-shadow: var(--glow-blue);
+      animation: scroll linear infinite;
+    }
+    @keyframes scroll { to { transform: translateX(-200%); } }
 
-/* ACCUEIL */
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000') center / cover no-repeat;
-  z-index: -1;
-}
+    .enter-screen {
+      min-height: 100dvh; display: grid; place-items: center;
+      position: fixed; inset:0; z-index:200;
+      background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(10,0,30,0.95)),
+                  url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover;
+      transition: opacity 1.6s cubic-bezier(0.23,1,0.32,1);
+    }
+    .enter-screen.hidden { opacity:0; pointer-events:none; }
+    .enter-title {
+      font-size: clamp(6rem, 16vw, 14rem);
+      font-weight:900;
+      text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-red), 0 0 80px var(--neon-purple);
+      animation: neon-flicker 3.5s infinite alternate;
+      letter-spacing: -6px;
+    }
+    .enter-btn {
+      margin-top:3rem; padding:1.6rem 5rem; font-size:1.9rem; font-weight:900;
+      color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
+      border:none; border-radius:50px; box-shadow:var(--glow-blue);
+      cursor:pointer; transition:var(--transition);
+    }
+    .enter-btn:hover { transform:scale(0.92); box-shadow:0 0 90px var(--neon-blue), 0 0 130px var(--neon-purple); }
+    @keyframes neon-flicker { 0%,100%{opacity:1} 50%{opacity:0.88} }
 
-.hero {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  cursor:pointer;
-}
+    header {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      background:rgba(0,0,0,0.75); backdrop-filter:blur(12px);
+      padding:1.2rem 5%; display:flex; justify-content:space-between; align-items:center;
+    }
+    .logo { font-size:2.4rem; font-weight:900; text-shadow:var(--glow-purple); color:var(--neon-purple); }
 
-.neon {
-  color: red;
-  text-shadow: 0 0 10px red, 0 0 20px red;
-}
+    main { padding-top:110px; max-width:1480px; margin:0 auto; opacity:0; transform:translateY(60px); transition:all 1.4s; }
+    main.visible { opacity:1; transform:none; }
 
-/* 🔴 SCROLL INFini */
-.bg-scroll {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  display:none;
-}
+    .section-title {
+      font-size: clamp(3.2rem, 9vw, 6.5rem);
+      text-align:center;
+      margin:5rem 0 3rem;
+      text-shadow:var(--glow-blue);
+      color:var(--neon-blue);
+      letter-spacing:-3px;
+    }
 
-.scroll-line {
-  position:absolute;
-  width:200%;
-  white-space:nowrap;
-  color:red;
-  opacity:0.3;
-  font-size:24px;
-  text-shadow:0 0 5px red,0 0 10px red,0 0 20px red;
-  animation:scroll 35s linear infinite;
-}
+    .grid {
+      display:grid;
+      gap:2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    }
+    .card {
+      background:#0a0a0f;
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:0 12px 50px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(0,240,255,0.18);
+      transition:var(--transition);
+      cursor:pointer;
+    }
+    .card:hover {
+      transform:scale(0.96) translateY(-12px);
+      box-shadow:0 25px 80px rgba(195,0,255,0.45), 0 0 0 3px var(--neon-blue);
+    }
+    .card img { width:100%; aspect-ratio:16/9; object-fit:cover; transition:transform 0.7s; }
+    .card:hover img { transform:scale(1.08); }
+    .card-content { padding:2rem; text-align:center; }
+    .card h3 { font-size:clamp(1.9rem,4.5vw,2.6rem); color:var(--neon-purple); text-shadow:var(--glow-purple); }
+    .price-tag { font-size:2.3rem; font-weight:900; color:white; margin-top:0.8rem; text-shadow:var(--glow-blue); }
 
-.scroll-line:nth-child(1){top:10%;}
-.scroll-line:nth-child(2){top:25%;}
-.scroll-line:nth-child(3){top:40%;}
-.scroll-line:nth-child(4){top:55%;}
-.scroll-line:nth-child(5){top:70%;}
-.scroll-line:nth-child(6){top:85%;}
+    .games-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      margin: 6rem 0;
+      padding: 0 5%;
+    }
+    .games, .services {
+      flex: 1;
+      min-width: 340px;
+      background: rgba(10,10,25,0.6);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(0,240,255,0.2);
+    }
+    .games h3, .services h3 {
+      color: var(--neon-purple);
+      text-shadow: var(--glow-purple);
+      margin-bottom: 1.5rem;
+    }
+    .games ul, .services ul {
+      list-style: none;
+      font-size: 1.2rem;
+      line-height: 2;
+    }
+    .games li::before { content:"🎮 "; }
+    .services li::before { content:"👑 "; }
 
-@keyframes scroll{
-0%{transform:translateX(0)}
-100%{transform:translateX(-50%)}
-}
+    .faq-section {
+      max-width:1100px;
+      margin:6rem auto 8rem;
+      padding:0 2rem;
+    }
+    .faq-section h3 { font-size:2.8rem; text-align:center; color:var(--neon-purple); text-shadow:var(--glow-purple); margin-bottom:3rem; }
+    .faq-item {
+      background:rgba(10,10,25,0.6);
+      padding:1.8rem;
+      margin-bottom:1.5rem;
+      border-radius:20px;
+      border:1px solid rgba(0,240,255,0.2);
+    }
+    .faq-item strong { color:var(--neon-blue); display:block; margin-bottom:0.8rem; font-size:1.4rem; }
 
-/* PRODUITS */
-.products, .productPage {
-}
+    .payment-page { display:none; min-height:100dvh; padding:6rem 2rem; background:var(--bg); z-index:10; }
+    .payment-container {
+      max-width:1100px; margin:0 auto; background:rgba(8,8,18,0.95);
+      border-radius:30px; padding:3.5rem; border:1px solid rgba(0,240,255,0.3);
+      box-shadow:0 0 90px rgba(195,0,255,0.25);
+    }
+    .back-btn { color:var(--neon-blue); font-size:1.3rem; cursor:pointer; margin-bottom:2rem; }
+    .payment-content { display:flex; flex-wrap:wrap; gap:3rem; }
+    .product-image { flex:1; min-width:340px; border-radius:20px; box-shadow:0 0 40px rgba(0,240,255,0.4); }
+    .payment-info { flex:1; min-width:340px; }
+    .price-section {
+      display:flex; align-items:center; justify-content:center; gap:4rem;
+      margin:3rem 0; flex-wrap:wrap;
+    }
+    .total-price { font-size:5rem; font-weight:900; color:white; text-shadow:var(--glow-blue); }
+    .qty-controls { display:flex; align-items:center; gap:1.5rem; }
+    .qty-btn {
+      width:60px; height:60px; background:rgba(0,240,255,0.1);
+      border:2px solid var(--neon-blue); border-radius:50%;
+      font-size:1.8rem; color:white; cursor:pointer; transition:var(--transition);
+    }
+    .qty-btn:hover { background:var(--neon-blue); color:#000; transform:scale(1.1); }
+    .qty-value { font-size:2.8rem; font-weight:700; min-width:70px; text-align:center; }
+    .btn-pay {
+      width:100%; padding:1.6rem; font-size:1.65rem; font-weight:900;
+      color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
+      border:none; border-radius:50px; box-shadow:var(--glow-blue);
+      cursor:pointer; transition:var(--transition); margin-top:2rem;
+    }
+    .btn-pay:hover { transform:scale(0.94); box-shadow:0 0 100px var(--neon-purple); }
 
-.backBtn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px red;
-}
-
-</style>
+    @media (max-width:900px) {
+      .payment-content { flex-direction:column; }
+      .price-section { flex-direction:column; gap:2rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- 🔙 RETOUR -->
-<div class="backBtn" onclick="goBack()">RETOUR</div>
+  <div class="custom-cursor" id="cursor"></div>
 
-<!-- 🔴 SCROLL -->
-<div class="bg-scroll" id="scrollBg">
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-<div class="scroll-line">👑 Juicy Services 👑 Juicy Services 👑 Juicy Services 👑</div>
-</div>
+  <div class="bg-scroll" aria-hidden="true">
+    <span style="animation-duration:65s; top:8%;">JWC SERVICE • PREMIUM • JWC SERVICE •</span>
+    <span style="animation-duration:95s; top:26%; animation-direction:reverse;">HWID • BOOST • STEAM • UNDETECTED •</span>
+    <span style="animation-duration:78s; top:44%;">2026 • FAST • SECURE • DISCREET • 2026 •</span>
+  </div>
 
-<!-- ACCUEIL -->
-<div class="hero" onclick="enterSite()" id="home">
-<h1 class="neon">CLIQUEZ POUR ENTRER</h1>
-<h2 class="neon">Juicy Service</h2>
-</div>
+  <section class="enter-screen" id="enter-screen">
+    <div style="text-align:center;">
+      <h1 class="enter-title">JWC SERVICE</h1>
+      <button class="enter-btn" onclick="enterSite()">CLICK TO ENTER</button>
+    </div>
+  </section>
 
-<!-- PRODUITS -->
-<div class="products" id="products">
-<h2 class="neon">Nos Produits</h2>
+  <header>
+    <div class="logo">JWC SERVICE</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Our Products</a>
+      <a href="#">Status</a>
+      <a href="#">Discord</a>
+    </nav>
+  </header>
 
-<div class="card" onclick="openProduct('RL Boost')">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252950/library_hero.jpg">
-<h3>Boosting RL</h3>
-</div>
+  <main id="main">
+    <h2 class="section-title">OUR PRODUCTS</h2>
+    <div class="grid">
+      <!-- RL Boosting - Photo officielle Rocket League -->
+      <div class="card" onclick="showPayment(0)">
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co4t2a.jpg" alt="Rocket League Boosting">
+        <div class="card-content">
+          <h3>RL Boosting</h3>
+          <div class="price-tag">20€</div>
+        </div>
+      </div>
 
-<div class="card" onclick="openProduct('Steam Account')">
-<img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg">
-<h3>Steam Account</h3>
-</div>
-</div>
+      <!-- Steam Account -->
+      <div class="card" onclick="showPayment(1)">
+        <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Steam Account">
+        <div class="card-content">
+          <h3>Steam Account</h3>
+          <div class="price-tag">20€</div>
+        </div>
+      </div>
 
-<!-- PAGE PRODUIT -->
-<div class="productPage" id="productPage">
+      <!-- HWID Spoofer - Carte mère RGB cyber -->
+      <div class="card" onclick="showPayment(2)">
+        <img src="https://images.unsplash.com/photo-1587202372775-0d2a0e2f7c9a?auto=format&fit=crop&q=80&w=1200" alt="HWID Spoofer Motherboard">
+        <div class="card-content">
+          <h3>HWID Spoofer</h3>
+          <div class="price-tag">30€</div>
+        </div>
+      </div>
+    </div>
 
-<h1 id="productTitle" class="neon"></h1>
+    <!-- Games + Services -->
+    <div class="games-services">
+      <div class="games">
+        <h3>Supported Games</h3>
+        <ul>
+          <li>Fortnite</li>
+          <li>Apex Legends</li>
+          <li>Rainbow Six Siege</li>
+          <li>FiveM / GTA V</li>
+          <li>Rust</li>
+          <li>Dead By Daylight</li>
+          <li>DayZ</li>
+          <li>Sea of Thieves</li>
+          <li>Roblox</li>
+          <li>Overwatch</li>
+        </ul>
+      </div>
 
-<div class="box">
-<h2>Prix : 20€</h2>
+      <div class="services">
+        <h3>Our Services</h3>
+        <ul>
+          <li>Instant Delivery</li>
+          <li>24/7 Customer Support</li>
+          <li>HWID Unban Guide</li>
+          <li>IP Ban Fix</li>
+          <li>Customer Community Chat</li>
+          <li>Customer HWID Reset Tool</li>
+          <li>Lifetime Updates</li>
+        </ul>
+      </div>
+    </div>
 
-<p>Quantité :</p>
-<input type="number" value="1" id="qty">
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h3 class="section-title">FAQ</h3>
+      <div class="faq-item"><strong>Why choose JWC Service?</strong> Ultra-fast, 100% discreet services with unbeatable prices and a pro team since 2024.</div>
+      <div class="faq-item"><strong>How fast do you reply?</strong> Less than 5 minutes 24/7 on Discord.</div>
+      <div class="faq-item"><strong>Is it really safe?</strong> Yes – 2026 methods, reinforced anti-ban, zero logs, maximum discretion.</div>
+      <div class="faq-item"><strong>Delivery time?</strong> Instant or under 15 minutes for all products.</div>
+      <div class="faq-item"><strong>What if I get a false ban?</strong> The spoofer works perfectly on false bans.</div>
+      <div class="faq-item"><strong>Do I need to reset my PC?</strong> No, no reinstallation required.</div>
+      <div class="faq-item"><strong>Can I buy multiple?</strong> Yes, use + / – and get 10% off from 2 units.</div>
+    </section>
+  </main>
 
-<br>
-<button onclick="addToCart()">Ajouter au panier</button>
-</div>
+  <section class="payment-page" id="payment-page">
+    <div class="payment-container">
+      <div class="back-btn" onclick="backToMain()">← Back to Products</div>
+      
+      <div class="payment-content">
+        <img id="payment-image" class="product-image" src="" alt="Product">
 
-<div class="box">
-<h2>Conditions</h2>
-<p>
-Pas de remboursement<br>
-Service rapide<br>
-Respect obligatoire
-</p>
-<button onclick="accept()">Accepter</button>
-</div>
+        <div class="payment-info">
+          <h2 id="payment-title" style="font-size:3rem; text-shadow:var(--glow-purple); margin-bottom:2rem;"></h2>
 
-<div id="payment" style="display:none;">
-<h2>Moyen de paiement</h2>
+          <div class="price-section">
+            <div class="total-price" id="total-price">30€</div>
+            <div class="qty-controls">
+              <div class="qty-btn" onclick="changeQty(-1)">–</div>
+              <div class="qty-value" id="qty-value">1</div>
+              <div class="qty-btn" onclick="changeQty(1)">+</div>
+            </div>
+          </div>
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-<input type="hidden" name="cmd" value="_xclick">
-<input type="hidden" name="business" value="TON_EMAIL_PAYPAL">
-<input type="hidden" name="item_name" value="Produit Juicy">
-<input type="hidden" name="amount" value="20">
-<input type="hidden" name="currency_code" value="EUR">
-<button type="submit">Payer avec PayPal</button>
-</form>
+          <button class="btn-pay" onclick="payNow()">PAY NOW</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</div>
+  <script>
+    // Curseur
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
 
-</div>
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('button, .card, a, nav a').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
 
-<div class="popup" id="popup"></div>
+    const products = [
+      { title: "RL Boosting", price: 20, image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co4t2a.jpg" },
+      { title: "Steam Account", price: 20, image: "https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" },
+      { title: "HWID Spoofer", price: 30, image: "https://images.unsplash.com/photo-1587202372775-0d2a0e2f7c9a?auto=format&fit=crop&q=80&w=1200" }
+    ];
 
-<script>
-function enterSite(){
-document.getElementById("home").style.display="none";
-document.getElementById("products").style.display="block";
-document.getElementById("scrollBg").style.display="block";
-document.querySelector(".backBtn").style.display="block";
-startPopup();
-}
+    let currentProduct = 0;
+    let qty = 1;
 
-function openProduct(name){
-document.getElementById("products").style.display="none";
-document.getElementById("productPage").style.display="block";
-document.getElementById("productTitle").innerText=name;
-}
+    function enterSite() {
+      document.getElementById('enter-screen').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('enter-screen').style.display = 'none';
+        document.getElementById('main').classList.add('visible');
+      }, 1600);
+    }
 
-function goBack(){
-if(document.getElementById("productPage").style.display==="block"){
-document.getElementById("productPage").style.display="none";
-document.getElementById("products").style.display="block";
-}else{
-document.getElementById("products").style.display="none";
-document.getElementById("home").style.display="flex";
-document.getElementById("scrollBg").style.display="none";
-document.querySelector(".backBtn").style.display="none";
-}
-}
+    function showPayment(index) {
+      currentProduct = index;
+      qty = 1;
+      const prod = products[index];
+      document.getElementById('payment-image').src = prod.image;
+      document.getElementById('payment-title').textContent = prod.title;
+      updatePrice();
+      document.getElementById('main').style.display = 'none';
+      document.getElementById('payment-page').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
 
-function accept(){
-document.getElementById("payment").style.display="block";
-}
+    function changeQty(delta) {
+      qty = Math.max(1, Math.min(5, qty + delta));
+      updatePrice();
+    }
 
-function addToCart(){
-let qty=document.getElementById("qty").value;
-alert("Ajouté au panier x"+qty);
-}
+    function updatePrice() {
+      let total = products[currentProduct].price * qty;
+      if (qty >= 2) total = Math.floor(total * 0.9);
+      document.getElementById('total-price').textContent = total + '€';
+      document.getElementById('qty-value').textContent = qty;
+    }
 
-/* POPUP */
-const names=["Lucas","Enzo","Nathan","Theo","Hugo"];
+    function payNow() {
+      let total = products[currentProduct].price * qty;
+      if (qty >= 2) total = Math.floor(total * 0.9);
+      window.location.href = `https://www.paypal.me/VOTREPSEUDO/${total}`;
+    }
 
-function randomHour(){
-let h=Math.floor(Math.random()*24);
-let m=Math.floor(Math.random()*60);
-return h+"h"+(m<10?"0"+m:m);
-}
+    function backToMain() {
+      document.getElementById('payment-page').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+    }
 
-function startPopup(){
-setInterval(()=>{
-let name=names[Math.floor(Math.random()*names.length)];
-let popup=document.getElementById("popup");
-
-popup.innerText=name+" a acheté à "+randomHour();
-popup.style.display="block";
-
-setTimeout(()=>popup.style.display="none",3000);
-
-},5000);
-}
-</script>
-
+    window.onload = () => {
+      setInterval(() => {
+        document.querySelectorAll('.section-title').forEach(t => {
+          t.style.textShadow = Math.random() > 0.5 ? 'var(--glow-blue)' : 'var(--glow-purple)';
+        });
+      }, 1400);
+    };
+  </script>
 </body>
 </html>
