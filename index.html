@@ -1,417 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Juicy Service • PREMIUM 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg: #000;
-      --neon-blue: #00f0ff;
-      --neon-purple: #c300ff;
-      --neon-red: #ff0044;
-      --glow-blue: 0 0 10px var(--neon-blue), 0 0 25px var(--neon-blue), 0 0 50px var(--neon-blue), 0 0 80px var(--neon-purple);
-      --glow-purple: 0 0 10px var(--neon-purple), 0 0 25px var(--neon-purple), 0 0 50px var(--neon-purple);
-      --transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: var(--bg);
-      color: white;
-      min-height: 100dvh;
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* Curseur parfait */
-    .custom-cursor {
-      position: fixed;
-      width: 26px;
-      height: 26px;
-      border: 2px solid var(--neon-blue);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      box-shadow: var(--glow-blue);
-      transform: translate(-50%, -50%);
-      transition: width 0.18s, height 0.18s, background 0.2s, transform 0.05s ease-out;
-      will-change: transform;
-    }
-    .custom-cursor.hover {
-      width: 44px;
-      height: 44px;
-      background: rgba(0, 240, 255, 0.18);
-      box-shadow: 0 0 40px var(--neon-blue), 0 0 70px var(--neon-purple);
-    }
-
-    .bg-scroll {
-      position: fixed; inset:0; pointer-events:none; z-index:0; opacity:0.18; overflow:hidden;
-    }
-    .bg-scroll span {
-      position: absolute; left:100%; white-space:nowrap;
-      font-size: clamp(2.2rem, 7vw, 6.5rem); font-weight:900;
-      color: var(--neon-blue); text-shadow: var(--glow-blue);
-      animation: scroll linear infinite;
-    }
-    @keyframes scroll { to { transform: translateX(-200%); } }
-
-    .enter-screen {
-      min-height: 100dvh; display: grid; place-items: center;
-      position: fixed; inset:0; z-index:200;
-      background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(10,0,30,0.95)),
-                  url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover;
-      transition: opacity 1.6s cubic-bezier(0.23,1,0.32,1);
-    }
-    .enter-screen.hidden { opacity:0; pointer-events:none; }
-    .enter-title {
-      font-size: clamp(6rem, 16vw, 14rem);
-      font-weight:900;
-      text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-red), 0 0 80px var(--neon-purple);
-      animation: neon-flicker 3.5s infinite alternate;
-      letter-spacing: -6px;
-    }
-    .enter-btn {
-      margin-top:3rem; padding:1.6rem 5rem; font-size:1.9rem; font-weight:900;
-      color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
-      border:none; border-radius:50px; box-shadow:var(--glow-blue);
-      cursor:pointer; transition:var(--transition);
-    }
-    .enter-btn:hover { transform:scale(0.92); box-shadow:0 0 90px var(--neon-blue), 0 0 130px var(--neon-purple); }
-    @keyframes neon-flicker { 0%,100%{opacity:1} 50%{opacity:0.88} }
-
-    header {
-      position:fixed; top:0; left:0; right:0; z-index:100;
-      background:rgba(0,0,0,0.75); backdrop-filter:blur(12px);
-      padding:1.2rem 5%; display:flex; justify-content:space-between; align-items:center;
-    }
-    .logo { font-size:2.4rem; font-weight:900; text-shadow:var(--glow-purple); color:var(--neon-purple); }
-
-    main { padding-top:110px; max-width:1480px; margin:0 auto; opacity:0; transform:translateY(60px); transition:all 1.4s; }
-    main.visible { opacity:1; transform:none; }
-
-    .section-title {
-      font-size: clamp(3.2rem, 9vw, 6.5rem);
-      text-align:center;
-      margin:5rem 0 3rem;
-      text-shadow:var(--glow-blue);
-      color:var(--neon-blue);
-      letter-spacing:-3px;
-    }
-
-    .grid {
-      display:grid;
-      gap:2.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    }
-    .card {
-      background:#0a0a0f;
-      border-radius:30px;
-      overflow:hidden;
-      box-shadow:0 12px 50px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(0,240,255,0.18);
-      transition:var(--transition);
-      cursor:pointer;
-    }
-    .card:hover {
-      transform:scale(0.96) translateY(-12px);
-      box-shadow:0 25px 80px rgba(195,0,255,0.45), 0 0 0 3px var(--neon-blue);
-    }
-    .card img { width:100%; aspect-ratio:16/9; object-fit:cover; transition:transform 0.7s; }
-    .card:hover img { transform:scale(1.08); }
-    .card-content { padding:2rem; text-align:center; }
-    .card h3 { font-size:clamp(1.9rem,4.5vw,2.6rem); color:var(--neon-purple); text-shadow:var(--glow-purple); }
-    .price-tag { font-size:2.3rem; font-weight:900; color:white; margin-top:0.8rem; text-shadow:var(--glow-blue); }
-
-    .games-services {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      margin: 6rem 0;
-      padding: 0 5%;
-    }
-    .games, .services {
-      flex: 1;
-      min-width: 340px;
-      background: rgba(10,10,25,0.6);
-      border-radius: 20px;
-      padding: 2.5rem;
-      border: 1px solid rgba(0,240,255,0.2);
-    }
-    .games h3, .services h3 {
-      color: var(--neon-purple);
-      text-shadow: var(--glow-purple);
-      margin-bottom: 1.5rem;
-    }
-    .games ul, .services ul {
-      list-style: none;
-      font-size: 1.2rem;
-      line-height: 2;
-    }
-    .games li::before { content:"🎮 "; }
-    .services li::before { content:"👑 "; }
-
-    .faq-section {
-      max-width:1100px;
-      margin:6rem auto 8rem;
-      padding:0 2rem;
-    }
-    .faq-section h3 { font-size:2.8rem; text-align:center; color:var(--neon-purple); text-shadow:var(--glow-purple); margin-bottom:3rem; }
-    .faq-item {
-      background:rgba(10,10,25,0.6);
-      padding:1.8rem;
-      margin-bottom:1.5rem;
-      border-radius:20px;
-      border:1px solid rgba(0,240,255,0.2);
-    }
-    .faq-item strong { color:var(--neon-blue); display:block; margin-bottom:0.8rem; font-size:1.4rem; }
-
-    .payment-page { display:none; min-height:100dvh; padding:6rem 2rem; background:var(--bg); z-index:10; }
-    .payment-container {
-      max-width:1100px; margin:0 auto; background:rgba(8,8,18,0.95);
-      border-radius:30px; padding:3.5rem; border:1px solid rgba(0,240,255,0.3);
-      box-shadow:0 0 90px rgba(195,0,255,0.25);
-    }
-    .back-btn { color:var(--neon-blue); font-size:1.3rem; cursor:pointer; margin-bottom:2rem; }
-    .payment-content { display:flex; flex-wrap:wrap; gap:3rem; }
-    .product-image { flex:1; min-width:340px; border-radius:20px; box-shadow:0 0 40px rgba(0,240,255,0.4); }
-    .payment-info { flex:1; min-width:340px; }
-    .price-section {
-      display:flex; align-items:center; justify-content:center; gap:4rem;
-      margin:3rem 0; flex-wrap:wrap;
-    }
-    .total-price { font-size:5rem; font-weight:900; color:white; text-shadow:var(--glow-blue); }
-    .qty-controls { display:flex; align-items:center; gap:1.5rem; }
-    .qty-btn {
-      width:60px; height:60px; background:rgba(0,240,255,0.1);
-      border:2px solid var(--neon-blue); border-radius:50%;
-      font-size:1.8rem; color:white; cursor:pointer; transition:var(--transition);
-    }
-    .qty-btn:hover { background:var(--neon-blue); color:#000; transform:scale(1.1); }
-    .qty-value { font-size:2.8rem; font-weight:700; min-width:70px; text-align:center; }
-    .btn-pay {
-      width:100%; padding:1.6rem; font-size:1.65rem; font-weight:900;
-      color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
-      border:none; border-radius:50px; box-shadow:var(--glow-blue);
-      cursor:pointer; transition:var(--transition); margin-top:2rem;
-    }
-    .btn-pay:hover { transform:scale(0.94); box-shadow:0 0 100px var(--neon-purple); }
-
-    @media (max-width:900px) {
-      .payment-content { flex-direction:column; }
-      .price-section { flex-direction:column; gap:2rem; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Juicy Service • PREMIUM 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+--bg: #000;
+--neon-blue: #00f0ff;
+--neon-purple: #c300ff;
+--neon-red: #ff0044;
+--glow-blue: 0 0 10px var(--neon-blue), 0 0 25px var(--neon-blue), 0 0 50px var(--neon-blue), 0 0 80px var(--neon-purple);
+--glow-purple: 0 0 10px var(--neon-purple), 0 0 25px var(--neon-purple), 0 0 50px var(--neon-purple);
+--transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+font-family: 'Orbitron', sans-serif;
+background: var(--bg);
+color: white;
+min-height: 100dvh;
+overflow-x: hidden;
+cursor: none;
+}
+.custom-cursor {
+position: fixed;
+width: 26px;
+height: 26px;
+border: 2px solid var(--neon-blue);
+border-radius: 50%;
+pointer-events: none;
+z-index: 99999;
+box-shadow: var(--glow-blue);
+transform: translate(-50%, -50%);
+transition: width 0.18s, height 0.18s, background 0.2s, transform 0.05s ease-out;
+will-change: transform;
+}
+.custom-cursor.hover {
+width: 44px;
+height: 44px;
+background: rgba(0, 240, 255, 0.18);
+box-shadow: 0 0 40px var(--neon-blue), 0 0 70px var(--neon-purple);
+}
+.bg-scroll {
+position: fixed; inset:0; pointer-events:none; z-index:0; opacity:0.18; overflow:hidden;
+}
+.bg-scroll span {
+position: absolute; left:100%; white-space:nowrap;
+font-size: clamp(2.2rem, 7vw, 6.5rem); font-weight:900;
+color: var(--neon-blue); text-shadow: var(--glow-blue);
+animation: scroll linear infinite;
+}
+@keyframes scroll { to { transform: translateX(-200%); } }
+.enter-screen {
+min-height: 100dvh; display: grid; place-items: center;
+position: fixed; inset:0; z-index:200;
+background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(10,0,30,0.95)),
+url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover;
+transition: opacity 1.6s cubic-bezier(0.23,1,0.32,1);
+cursor: pointer;
+}
+.enter-screen.hidden { opacity:0; pointer-events:none; }
+.enter-title {
+font-size: clamp(6rem, 16vw, 14rem);
+font-weight:900;
+text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-red), 0 0 80px var(--neon-purple);
+animation: neon-flicker 3.5s infinite alternate;
+}
+.enter-btn {
+margin-top:3rem; padding:1.6rem 5rem; font-size:1.9rem; font-weight:900;
+color:#fff; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
+border:none; border-radius:50px; box-shadow:var(--glow-blue);
+cursor:pointer; transition:var(--transition);
+}
+.enter-btn:hover { transform:scale(0.92); box-shadow:0 0 90px var(--neon-blue), 0 0 130px var(--neon-purple); }
+@keyframes neon-flicker { 0%,100% {opacity:1} 50% {opacity:0.88} }
+main {
+padding-top:110px; max-width:1480px; margin:0 auto;
+opacity:0; transform:translateY(60px); transition:all 1.4s;
+}
+main.visible { opacity:1; transform:translateY(0); }
+.section-title {
+font-size: clamp(3.2rem, 9vw, 6.5rem); text-align:center;
+text-shadow:var(--glow-blue); color:var(--neon-blue);
+letter-spacing:-3px;
+}
+.grid {
+display:grid; gap:2.5rem;
+grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+}
+.card {
+background:#0a0a0f; border-radius:30px; overflow:hidden;
+box-shadow:0 12px 50px rgba(0,0,0,0.8), inset 0 0 1px rgba(240,255,18,0.08);
+transition:var(--transition); cursor:pointer;
+}
+.card:hover { transform:scale(0.96) translateY(-12px); box-shadow:0 25px 80px rgba(195,0,255,0.45), 0 0 3px var(--neon-blue); }
+.card img { width:100%; aspect-ratio:16/9; object-fit:cover; transition:transform 0.7s; }
+.card:hover img { transform:scale(1.08); }
+.card-content { padding:2rem; text-align:center; }
+.card h3 { color:var(--neon-purple); text-shadow:var(--glow-purple); }
+.price-tag { font-size:clamp(1.9rem,4.5vw,2.6rem); color:var(--neon-purple); text-shadow:var(--glow-purple); }
+.games-services { display:flex; flex-wrap:wrap; gap:2.5rem; margin:6rem 0; padding:0 5%; }
+.games, .services { flex:1; min-width:340px; background:rgba(10,10,25,0.6); border-radius:20px; padding:2.5rem; border:1px solid rgba(240,255,0.2); }
+.games h3, .services h3 { color:var(--neon-purple); text-shadow:var(--glow-purple); margin-bottom:1.5rem; }
+.games ul, .services ul { list-style:none; font-size:1.2rem; line-height:2; color:white; margin-top:0.8rem; text-shadow:var(--glow-blue); }
+.games li::before { content:"→ "; }
+.services li::before { content:"✔ "; }
+.faq-section { max-width:1100px; margin:6rem auto 8rem; padding:0 2rem; }
+.faq-item { padding:1.8rem; background:rgba(10,10,25,0.6); border-radius:15rem; margin-bottom:1.5rem; border:1px solid rgba(240,255,0.2); }
+.faq-item strong { color:var(--neon-blue); display:block; margin-bottom:0.8rem; font-size:1.4rem; }
+.payment-page { display:none; min-height:100dvh; padding:6rem 2rem; background:var(--bg); z-index:10; }
+.payment-container { max-width:1100px; margin:0 auto; background:rgba(8,8,18,0.95); border-radius:30px; padding:5.5rem; border:1px solid rgba(240,255,0.3); box-shadow:0 0 90px rgba(195,0,255,0.25); }
+.back-btn { color:var(--neon-blue); font-size:1.3rem; cursor:pointer; margin-bottom:2rem; }
+.payment-content { display:flex; flex-wrap:wrap; gap:3rem; }
+.product-image { flex:1; min-width:340px; border-radius:20px; box-shadow:0 0 40px rgba(0,240,255,0.4); }
+.payment-info { flex:1; min-width:340px; }
+.price-section { display:flex; align-items:center; justify-content:center; gap:4rem; margin:3rem 0; flex-wrap:wrap; }
+.total-price { font-size:5rem; font-weight:900; color:white; text-shadow:var(--glow-blue); }
+.qty-controls { display:flex; align-items:center; gap:1.5rem; }
+.qty-btn { width:60px; height:60px; background:rgba(0,240,0.1); border:2px solid var(--neon-blue); border-radius:50%; font-size:1.8rem; color:white; cursor:pointer; transition:var(--transition); }
+.qty-btn:hover { background:var(--neon-blue); color:#000; transform:scale(1.1); }
+.qty-value { font-size:2.8rem; font-weight:700; min-width:70px; text-align:center; }
+.btn-pay { width:100%; padding:1.6rem; font-size:1.65rem; font-weight:900; color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue)); border:none; border-radius:50px; box-shadow:var(--glow-blue); cursor:pointer; transition:var(--transition); margin-top:2rem; }
+.btn-pay:hover { transform:scale(0.94); box-shadow:0 0 100px var(--neon-purple); }
+@media (max-width:900px) {
+.payment-content { flex-direction:column; }
+.price-section { flex-direction:column; gap:2rem; }
+}
+</style>
 </head>
 <body>
 
-  <div class="custom-cursor" id="cursor"></div>
+<div class="custom-cursor" id="cursor"></div>
 
-  <div class="bg-scroll" aria-hidden="true">
-    <span style="animation-duration:65s; top:8%;">JWC SERVICE • PREMIUM • Juicy's SERVICE •</span>
-    <span style="animation-duration:95s; top:26%; animation-direction:reverse;">HWID • BOOST • STEAM • UNDETECTED •</span>
-    <span style="animation-duration:78s; top:44%;">2026 • FAST • SECURE • DISCREET • 2026 •</span>
-  </div>
+<div class="bg-scroll" aria-hidden="true">
+<span style="animation-duration:55s; top:8%;">JMC SERVICE • PREMIUM • JMC SERVICE</span>
+<span style="animation-duration:95s; top:26%; animation-direction:reverse;">HWID • BOOST • STEAM • UNDETECTED</span>
+<span style="animation-duration:78s; top:44%;">2026 • FAST • SECURE • DISCREET • 2026</span>
+</div>
 
-  <section class="enter-screen" id="enter-screen">
-    <div style="text-align:center;">
-      <h1 class="enter-title">Juicy's SERVICE</h1>
-      <button class="enter-btn" onclick="enterSite()">CLICK TO ENTER</button>
-    </div>
-  </section>
+<section class="enter-screen" id="enter-screen">
+<div style="text-align:center;">
+<h1 class="enter-title">JMC SERVICE</h1>
+<button class="enter-btn" onclick="enterSite()">CLICK TO ENTER</button>
+</div>
+</section>
 
-  <header>
-    <div class="logo">Juicy's SERVICE</div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Our Products</a>
-      <a href="#">Status</a>
-      <a href="#">Discord</a>
-    </nav>
-  </header>
+<header>
+<div class="logo">JMC SERVICE</div>
+<nav>
+<a href="#">Home</a>
+<a href="#">Our Products</a>
+<a href="#">Status</a>
+<a href="#">Discord</a>
+</nav>
+</header>
 
-  <main id="main">
-    <h2 class="section-title">OUR PRODUCTS</h2>
-    <div class="grid">
-      <!-- RL Boosting - Photo officielle Rocket League -->
-      <div class="card" onclick="showPayment(0)">
-        <img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Voiture Rocket League">
+<main id="main" style="display:none;">
+<h2 class="section-title">OUR PRODUCTS</h2>
+<div class="grid">
+<!-- RL Boosting -->
+<div class="card" onclick="showPayment(0)">
+<img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Voiture Rocket League">
+<div class="card-content">
+<h3>RL Boosting</h3>
+<div class="price-tag">20€</div>
+</div>
+</div>
 
-        <div class="card-content">
-          <h3>RL Boosting</h3>
-          <div class="price-tag">20€</div>
-        </div>
-      </div>
+<!-- Steam Account -->
+<div class="card" onclick="showPayment(1)">
+<img loading="lazy" src="https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" alt="SteamOS logo">
+<div class="card-content">
+<h3>Steam Account</h3>
+<div class="price-tag">20€</div>
+</div>
+</div>
 
-      <!-- Steam Account -->
-      <div class="card" onclick="showPayment(1)">
-        <img loading="lazy" src="https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" alt="SteamOS logo">
+<!-- HWID Spoofer -->
+<div class="card" onclick="showPayment(2)">
+<img loading="lazy" src="https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt="Carte mère néon">
+<div class="card-content">
+<h3>HWID Spoofer</h3>
+<div class="price-tag">30€</div>
+</div>
+</div>
+</div>
 
+<div class="games-services">
+<div class="games">
+<h3>HWID Spoof Supported Games</h3>
+<ul>
+<li>Fortnite</li>
+<li>Apex Legends</li>
+<li>Rainbow Six Siege</li>
+<li>FiveM / GTA V</li>
+<li>Rust</li>
+<li>Dead By Daylight</li>
+<li>DayZ</li>
+<li>Sea of Thieves</li>
+<li>Roblox</li>
+<li>Overwatch</li>
+</ul>
+</div>
+<div class="services">
+<h3>Our Services</h3>
+<ul>
+<li>Instant Delivery</li>
+<li>24/7 Customer Support</li>
+<li>HWID Unban Guide</li>
+<li>IP Ban Fix</li>
+<li>Customer Community Chat</li>
+<li>Customer HWID Reset Tool</li>
+<li>Lifetime Updates</li>
+</ul>
+</div>
+</div>
 
-        <div class="card-content">
-          <h3>Steam Account</h3>
-          <div class="price-tag">20€</div>
-        </div>
-      </div>
+<section class="faq-section">
+<h3 class="section-title">FAQ</h3>
+<div class="faq-item"><strong>Why choose JMC Service?</strong> Ultra-fast, 100% discreet services with unbeatable prices and a pro team since 2024.</div>
+<div class="faq-item"><strong>How fast do you reply?</strong> Less than 5 minutes 24/7 on Discord.</div>
+<div class="faq-item"><strong>Is it really safe?</strong> Yes – 2026 methods, reinforced anti-ban, zero logs, maximum discretion.</div>
+<div class="faq-item"><strong>Delivery time?</strong> Instant or under 15 minutes for all products.</div>
+<div class="faq-item"><strong>What if I get a false ban?</strong> The spoofer works perfectly on false bans.</div>
+<div class="faq-item"><strong>Do I need to reset my PC?</strong> No, no reinstallation required.</div>
+<div class="faq-item"><strong>Can I buy multiple?</strong> Yes, use + / – and get 10% off from 2 units.</div>
+</section>
+</main>
 
-      <!-- HWID Spoofer - Carte mère RGB cyber -->
-      <div class="card" onclick="showPayment(2)">
-        <img loading="lazy" src="https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt="Carte mère néon">
+<section class="payment-page" id="payment-page" style="display:none;">
+<div class="payment-container">
+<div class="back-btn" onclick="backToMain()">← Back to Products</div>
+<div class="payment-content">
+<img id="payment-image" class="product-image" src="" alt="Product">
+<div class="payment-info">
+<h2 id="payment-title" style="font-size:3rem; text-shadow:var(--glow-purple); margin-bottom:2rem;"></h2>
+<div class="price-section">
+<div class="total-price" id="total-price">30€</div>
+<div class="qty-controls">
+<div class="qty-btn" onclick="changeQty(-1)">–</div>
+<div class="qty-value" id="qty-value">1</div>
+<div class="qty-btn" onclick="changeQty(1)">+</div>
+</div>
+</div>
+<button class="btn-pay" onclick="payNow()">PAY NOW</button>
+</div>
+</div>
+</div>
+</section>
 
-        <div class="card-content">
-          <h3>HWID Spoofer</h3>
-          <div class="price-tag">30€</div>
-        </div>
-      </div>
-    </div>
+<script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+cursor.style.left = e.clientX + 'px';
+cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('button, .card, .qty-btn, .btn-pay, .back-btn, a').forEach(el => {
+el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
 
-    <!-- Games + Services -->
-    <div class="games-services">
-      <div class="games">
-        <h3>Hwid sppof Supported Games</h3>
-        <ul>
-          <li>Fortnite</li>
-          <li>Apex Legends</li>
-          <li>Rainbow Six Siege</li>
-          <li>FiveM / GTA V</li>
-          <li>Rust</li>
-          <li>Dead By Daylight</li>
-          <li>DayZ</li>
-          <li>Sea of Thieves</li>
-          <li>Roblox</li>
-          <li>Overwatch</li>
-        </ul>
-      </div>
+const products = [
+{ title: "RL Boosting", price: 20, image: "https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" },
+{ title: "Steam Account", price: 20, image: "https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" },
+{ title: "HWID Spoofer", price: 30, image: "https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" }
+];
 
-      <div class="services">
-        <h3>Our Services</h3>
-        <ul>
-          <li>Instant Delivery</li>
-          <li>24/7 Customer Support</li>
-          <li>HWID Unban Guide</li>
-          <li>IP Ban Fix</li>
-          <li>Customer Community Chat</li>
-          <li>Customer HWID Reset Tool</li>
-          <li>Lifetime Updates</li>
-        </ul>
-      </div>
-    </div>
+let currentProduct = 0;
+let qty = 1;
 
-    <!-- FAQ -->
-    <section class="faq-section">
-      <h3 class="section-title">FAQ</h3>
-      <div class="faq-item"><strong>Why choose JWC Service?</strong> Ultra-fast, 100% discreet services with unbeatable prices and a pro team since 2024.</div>
-      <div class="faq-item"><strong>How fast do you reply?</strong> Less than 5 minutes 24/7 on Discord.</div>
-      <div class="faq-item"><strong>Is it really safe?</strong> Yes – 2026 methods, reinforced anti-ban, zero logs, maximum discretion.</div>
-      <div class="faq-item"><strong>Delivery time?</strong> Instant or under 15 minutes for all products.</div>
-      <div class="faq-item"><strong>What if I get a false ban?</strong> The spoofer works perfectly on false bans.</div>
-      <div class="faq-item"><strong>Do I need to reset my PC?</strong> No, no reinstallation required.</div>
-      <div class="faq-item"><strong>Can I buy multiple?</strong> Yes, use + / – and get 10% off from 2 units.</div>
-    </section>
-  </main>
+function enterSite() {
+const enterScreen = document.getElementById('enter-screen');
+enterScreen.classList.add('hidden');
 
-  <section class="payment-page" id="payment-page">
-    <div class="payment-container">
-      <div class="back-btn" onclick="backToMain()">← Back to Products</div>
-      
-      <div class="payment-content">
-        <img id="payment-image" class="product-image" src="" alt="Product">
+setTimeout(() => {
+enterScreen.style.display = 'none';
+const main = document.getElementById('main');
+main.style.display = 'block';
+main.classList.add('visible');
+}, 1600);
+}
 
-        <div class="payment-info">
-          <h2 id="payment-title" style="font-size:3rem; text-shadow:var(--glow-purple); margin-bottom:2rem;"></h2>
+function showPayment(index) {
+currentProduct = index;
+qty = 1;
+const prod = products[index];
 
-          <div class="price-section">
-            <div class="total-price" id="total-price">30€</div>
-            <div class="qty-controls">
-              <div class="qty-btn" onclick="changeQty(-1)">–</div>
-              <div class="qty-value" id="qty-value">1</div>
-              <div class="qty-btn" onclick="changeQty(1)">+</div>
-            </div>
-          </div>
+document.getElementById('payment-image').src = prod.image;
+document.getElementById('payment-title').textContent = prod.title;
+updatePrice();
 
-          <button class="btn-pay" onclick="payNow()">PAY NOW</button>
-        </div>
-      </div>
-    </div>
-  </section>
+document.getElementById('main').style.display = 'none';
+document.getElementById('payment-page').style.display = 'block';
+window.scrollTo(0, 0);
+}
 
-  <script>
-    // Curseur
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
+function changeQty(delta) {
+qty = Math.max(1, Math.min(5, qty + delta));
+updatePrice();
+}
 
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    document.querySelectorAll('button, .card, a, nav a').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
+function updatePrice() {
+let total = products[currentProduct].price * qty;
+if (qty >= 2) total = Math.floor(total * 0.9);
+document.getElementById('total-price').textContent = total + '€';
+document.getElementById('qty-value').textContent = qty;
+}
 
-    const products = [
-      { title: "RL Boosting", price: 20, image: "<img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Voiture Rocket League"},
-      { title: "Steam Account", price: 20, image: "https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" alt="SteamOS logo" },
-      { title: "HWID Spoofer", price: 30, image: "https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt="Carte mère néon"},
-    ];
+function payNow() {
+let total = products[currentProduct].price * qty;
+if (qty >= 2) total = Math.floor(total * 0.9);
+window.location.href = `https://www.paypal.me/VOTREPSEUDO/${total}`;
+}
 
-    let currentProduct = 0;
-    let qty = 1;
+function backToMain() {
+document.getElementById('payment-page').style.display = 'none';
+document.getElementById('main').style.display = 'block';
+}
 
-    function enterSite() {
-      document.getElementById('enter-screen').classList.add('hidden');
-      setTimeout(() => {
-        document.getElementById('enter-screen').style.display = 'none';
-        document.getElementById('main').classList.add('visible');
-      }, 1600);
-    }
-
-    function showPayment(index) {
-      currentProduct = index;
-      qty = 1;
-      const prod = products[index];
-      document.getElementById('payment-image').src = prod.image;
-      document.getElementById('payment-title').textContent = prod.title;
-      updatePrice();
-      document.getElementById('main').style.display = 'none';
-      document.getElementById('payment-page').style.display = 'block';
-      window.scrollTo(0, 0);
-    }
-
-    function changeQty(delta) {
-      qty = Math.max(1, Math.min(5, qty + delta));
-      updatePrice();
-    }
-
-    function updatePrice() {
-      let total = products[currentProduct].price * qty;
-      if (qty >= 2) total = Math.floor(total * 0.9);
-      document.getElementById('total-price').textContent = total + '€';
-      document.getElementById('qty-value').textContent = qty;
-    }
-
-    function payNow() {
-      let total = products[currentProduct].price * qty;
-      if (qty >= 2) total = Math.floor(total * 0.9);
-      window.location.href = `https://www.paypal.me/VOTREPSEUDO/${total}`;
-    }
-
-    function backToMain() {
-      document.getElementById('payment-page').style.display = 'none';
-      document.getElementById('main').style.display = 'block';
-    }
-
-    window.onload = () => {
-      setInterval(() => {
-        document.querySelectorAll('.section-title').forEach(t => {
-          t.style.textShadow = Math.random() > 0.5 ? 'var(--glow-blue)' : 'var(--glow-purple)';
-        });
-      }, 1400);
-    };
-  </script>
+window.onload = () => {
+setInterval(() => {
+document.querySelectorAll('.section-title').forEach(t => {
+t.style.textShadow = Math.random() > 0.5 ? 'var(--glow-blue)' : 'var(--glow-purple)';
+});
+}, 1400);
+};
+</script>
 </body>
 </html>
