@@ -15,7 +15,6 @@
   --neon-red: #ff0044;
   --glow-blue: 0 0 15px var(--neon-blue), 0 0 35px var(--neon-blue), 0 0 70px var(--neon-blue), 0 0 120px var(--neon-purple);
   --glow-purple: 0 0 18px var(--neon-purple), 0 0 45px var(--neon-purple), 0 0 90px var(--neon-purple), 0 0 160px #ffffff;
-  --transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -26,191 +25,66 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
+
+/* CURSEUR TOUJOURS AU-DESSUS DE TOUT */
 .custom-cursor {
   position: fixed;
   width: 26px;
   height: 26px;
   border: 2px solid var(--neon-blue);
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
+  pointer-events: none;           /* clics passent à travers */
+  z-index: 2147483647;            /* MAXIMUM possible → toujours au premier plan */
   box-shadow: var(--glow-blue);
-  transform: translate(-50%, -50%);
-  transition: width 0.18s, height 0.18s, background 0.2s, transform 0.05s ease-out;
-  will-change: transform;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform, width, height, background;
+  transition: width 0.15s ease-out, height 0.15s ease-out, background 0.2s;
+  backface-visibility: hidden;
 }
 .custom-cursor.hover {
   width: 44px;
   height: 44px;
-  background: rgba(0, 234, 255, 0.18);
-  box-shadow: 0 0 60px var(--neon-blue), 0 0 110px var(--neon-purple);
+  background: rgba(0, 234, 255, 0.22);
+  box-shadow: 0 0 65px var(--neon-blue), 0 0 120px var(--neon-purple);
 }
+
 .bg-scroll {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.22;
-  overflow: hidden;
-  user-select: none;
+  position: fixed; inset:0; pointer-events:none; z-index:1; opacity:0.22; overflow:hidden;
 }
 .bg-scroll span {
-  position: absolute;
-  left: 100%;
-  white-space: nowrap;
-  font-size: clamp(3rem, 9vw, 8rem);
-  font-weight: 900;
+  position: absolute; left:100%; white-space:nowrap;
+  font-size: clamp(3rem, 9vw, 8rem); font-weight:900;
   color: var(--neon-purple);
   text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 80px var(--neon-purple), 0 0 140px var(--neon-purple);
   animation: scroll linear infinite;
 }
 @keyframes scroll { to { transform: translateX(-200%); } }
 
-.enter-screen {
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: linear-gradient(180deg, rgba(0,0,0,0.92), rgba(5,0,25,0.98)),
-              url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=60&w=2400') center/cover;
-  transition: opacity 1.6s cubic-bezier(0.23,1,0.32,1);
-  cursor: pointer;
-}
-.enter-screen.hidden { opacity:0; pointer-events:none; }
-.enter-title {
-  font-size: clamp(6rem, 16vw, 14rem);
-  font-weight:900;
-  text-shadow: 0 0 30px var(--neon-red), 0 0 60px var(--neon-red), 0 0 120px var(--neon-purple);
-  animation: neon-flicker 3.2s infinite alternate;
-}
-.enter-btn {
-  margin-top:3rem; padding:1.8rem 6rem; font-size:2.1rem; font-weight:900;
-  color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
-  border:none; border-radius:50px; box-shadow:var(--glow-blue);
-  cursor:pointer; transition:var(--transition);
-}
-.enter-btn:hover { transform:scale(0.93); box-shadow:0 0 130px var(--neon-blue), 0 0 180px var(--neon-purple); }
-@keyframes neon-flicker { 0%,100% {opacity:1} 50% {opacity:0.84} }
+.enter-screen, main, .payment-page, .card, img, button { z-index: 10; } /* tout en dessous du curseur */
 
-main {
-  padding: 120px 5% 80px;
-  max-width: 1600px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 10;
-  opacity:0; transform:translateY(50px); transition:all 1.5s;
-}
-main.visible { opacity:1; transform:translateY(0); }
+.card img, .product-image { pointer-events: none; } /* images jamais bloquantes */
 
-.section-title {
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  text-align:center;
-  text-shadow: var(--glow-purple), 0 0 25px #fff;
-  color: var(--neon-purple);
-  letter-spacing: -4px;
-  margin-bottom: 3rem;
-}
-.grid {
-  display: grid;
-  gap: 2.5rem;
-  grid-template-columns: repeat(3, 1fr);          /* forcé à 3 colonnes */
-  min-width: 0;                                   /* évite débordement */
-}
-.card {
-  background: rgba(20,20,40,0.45);
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 12px 50px rgba(0,0,0,0.6), inset 0 0 3px rgba(213,0,249,0.2);
-  transition: var(--transition);
-  cursor: pointer;
-  border: 1px solid rgba(213,0,249,0.18);
-}
-.card:hover {
-  transform: scale(1.04) translateY(-10px);
-  box-shadow: 0 30px 90px rgba(213,0,249,0.55), 0 0 8px var(--neon-blue);
-}
-.card img {
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  transition: transform 0.7s;
-}
+main { padding: 120px 5% 80px; max-width: 1600px; margin: 0 auto; position: relative; }
+.section-title { font-size: clamp(3.5rem, 10vw, 7rem); text-align:center; text-shadow: 0 0 18px var(--neon-purple), 0 0 35px #fff; color: var(--neon-purple); letter-spacing: -4px; margin-bottom: 3rem; }
+.grid { display: grid; gap: 2.5rem; grid-template-columns: repeat(3, 1fr); }
+.card { background: rgba(20,20,40,0.45); border-radius: 28px; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.6); transition: all 0.35s; cursor: pointer; border: 1px solid rgba(213,0,249,0.18); }
+.card:hover { transform: scale(1.04) translateY(-10px); box-shadow: 0 30px 90px rgba(213,0,249,0.55); }
+.card img { width:100%; aspect-ratio:16/9; object-fit:cover; transition: transform 0.7s; }
 .card:hover img { transform: scale(1.08); }
-.card-content { padding: 1.8rem 1.5rem; text-align: center; }  /* padding réduit → images + compactes */
-.card h3 { color: var(--neon-purple); text-shadow: var(--glow-purple), 0 0 16px #fff; font-size: 1.75rem; }
+.card-content { padding: 1.8rem 1.5rem; text-align:center; }
+.card h3 { color:var(--neon-purple); font-size:1.75rem; text-shadow: 0 0 16px #fff; }
 .price-tag { font-size: clamp(2rem, 4.5vw, 2.8rem); color: var(--neon-blue); text-shadow: 0 0 20px var(--neon-blue); }
 
-.games-services {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  margin: 7rem 0;
-}
-.games, .services {
-  flex: 1;
-  min-width: 340px;
-  background: rgba(15,15,35,0.5);
-  border-radius: 24px;
-  padding: 3rem;
-  border: 1px solid rgba(213,0,249,0.22);
-}
-.games h3, .services h3 { color: var(--neon-purple); text-shadow: var(--glow-purple); margin-bottom: 2rem; font-size: 2.2rem; }
-.games ul, .services ul { list-style: none; font-size: 1.35rem; line-height: 2.1; color: #d0d0ff; }
-.games li::before { content: "→ "; color: var(--neon-blue); }
-.services li::before { content: "✔ "; color: var(--neon-purple); }
+.games-services { display:flex; flex-wrap:wrap; gap:3rem; margin:7rem 0; }
+.games, .services { flex:1; min-width:340px; background:rgba(15,15,35,0.5); border-radius:24px; padding:3rem; border:1px solid rgba(213,0,249,0.22); }
+.games h3, .services h3 { color:var(--neon-purple); font-size:2.2rem; text-shadow: 0 0 15px var(--neon-purple); }
+.games ul, .services ul { list-style:none; font-size:1.35rem; line-height:2.1; color:#d0d0ff; }
 
-.faq-section { max-width: 1200px; margin: 8rem auto; }
-.faq-item {
-  padding: 2rem;
-  background: rgba(20,20,40,0.4);
-  border-radius: 20px;
-  margin-bottom: 1.8rem;
-  border: 1px solid rgba(213,0,249,0.2);
-}
-.faq-item strong { color: var(--neon-blue); display: block; margin-bottom: 1rem; font-size: 1.6rem; text-shadow: 0 0 12px var(--neon-blue); }
-
-.payment-page { display:none; min-height:100dvh; padding:8rem 4%; background:var(--bg); z-index:20; }
-.payment-container {
-  max-width:1300px; margin:0 auto;
-  background: rgba(15,15,35,0.55);
-  border-radius:36px; padding:6rem;
-  border:1px solid rgba(213,0,249,0.3);
-  box-shadow:0 0 120px rgba(213,0,249,0.4);
-}
-.back-btn { color:var(--neon-blue); font-size:1.6rem; cursor:pointer; margin-bottom:3rem; text-shadow:0 0 15px var(--neon-blue); }
-.payment-content { display:flex; flex-wrap:wrap; gap:5rem; align-items:center; justify-content:center; }
-.product-image {
-  flex: 0 1 auto;
-  width: 100%;
-  max-width: 680px;
-  min-width: 480px;
-  border-radius:28px;
-  box-shadow:0 0 90px rgba(0,234,255,0.7);
-}
-.payment-info { flex:1; min-width:380px; text-align:center; }
-.total-price {
-  font-size:8rem;
-  font-weight:900;
-  color:var(--neon-purple);
-  text-shadow:var(--glow-purple), 0 0 45px #fff;
-}
-.btn-pay {
-  width:100%; padding:2.2rem; font-size:2.2rem; font-weight:900;
-  color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
-  border:none; border-radius:60px; box-shadow:var(--glow-blue);
-  cursor:pointer; transition:var(--transition); margin-top:4rem;
-}
-.btn-pay:hover { transform:scale(0.96); box-shadow:0 0 160px var(--neon-purple); }
-
-@media (max-width: 1100px) {
-  .payment-content { flex-direction:column; gap:4rem; }
-  .product-image { max-width: 90%; min-width: unset; }
-  .total-price { font-size:6rem; }
-  /* Sur très petit écran, on autorise le passage à 2 ou 1 colonne pour éviter squeeze extrême */
-  .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-}
+.payment-page { display:none; min-height:100dvh; padding:8rem 4%; background:var(--bg); }
+.payment-container { max-width:1300px; margin:0 auto; background:rgba(15,15,35,0.55); border-radius:36px; padding:6rem; border:1px solid rgba(213,0,249,0.3); box-shadow:0 0 120px rgba(213,0,249,0.4); }
+.product-image { max-width:680px; min-width:480px; border-radius:28px; box-shadow:0 0 90px rgba(0,234,255,0.7); pointer-events:none; }
+.total-price { font-size:8rem; font-weight:900; color:var(--neon-purple); text-shadow: 0 0 45px #fff; }
+.btn-pay { width:100%; padding:2.2rem; font-size:2.2rem; font-weight:900; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue)); border:none; border-radius:60px; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -225,52 +99,22 @@ main.visible { opacity:1; transform:translateY(0); }
 
 <section class="enter-screen" id="enter-screen">
   <div style="text-align:center;">
-    <h1 class="enter-title">Juicys Service</h1>
-    <button class="enter-btn" onclick="enterSite()">CLICK TO ENTER</button>
+    <h1 class="enter-title" style="font-size: clamp(6rem, 16vw, 14rem); text-shadow: 0 0 30px #ff0044, 0 0 60px #ff0044, 0 0 120px #d500f9;">Juicys Service</h1>
+    <button class="enter-btn" onclick="enterSite()" style="margin-top:3rem; padding:1.8rem 6rem; font-size:2.1rem; font-weight:900; color:#000; background:linear-gradient(90deg,#ff0044,#00eaff); border:none; border-radius:50px;">CLICK TO ENTER</button>
   </div>
 </section>
 
 <main id="main" style="display:none;">
   <h2 class="section-title">OUR PRODUCTS</h2>
   <div class="grid">
-    <div class="card" onclick="showPayment(0)">
-      <img loading="lazy" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Rocket League">
-      <div class="card-content">
-        <h3>RL Boosting</h3>
-        <div class="price-tag">20€</div>
-      </div>
-    </div>
-    <div class="card" onclick="showPayment(1)">
-      <img loading="lazy" src="https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" alt="Steam">
-      <div class="card-content">
-        <h3>Steam Account</h3>
-        <div class="price-tag">20€</div>
-      </div>
-    </div>
-    <div class="card" onclick="showPayment(2)">
-      <img loading="lazy" src="https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt="HWID">
-      <div class="card-content">
-        <h3>HWID Spoofer</h3>
-        <div class="price-tag">30€</div>
-      </div>
-    </div>
+    <div class="card" onclick="showPayment(0)"><img src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt=""><div class="card-content"><h3>RL Boosting</h3><div class="price-tag">20€</div></div></div>
+    <div class="card" onclick="showPayment(1)"><img src="https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" alt=""><div class="card-content"><h3>Steam Account</h3><div class="price-tag">20€</div></div></div>
+    <div class="card" onclick="showPayment(2)"><img src="https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" alt=""><div class="card-content"><h3>HWID Spoofer</h3><div class="price-tag">30€</div></div></div>
   </div>
 
   <div class="games-services">
-    <div class="games">
-      <h3>HWID Spoof Supported Games</h3>
-      <ul>
-        <li>Fortnite</li><li>Apex Legends</li><li>Rainbow Six Siege</li><li>FiveM / GTA V</li><li>Rust</li>
-        <li>Dead By Daylight</li><li>DayZ</li><li>Sea of Thieves</li><li>Roblox</li><li>Overwatch</li>
-      </ul>
-    </div>
-    <div class="services">
-      <h3>Our Services</h3>
-      <ul>
-        <li>Instant Delivery</li><li>24/7 Customer Support</li><li>HWID Unban Guide</li><li>IP Ban Fix</li>
-        <li>Customer Community Chat</li><li>Customer HWID Reset Tool</li><li>Lifetime Updates</li>
-      </ul>
-    </div>
+    <div class="games"><h3>HWID Spoof Supported Games</h3><ul><li>Fortnite</li><li>Apex Legends</li><li>Rainbow Six Siege</li><li>FiveM / GTA V</li><li>Rust</li><li>Dead By Daylight</li><li>DayZ</li><li>Sea of Thieves</li><li>Roblox</li><li>Overwatch</li></ul></div>
+    <div class="services"><h3>Our Services</h3><ul><li>Instant Delivery</li><li>24/7 Customer Support</li><li>HWID Unban Guide</li><li>IP Ban Fix</li><li>Customer Community Chat</li><li>Customer HWID Reset Tool</li><li>Lifetime Updates</li></ul></div>
   </div>
 
   <section class="faq-section">
@@ -286,11 +130,11 @@ main.visible { opacity:1; transform:translateY(0); }
 
 <section class="payment-page" id="payment-page" style="display:none;">
   <div class="payment-container">
-    <div class="back-btn" onclick="backToMain()">← Back to Products</div>
+    <div class="back-btn" onclick="backToMain()" style="color:#00eaff; font-size:1.6rem; cursor:pointer;">← Back to Products</div>
     <div class="payment-content">
-      <img id="payment-image" class="product-image" src="" alt="Product">
+      <img id="payment-image" class="product-image" src="" alt="">
       <div class="payment-info">
-        <h2 id="payment-title" style="font-size:3.8rem; text-shadow:var(--glow-purple), 0 0 35px #fff; margin-bottom:2.5rem; color:var(--neon-purple);"></h2>
+        <h2 id="payment-title" style="font-size:3.8rem; color:var(--neon-purple); text-align:center;"></h2>
         <div class="total-price" id="total-price">30€</div>
         <button class="btn-pay" onclick="payNow()">PAY NOW</button>
       </div>
@@ -299,12 +143,13 @@ main.visible { opacity:1; transform:translateY(0); }
 </section>
 
 <script>
-// Le script reste identique à la version précédente
 const cursor = document.getElementById('cursor');
+
 document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+  cursor.style.top  = e.clientY + 'px';
 });
+
 document.querySelectorAll('button, .card, .btn-pay, .back-btn').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
@@ -320,25 +165,22 @@ function enterSite() {
   document.getElementById('enter-screen').classList.add('hidden');
   setTimeout(() => {
     document.getElementById('enter-screen').style.display = 'none';
-    const main = document.getElementById('main');
-    main.style.display = 'block';
-    setTimeout(() => main.classList.add('visible'), 100);
+    document.getElementById('main').style.display = 'block';
   }, 1600);
 }
 
 function showPayment(index) {
-  const prod = products[index];
-  document.getElementById('payment-image').src = prod.image;
-  document.getElementById('payment-title').textContent = prod.title;
-  document.getElementById('total-price').textContent = prod.price + '€';
+  const p = products[index];
+  document.getElementById('payment-image').src = p.image;
+  document.getElementById('payment-title').textContent = p.title;
+  document.getElementById('total-price').textContent = p.price + '€';
   document.getElementById('main').style.display = 'none';
   document.getElementById('payment-page').style.display = 'block';
-  window.scrollTo(0, 0);
 }
 
 function payNow() {
-  const price = document.getElementById('total-price').textContent.replace('€', '').trim();
-  window.location.href = `https://www.paypal.me/VOTREPSEUDO/${price}`;
+  const prix = document.getElementById('total-price').textContent.replace('€','').trim();
+  window.location.href = `https://www.paypal.me/VOTREPSEUDO/${prix}`;
 }
 
 function backToMain() {
@@ -349,7 +191,7 @@ function backToMain() {
 window.onload = () => {
   setInterval(() => {
     document.querySelectorAll('.section-title').forEach(t => {
-      t.style.textShadow = Math.random() > 0.5 ? 'var(--glow-purple), 0 0 30px #fff' : 'var(--glow-blue), 0 0 30px #fff';
+      t.style.textShadow = Math.random() > 0.5 ? '0 0 25px #d500f9, 0 0 50px #fff' : '0 0 25px #00eaff, 0 0 50px #fff';
     });
   }, 1800);
 };
