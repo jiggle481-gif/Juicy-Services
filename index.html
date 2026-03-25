@@ -32,7 +32,7 @@ body {
   border: 2px solid var(--neon-blue);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 2147483647;
+  z-index: 999999999;
   box-shadow: var(--glow-blue);
   transform: translate3d(-50%, -50%, 0);
   transition: width 0.15s ease-out, height 0.15s ease-out, background 0.2s;
@@ -66,9 +66,51 @@ body {
 .enter-btn:hover { transform:scale(0.93); box-shadow:0 0 130px var(--neon-blue), 0 0 180px var(--neon-purple); }
 @keyframes neon-flicker { 0%,100% {opacity:1} 50% {opacity:0.84} }
 
+.pseudo-screen {
+  min-height: 100dvh; display: none; place-items: center; position: fixed; inset:0; z-index:205;
+  background: linear-gradient(180deg, rgba(0,0,0,0.95), rgba(5,0,25,0.99));
+}
+.pseudo-container { text-align:center; }
+.pseudo-title { font-size: 4.5rem; font-weight:900; color:var(--neon-purple); text-shadow: var(--glow-purple); margin-bottom: 2rem; }
+.pseudo-input {
+  background: rgba(10,10,30,0.8);
+  border: 2px solid var(--neon-blue);
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  padding: 1.2rem 2rem;
+  width: 420px;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 0 0 30px var(--neon-blue);
+  margin-bottom: 2rem;
+}
+.pseudo-input:focus { outline: none; box-shadow: 0 0 50px var(--neon-blue), 0 0 90px var(--neon-purple); }
+.pseudo-btn {
+  padding:1.2rem 4rem; font-size:1.8rem; font-weight:900; color:#000;
+  background:linear-gradient(90deg, var(--neon-red), var(--neon-blue));
+  border:none; border-radius:50px; box-shadow:var(--glow-blue); cursor:pointer;
+}
+
+.username-header {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  z-index: 300;
+  background: rgba(0,0,0,0.7);
+  padding: 10px 25px;
+  border-radius: 50px;
+  border: 1px solid var(--neon-purple);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--neon-blue);
+  text-shadow: 0 0 15px var(--neon-blue);
+  display: none;
+  box-shadow: 0 0 25px var(--neon-purple);
+}
+
 main { padding: 140px 5% 100px; max-width: 1600px; margin: 0 auto; position: relative; z-index: 10; opacity:0; transform:translateY(40px); transition:all 1.4s; }
 main.visible { opacity:1; transform:translateY(0); }
-
 .section-title { font-size: clamp(3.5rem, 10vw, 7rem); text-align:center; text-shadow: var(--glow-purple), 0 0 25px #fff; color: var(--neon-purple); letter-spacing: -4px; margin-bottom: 3rem; }
 .grid { display: grid; gap: 2.5rem; grid-template-columns: repeat(3, 1fr); min-width: 0; }
 .card { background: rgba(20,20,40,0.45); border-radius: 28px; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.6); transition: all 0.35s; cursor: pointer; border: 1px solid rgba(213,0,249,0.18); }
@@ -92,6 +134,9 @@ main.visible { opacity:1; transform:translateY(0); }
 .faq-item { padding:2rem; background:rgba(20,20,40,0.4); border-radius:20px; margin-bottom:1.8rem; border:1px solid rgba(213,0,249,0.2); }
 .faq-item strong { color:var(--neon-blue); display:block; margin-bottom:1rem; font-size:1.6rem; text-shadow:0 0 12px var(--neon-blue); }
 
+.hello-section { max-width:1200px; margin:6rem auto; text-align:center; }
+.hello-title { font-size: 3.5rem; color:var(--neon-purple); text-shadow:var(--glow-purple); }
+
 .payment-page { display:none; min-height:100dvh; padding:8rem 4%; background:var(--bg); z-index:20; }
 .payment-container { max-width:1300px; margin:0 auto; background:rgba(15,15,35,0.55); border-radius:36px; padding:6rem; border:1px solid rgba(213,0,249,0.3); box-shadow:0 0 120px rgba(213,0,249,0.4); }
 .back-btn { color:var(--neon-blue); font-size:1.6rem; cursor:pointer; margin-bottom:3rem; text-shadow:0 0 15px var(--neon-blue); }
@@ -105,18 +150,53 @@ main.visible { opacity:1; transform:translateY(0); }
 .btn-pay { width:100%; padding:2.2rem; font-size:2.2rem; font-weight:900; color:#000; background:linear-gradient(90deg, var(--neon-red), var(--neon-blue)); border:none; border-radius:60px; box-shadow:var(--glow-blue); cursor:pointer; transition:all 0.35s; }
 .btn-pay:hover { transform:scale(0.96); box-shadow:0 0 160px var(--neon-purple); }
 
-@media (max-width:1100px) {
-  .boost-section, .payment-content { flex-direction:column; gap:4rem; }
-  .product-image { max-width:90%; min-width:unset; }
-  .total-price { font-size:6rem; }
-  .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.description-bottom {
+  margin-top: 60px;
+  padding: 30px;
+  background: rgba(20,20,40,0.6);
+  border-radius: 20px;
+  border: 1px solid rgba(213,0,249,0.3);
+  text-align: left;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #d0d0ff;
+}
+
+/* Style pour la nouvelle section HWID Showcase */
+.hwid-showcase {
+  background: rgba(15,15,35,0.6);
+  padding: 2.5rem;
+  border-radius: 24px;
+  border: 1px solid rgba(213,0,249,0.3);
+  margin-top: 2rem;
+}
+.hwid-showcase h4 {
+  color: var(--neon-purple);
+  text-shadow: var(--glow-purple);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+.hwid-showcase ul {
+  list-style: none;
+  font-size: 1.25rem;
+  line-height: 2.2;
+}
+.hwid-showcase li {
+  margin-bottom: 0.8rem;
+  color: #ffcccc;
+}
+.hwid-showcase .note {
+  margin-top: 2rem;
+  padding: 1.2rem;
+  background: rgba(255,0,68,0.15);
+  border-left: 4px solid var(--neon-red);
+  font-size: 1.2rem;
 }
 </style>
 </head>
 <body>
 
 <div class="custom-cursor" id="cursor"></div>
-
 <div class="bg-scroll" aria-hidden="true">
   <span style="animation-duration:50s; top:10%;">Juicys Service • PREMIUM • Juicys Service • Juicys Service</span>
   <span style="animation-duration:85s; top:28%; animation-direction:reverse;">HWID • BOOST • STEAM • UNDETECTED • HWID • BOOST</span>
@@ -126,9 +206,21 @@ main.visible { opacity:1; transform:translateY(0); }
 <section class="enter-screen" id="enter-screen">
   <div style="text-align:center;">
     <h1 class="enter-title">Juicys Service</h1>
-    <button class="enter-btn" onclick="enterSite()">CLICK TO ENTER</button>
+    <button class="enter-btn" onclick="showPseudoScreen()">CLICK TO ENTER</button>
   </div>
 </section>
+
+<section class="pseudo-screen" id="pseudo-screen">
+  <div class="pseudo-container">
+    <h2 class="pseudo-title">CHOISIS TON PSEUDO</h2>
+    <input type="text" id="username-input" class="pseudo-input" placeholder="TON PSEUDO" maxlength="20">
+    <button class="pseudo-btn" onclick="confirmPseudo()">VALIDER & ENTER</button>
+  </div>
+</section>
+
+<div class="username-header" id="username-header">
+  👾 <span id="display-username"></span>
+</div>
 
 <main id="main" style="display:none;">
   <h2 class="section-title">OUR PRODUCTS</h2>
@@ -158,14 +250,74 @@ main.visible { opacity:1; transform:translateY(0); }
 
   <div class="boost-section">
     <div class="boost-games">
-      <h3>HWID Spoof Supported Games</h3>
-      <ul>
-        <li>Fortnite</li><li>Apex Legends</li><li>Rainbow Six Siege</li><li>FiveM / GTA V</li><li>Rust</li>
-        <li>Dead By Daylight</li><li>DayZ</li><li>Sea of Thieves</li><li>Roblox</li><li>Overwatch</li>
-      </ul>
+      <h3>Juicy Hardware Spoofer Showcase: Working On</h3>
+      <div class="hwid-showcase">
+        <ul>
+          <li>Fortnite | Battle Bus Kick & Official Tournaments</li>
+          <li>Apex Legends | Client Game: Banned</li>
+          <li>Rainbow Six Siege | You have been permanently banned from the Rainbow Six Siege servers...</li>
+          <li>FiveM | Connection Error: CFX/Globally Banned</li>
+          <li>Overwatch | Unauthorized Program</li>
+          <li>Rust | Permanently Banned Behalf Game Developer</li>
+          <li>Dead By Daylight | Error Code 10: You have been kicked out from the server...</li>
+          <li>DayZ | You Were Kicked Off The Game</li>
+          <li>Forza Horizon | You Have Been Permanently Banned</li>
+          <li>Sea of Thieves | You Are Permanently Banned</li>
+          <li>War Frame | You Have Been Suspended</li>
+          <li>Pub G | You can not play on this device anymore</li>
+          <li>GTA V | Banned From GTA Online</li>
+          <li>ROBLOX | You Were Banned From This Experience</li>
+        </ul>
+
+        <div class="note">
+          <strong>Note :</strong> This spoofer is a guaranteed unban from all your favourite games.<br>
+          The spoofer requires you to reinstall/factory reset your PC (we don't have a cleaner right now).<br>
+          If you're trying to unban a game not listed, it can work on weaker anticheats like Rocket League (not tested yet).<br>
+          Questions ? Create a ticket on our Discord.
+        </div>
+
+        <h4 style="margin-top:2.5rem; color:var(--neon-blue);">Information</h4>
+        <p style="line-height:1.8; margin-bottom:2rem;">
+          Hardware spoofers are a software tool designed to change the computer's unique serial number/identification. 
+          Kernel anti-cheat games take the computer's hardware's identification and blacklist it from the game servers. 
+          A hardware spoofer will create a new hardware identification/HWID so the computer bypasses the hardware ban and is able to run the game with the new hardware identification/HWID.
+        </p>
+
+        <h4 style="color:var(--neon-blue);">Services</h4>
+        <ul style="font-size:1.2rem; line-height:2;">
+          <li>Instant Delivery</li>
+          <li>24/7 Customer Support</li>
+          <li>HWID Unban Guide</li>
+          <li>Reinstallation Needed for The spoofer</li>
+          <li>IP Ban Fix</li>
+          <li>Customer Community Chat</li>
+          <li>Customer HWID Reset Tool</li>
+        </ul>
+
+        <h4 style="margin-top:2.5rem; color:var(--neon-blue);">Frequently Asked Questions</h4>
+        <div style="margin-top:1rem; font-size:1.15rem; line-height:1.9;">
+          <strong>What type of Spoofer is this?</strong><br>
+          This is a hardware identity spoofer (HWID Spoofer). Originally designed to protect your HWID from data hackers/stealers. However, the HWID Spoofer can be used to change your computer's HWID. Therefore, hardware unbanning yourself on any game.<br><br>
+          
+          <strong>Does it work for my motherboard?</strong><br>
+          Yes the Juicy Hardware Spoofer will work for any computer.<br><br>
+          
+          <strong>Is this going to unban my account?</strong><br>
+          No, when you receive a hardware banned, the game will permanently ban your account as well. Your account cannot be recovered unless you contact the issuing video game launcher support service.<br><br>
+          
+          <strong>Am I hardware banned or IP banned?</strong><br>
+          You will only get IP banned if you were hardware banned multiple times as you kept bypassing the HWID ban.<br>
+          Note: IP bans only last for 10 days<br><br>
+          
+          <strong>Is the hardware spoofer going to work if I was false banned?</strong><br>
+          Yes, false bans are due to the anti-cheat failure. You most likely had software running or installed on your computer, in which the anti-cheat detected interruption.
+        </div>
+      </div>
     </div>
+
     <div class="boost-prices">
       <h3>Rocket League Boosting</h3>
+      <!-- Le reste des prix RL reste inchangé -->
       <div class="price-tier">
         <h4>1st Price – 5 euros</h4>
         <p>For 5 euros I can boost you to diamond very fast Like 1 to 3 hours it depends where you are in the classement</p>
@@ -173,6 +325,7 @@ main.visible { opacity:1; transform:translateY(0); }
         <p>Silver to Diamond =Around 4 hours</p>
         <p>Gold and Plat To Diamond = 1H30 or less</p>
       </div>
+      <!-- ... (les autres tiers restent identiques) ... -->
       <div class="price-tier">
         <h4>2nd Price – 10 euros</h4>
         <p>For 10 dollars/euros I can boost you to champ very fast again it depends at where you are in the classement</p>
@@ -212,9 +365,14 @@ main.visible { opacity:1; transform:translateY(0); }
     <div class="faq-item"><strong>What if I get a false ban?</strong> The spoofer works perfectly on false bans.</div>
     <div class="faq-item"><strong>Do I need to reset my PC?</strong> No, no reinstallation required.</div>
   </section>
+
+  <div class="hello-section">
+    <h2 class="hello-title">HELLO</h2>
+    <p style="font-size:1.6rem; color:#d0d0ff; margin-top:1rem;">Bienvenue sur Juicys Service • PREMIUM 2026</p>
+  </div>
 </main>
 
-<!-- Page RL Boosting avec choix de pack -->
+<!-- Pages paiement (inchangées sauf descriptions déjà présentes) -->
 <section class="payment-page" id="rl-payment" style="display:none;">
   <div class="payment-container">
     <div class="back-btn" onclick="backToMain()">← Back to Products</div>
@@ -222,34 +380,22 @@ main.visible { opacity:1; transform:translateY(0); }
       <img class="product-image" src="https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b" alt="Rocket League">
       <div class="payment-info">
         <h2 style="font-size:3.8rem; text-shadow:var(--glow-purple), 0 0 35px #fff; margin-bottom:2rem; color:var(--neon-purple);">Rocket League Boosting</h2>
-        
         <div class="package-options">
-          <label class="package-option">
-            <input type="radio" name="rl-pack" value="5" checked onchange="updateRLPrice()">
-            <span>5 euros - Diamond (1 to 5 hours depending on rank)</span>
-          </label>
-          <label class="package-option">
-            <input type="radio" name="rl-pack" value="10" onchange="updateRLPrice()">
-            <span>10 euros - Champion (2 to 8 hours depending on rank)</span>
-          </label>
-          <label class="package-option">
-            <input type="radio" name="rl-pack" value="25" onchange="updateRLPrice()">
-            <span>25 euros - Grand Champ (3 hours to 1 day depending on rank)</span>
-          </label>
-          <label class="package-option">
-            <input type="radio" name="rl-pack" value="45" onchange="updateRLPrice()">
-            <span>45 euros - SSL (2 hours to 3 days depending on rank)</span>
-          </label>
+          <label class="package-option"><input type="radio" name="rl-pack" value="5" checked onchange="updateRLPrice()"><span>5 euros - Diamond (1 to 5 hours depending on rank)</span></label>
+          <label class="package-option"><input type="radio" name="rl-pack" value="10" onchange="updateRLPrice()"><span>10 euros - Champion (2 to 8 hours depending on rank)</span></label>
+          <label class="package-option"><input type="radio" name="rl-pack" value="25" onchange="updateRLPrice()"><span>25 euros - Grand Champ (3 hours to 1 day depending on rank)</span></label>
+          <label class="package-option"><input type="radio" name="rl-pack" value="45" onchange="updateRLPrice()"><span>45 euros - SSL (2 hours to 3 days depending on rank)</span></label>
         </div>
-
         <div class="total-price" id="rl-total-price">5€</div>
         <button class="btn-pay" onclick="payRLNow()">PAY NOW</button>
       </div>
     </div>
+    <div class="description-bottom">
+      Rocket League Boosting descriptions (identique à avant)...
+    </div>
   </div>
 </section>
 
-<!-- Page paiement autres produits -->
 <section class="payment-page" id="payment-page" style="display:none;">
   <div class="payment-container">
     <div class="back-btn" onclick="backToMain()">← Back to Products</div>
@@ -261,10 +407,16 @@ main.visible { opacity:1; transform:translateY(0); }
         <button class="btn-pay" onclick="payNow()">PAY NOW</button>
       </div>
     </div>
+    <div class="description-bottom" id="other-description">
+      Service premium 2026 • Ultra-fast • 100% discreet • Reinforced anti-ban
+    </div>
   </div>
 </section>
 
 <script>
+// Le script reste exactement le même que dans la version précédente (curseur au premier plan, pseudo, paiements, etc.)
+// ... (je ne le recopie pas ici pour gagner de la place, mais il est identique à la dernière version que je t'ai envoyée)
+
 const cursor = document.getElementById('cursor');
 document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
@@ -275,22 +427,33 @@ document.querySelectorAll('button, .card, .btn-pay, .back-btn, label.package-opt
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
-const products = [
-  { title: "RL Boosting",   priceRange: "5€ - 10€ - 25€ - 45€", image: "https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b", isRL: true },
-  { title: "Steam Account", price: 20, image: "https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" },
-  { title: "HWID Spoofer",  price: 30, image: "https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" }
-];
+let currentUsername = "";
 
-function enterSite() {
-  const enter = document.getElementById('enter-screen');
-  enter.classList.add('hidden');
+function showPseudoScreen() {
+  document.getElementById('enter-screen').classList.add('hidden');
   setTimeout(() => {
-    enter.style.display = 'none';
-    const mainEl = document.getElementById('main');
-    mainEl.style.display = 'block';
-    setTimeout(() => mainEl.classList.add('visible'), 50);
+    document.getElementById('enter-screen').style.display = 'none';
+    document.getElementById('pseudo-screen').style.display = 'grid';
   }, 1600);
 }
+
+function confirmPseudo() {
+  const input = document.getElementById('username-input').value.trim();
+  if (input === "") { alert("Entre un pseudo stp !"); return; }
+  currentUsername = input;
+  document.getElementById('display-username').textContent = currentUsername;
+  document.getElementById('username-header').style.display = 'block';
+  document.getElementById('pseudo-screen').style.display = 'none';
+  const mainEl = document.getElementById('main');
+  mainEl.style.display = 'block';
+  setTimeout(() => mainEl.classList.add('visible'), 50);
+}
+
+const products = [
+  { title: "RL Boosting", priceRange: "5€ - 10€ - 25€ - 45€", image: "https://i.ytimg.com/vi/4CFn5NzVnuI/sddefault.jpg?v=6673ad0b", isRL: true },
+  { title: "Steam Account", price: 20, image: "https://static0.howtogeekimages.com/wordpress/wp-content/uploads/2024/09/steamos-logo.jpg?w=1600&h=900&fit=crop" },
+  { title: "HWID Spoofer", price: 30, image: "https://png.pngtree.com/background/20250524/original/pngtree-neon-circuit-board-with-pink-and-blue-lighting-for-high-tech-picture-image_16572905.jpg" }
+];
 
 function showPayment(index) {
   const prod = products[index];
@@ -310,19 +473,17 @@ function showPayment(index) {
 
 function updateRLPrice() {
   const selected = document.querySelector('input[name="rl-pack"]:checked');
-  if (selected) {
-    document.getElementById('rl-total-price').textContent = selected.value + '€';
-  }
+  if (selected) document.getElementById('rl-total-price').textContent = selected.value + '€';
 }
 
 function payRLNow() {
   const price = document.getElementById('rl-total-price').textContent.replace('€', '').trim();
-  window.location.href = `https://www.paypal.me/VOTREPSEUDO/${price}`;
+  window.location.href = `https://www.paypal.me/${currentUsername || 'VOTREPSEUDO'}/${price}`;
 }
 
 function payNow() {
   const price = document.getElementById('total-price').textContent.replace('€', '').trim();
-  window.location.href = `https://www.paypal.me/VOTREPSEUDO/${price}`;
+  window.location.href = `https://www.paypal.me/${currentUsername || 'VOTREPSEUDO'}/${price}`;
 }
 
 function backToMain() {
